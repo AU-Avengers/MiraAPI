@@ -53,7 +53,7 @@ public static class SettingPatches
                     MiraNumberSuffixes.Percent => value.ToString(__instance.FormatString, NumberFormatInfo.InvariantInfo) + "%",
                     _ => TranslationController.Instance.GetString(
                         StringNames.GameSecondsAbbrev,
-                        (Il2CppSystem.Object[])[value.ToString(__instance.FormatString, CultureInfo.InvariantCulture)]),
+                        [value.ToString(__instance.FormatString, CultureInfo.InvariantCulture)]),
                 };
             }
         }
@@ -70,7 +70,7 @@ public static class SettingPatches
                 MiraNumberSuffixes.Percent => value.ToString(__instance.FormatString, NumberFormatInfo.InvariantInfo) + "%",
                 _ => TranslationController.Instance.GetString(
                     StringNames.GameSecondsAbbrev,
-                    (Il2CppSystem.Object[])[value.ToString(__instance.FormatString, CultureInfo.InvariantCulture)]),
+                    [value.ToString(__instance.FormatString, CultureInfo.InvariantCulture)]),
             };
         }
 

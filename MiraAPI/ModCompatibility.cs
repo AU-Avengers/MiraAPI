@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using BepInEx.Unity.IL2CPP;
+using BepInEx.Bootstrap;
 
 namespace MiraAPI;
 
@@ -21,7 +21,7 @@ public static class ModCompatibility
     /// <returns>True if the Submerged mod is loaded, false otherwise.</returns>
     public static bool SubmergedLoaded([NotNullWhen(true)] out Assembly? submergedAssembly)
     {
-        var result = IL2CPPChainloader.Instance.Plugins.TryGetValue(SubmergedId, out var plugin);
+        var result = Chainloader.PluginInfos.TryGetValue(SubmergedId, out var plugin);
         submergedAssembly = result ? plugin?.Instance.GetType().Assembly : null;
         return result;
     }

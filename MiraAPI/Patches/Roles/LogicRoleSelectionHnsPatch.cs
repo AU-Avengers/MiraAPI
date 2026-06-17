@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using AmongUs.GameOptions;
 using HarmonyLib;
-using Il2CppSystem.Collections.Generic;
 using System.Linq;
 using MiraAPI.Roles;
 
@@ -17,7 +17,7 @@ public static class LogicRoleSelectionHnsPatch
         IGameOptions opts,
         RoleTeamTypes team,
         int teamMax,
-        Il2CppSystem.Nullable<RoleTypes> defaultRole)
+        RoleTypes? defaultRole)
     {
         Error($"MiraAPI.Patches.Roles.LogicRoleSelectionHnsPatch - AssignRolesForTeam: Team: {team}, Max: {teamMax}, Players: {players.Count}, DefaultRole: {defaultRole}");
         int num = 0;
@@ -106,7 +106,8 @@ public static class LogicRoleSelectionHnsPatch
                 while (num2 < teamMax && players.Count > 0)
                 {
                     PseudoRandomList<NetworkedPlayerInfo> pseudoRandomList = new PseudoRandomList<NetworkedPlayerInfo>(AmongUsClient.Instance.GameId);
-                    players._items.Do(x => pseudoRandomList.Add(x));
+                    // TODO: publicize mono gamelibs
+                    //players._items.Do(x => pseudoRandomList.Add(x));
                     for (int i = 0; i < GameData.RoundsPlayedInSession; i++)
                     {
                         pseudoRandomList.PickRandom();

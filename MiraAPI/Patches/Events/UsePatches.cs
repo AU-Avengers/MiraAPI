@@ -3,6 +3,7 @@ using System.Reflection;
 using HarmonyLib;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Usables;
+using UnityEngine;
 
 namespace MiraAPI.Patches.Events;
 
@@ -25,9 +26,9 @@ public static class UsePatches
 
     [HarmonyPriority(Priority.Last)]
     [HarmonyPrefix]
-    public static bool UsePatch(Il2CppSystem.Object __instance)
+    public static bool UsePatch(Object __instance)
     {
-        var @event = new PlayerUseEvent(__instance.Cast<IUsable>());
+        var @event = new PlayerUseEvent((IUsable)__instance);
         MiraEventManager.InvokeEvent(@event);
 
         return !@event.IsCancelled;

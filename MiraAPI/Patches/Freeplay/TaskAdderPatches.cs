@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using AmongUs.GameOptions;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MiraAPI.LocalSettings;
 using MiraAPI.Modifiers;
 using MiraAPI.Modifiers.Types;
@@ -70,8 +69,8 @@ public static class TaskAdderPatches
         __instance.RootFolderPrefab.GetComponent<PassiveButton>().ClickMask = collider;
         __instance.RootFolderPrefab.gameObject.SetActive(false);
         __instance.TaskParent = inner.transform;
-        var crewmateFolder = __instance.Root.SubFolders.ToArray().FirstOrDefault(x => x.FolderName == CrewmateName)!;
-        var impostorFolder = __instance.Root.SubFolders.ToArray().FirstOrDefault(x => x.FolderName == ImpostorName)!;
+        var crewmateFolder = __instance.Root.SubFolders.FirstOrDefault(x => x.FolderName == CrewmateName)!;
+        var impostorFolder = __instance.Root.SubFolders.FirstOrDefault(x => x.FolderName == ImpostorName)!;
         //var neutralFolder = __instance.CreateFolder("Neutral", __instance.Root, 2, Color.gray);
         var modifiersFolder = __instance.CreateFolder(ModifiersName, __instance.Root, 0, Color.blue);
 
@@ -121,7 +120,7 @@ public static class TaskAdderPatches
 
     [HarmonyPrefix]
     [HarmonyPatch(nameof(TaskAdderGame.PopulateRoot))]
-    private static bool PopulateRootPrefix(TaskAdderGame __instance, TaskAdderGame.FolderType folderType, TaskFolder rootFolder, Il2CppSystem.Collections.Generic.Dictionary<string, TaskFolder> folders, Il2CppReferenceArray<NormalPlayerTask> taskList)
+    private static bool PopulateRootPrefix(TaskAdderGame __instance, TaskAdderGame.FolderType folderType, TaskFolder rootFolder, Dictionary<string, TaskFolder> folders, NormalPlayerTask[] taskList)
     {
         if (folderType != TaskAdderGame.FolderType.Tasks)
         {
@@ -142,8 +141,8 @@ public static class TaskAdderPatches
             impFolder.FolderName = ImpostorName;
             rootFolder.SubFolders.Insert(0, crewFolder);
             rootFolder.SubFolders.Insert(0, impFolder);
-            Il2CppSystem.Collections.Generic.List<RoleBehaviour> impRoles = new();
-            Il2CppSystem.Collections.Generic.List<RoleBehaviour> crewRoles = new();
+            List<RoleBehaviour> impRoles = new();
+            List<RoleBehaviour> crewRoles = new();
             foreach (var role in RoleManager.Instance.AllRoles)
             {
                 if (role.Role != RoleTypes.ImpostorGhost && role.Role != RoleTypes.CrewmateGhost && !role.IsCustomRole())
@@ -317,7 +316,7 @@ public static class TaskAdderPatches
             {
                 case TaskTypes.DivertPower:
                 {
-                    var targetSystem = task.Cast<DivertPowerTask>().TargetSystem;
+                    var targetSystem = (task as DivertPowerTask)!.TargetSystem;
                     taskAddButton.Text.text = TranslationController.Instance.GetString(
                         StringNames.DivertPowerTo,
                         TranslationController.Instance.GetString(targetSystem));
@@ -325,7 +324,7 @@ public static class TaskAdderPatches
                 }
                 case TaskTypes.FixWeatherNode:
                 {
-                    var nodeId = task.Cast<WeatherNodeTask>().NodeId;
+                    var nodeId = (task as WeatherNodeTask)!.NodeId;
                     taskAddButton.Text.text =
                         TranslationController.Instance.GetString(
                             StringNames.FixWeatherNode) + " " +
@@ -410,7 +409,8 @@ public static class TaskAdderPatches
                     roleAddButton.MyTask = null;
                     roleAddButton.SafePositionWorld = __instance.SafePositionWorld;
                     roleAddButton.Text.text = prettyEnabled ? roleBehaviour.GetRoleName() : "Be_" + roleBehaviour.GetRoleName() + ".exe";
-                    roleAddButton.Text.EnableMasking();
+                    // TODO: publicize mono gamelibs
+                    //roleAddButton.Text.EnableMasking();
                     roleAddButton.role = roleBehaviour;
                     if (prettyEnabled)
                     {
@@ -460,7 +460,8 @@ public static class TaskAdderPatches
                     taskAddButton.SafePositionWorld = __instance.SafePositionWorld;
                     taskAddButton.Text.text = modifier.ModifierName;
                     taskAddButton.Text.fontSizeMin = 1;
-                    taskAddButton.Text.EnableMasking();
+                    // TODO: publicize mono gamelibs
+                    //taskAddButton.Text.EnableMasking();
                     taskAddButton.FileImage.color = modifier.FreeplayFileColor;
                     taskAddButton.RolloverHandler.OutColor = modifier.FreeplayFileColor;
                     if (modifier is TimedModifier timed)

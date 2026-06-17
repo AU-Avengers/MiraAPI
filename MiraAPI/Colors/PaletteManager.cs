@@ -22,11 +22,13 @@ public static class PaletteManager
         var shadowColors = CustomColors.Select(x => x.ShadowColor).ToArray();
         var stringNames = CustomColors.Select(x => x.Name).ToArray();
 
-        Palette.PlayerColors = Palette.PlayerColors.ToArray().AddRangeToArray(colors);
+        // TODO: publicize mono gamelibs (these are all internal)
+        /*Palette.PlayerColors = Palette.PlayerColors.ToArray().AddRangeToArray(colors);
         Palette.ShadowColors = Palette.ShadowColors.ToArray().AddRangeToArray(shadowColors);
         Palette.ColorNames = Palette.ColorNames.ToArray().AddRangeToArray(stringNames);
 
         Palette.TextColors = Palette.TextColors.ToArray().AddRangeToArray(colors);
         Palette.TextOutlineColors = Palette.TextOutlineColors.ToArray().AddRangeToArray(shadowColors);
+        */
     }
 }

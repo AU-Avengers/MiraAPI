@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using BepInEx.Unity.IL2CPP.Utils.Collections;
 using HarmonyLib;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Meeting.Voting;
@@ -27,7 +26,7 @@ internal static class DummyBehaviourPatches
         {
             if (!__instance.voted)
             {
-                __instance.StartCoroutine(CoDoVote(__instance).WrapToIl2Cpp());
+                __instance.StartCoroutine(CoDoVote(__instance));
             }
         }
         else

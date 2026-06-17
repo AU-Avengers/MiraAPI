@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Il2CppInterop.Runtime.Attributes;
-using Reactor.Utilities.Attributes;
 using UnityEngine;
 
 namespace MiraAPI.Voting;
@@ -9,8 +7,7 @@ namespace MiraAPI.Voting;
 /// <summary>
 /// Handles player votes, and removing/adding additional votes.
 /// </summary>
-[RegisterInIl2Cpp]
-public class PlayerVoteData(nint cppPtr) : MonoBehaviour(cppPtr)
+public class PlayerVoteData : MonoBehaviour
 {
     /// <summary>
     /// Gets the owner of this component.
@@ -20,7 +17,6 @@ public class PlayerVoteData(nint cppPtr) : MonoBehaviour(cppPtr)
     /// <summary>
     /// Gets the list of votes the owner has.
     /// </summary>
-    [HideFromIl2Cpp]
     public List<CustomVote> Votes { get; private set; } = [];
 
     /// <summary>

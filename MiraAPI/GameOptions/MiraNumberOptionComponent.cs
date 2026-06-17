@@ -1,7 +1,4 @@
-using System;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.GameOptions.OptionTypes;
-using Reactor.Utilities.Attributes;
 using UnityEngine;
 
 namespace MiraAPI.GameOptions;
@@ -9,13 +6,11 @@ namespace MiraAPI.GameOptions;
 /// <summary>
 /// Component added onto options generated via MiraAPI. This allows developers to hook patches onto options in general, without using a list.
 /// </summary>
-[RegisterInIl2Cpp]
-public class MiraNumberOptionComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
+public class MiraNumberOptionComponent : MonoBehaviour
 {
     /// <summary>
     /// Gets or sets the modded option associated with the object.
     /// </summary>
-    [HideFromIl2Cpp]
     public ModdedNumberOption NumberOption { get; set; }
 
     /// <summary>

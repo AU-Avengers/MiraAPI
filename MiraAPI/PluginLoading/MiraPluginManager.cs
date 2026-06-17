@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
 using MiraAPI.Colors;
 using MiraAPI.Events;
@@ -22,12 +22,14 @@ using MiraAPI.Roles;
 using MiraAPI.Utilities;
 using Reactor.Networking;
 using Reactor.Utilities;
+using UnityEngine;
 
 namespace MiraAPI.PluginLoading;
 
 /// <summary>
 /// Mira Plugin manager.
 /// </summary>
+[HarmonyPatch]
 public sealed class MiraPluginManager
 {
     private readonly Dictionary<Assembly, MiraPluginInfo> _registeredPlugins = [];
@@ -40,113 +42,120 @@ public sealed class MiraPluginManager
     internal void Initialize()
     {
         Instance = this;
-        IL2CPPChainloader.Instance.PluginLoad += (pluginInfo, assembly, plugin) =>
-        {
-            if (plugin is not IMiraPlugin miraPlugin)
-            {
-                return;
-            }
-
-            var info = new MiraPluginInfo(miraPlugin, pluginInfo);
-            var roles = new List<Type>();
-
-            var oldConfigSetting = info.PluginConfig.SaveOnConfigSet;
-            info.PluginConfig.SaveOnConfigSet = false;
-
-            foreach (var type in assembly.GetTypes())
-            {
-                if (type.GetCustomAttribute<MiraIgnoreAttribute>() != null)
-                {
-                    continue;
-                }
-
-                foreach (var method in AccessTools.GetDeclaredMethods(type))
-                {
-                    var eventAttribute = method.GetCustomAttribute<RegisterEventAttribute>();
-                    if (eventAttribute == null)
-                    {
-                        continue;
-                    }
-
-                    if (!method.IsStatic)
-                    {
-                        Error($"Event method {method.Name} in {type.Name} must be static.");
-                        continue;
-                    }
-
-                    var parameters = method.GetParameters();
-                    if (parameters.Length != 1 || !parameters[0].ParameterType.IsSubclassOf(typeof(MiraEvent)))
-                    {
-                        Error($"Invalid event registration method {method.Name} in {type.Name}");
-                        continue;
-                    }
-
-                    var paramType = parameters[0].ParameterType;
-                    MiraEventManager.RegisterEventHandler(paramType, method, eventAttribute.Priority);
-                }
-
-                if (RegisterModifier(type, info))
-                {
-                    continue;
-                }
-
-                if (RegisterOptions(type, info))
-                {
-                    continue;
-                }
-
-                if (RegisterLocalTabs(type, plugin))
-                {
-                    continue;
-                }
-
-                if (RegisterRole(type, info, out var role))
-                {
-                    roles.Add(role);
-                    continue;
-                }
-
-                if (RegisterButton(type, info))
-                {
-                    continue;
-                }
-
-                if (RegisterGameOver(type))
-                {
-                    continue;
-                }
-
-                RegisterColorClasses(type);
-                RegisterKeybinds(type, plugin);
-            }
-
-            info.PluginConfig.Save();
-            info.PluginConfig.SaveOnConfigSet = oldConfigSetting;
-
-            info.InternalOptionGroups.Sort((x, y) => x.GroupPriority.CompareTo(y.GroupPriority));
-            QueuedRoleRegistrations.Add(info, roles);
-
-            _registeredPlugins.Add(assembly, info);
-
-            info.SavePublicCollections();
-            PresetManager.CreateDefaultPreset(info);
-            PresetManager.LoadPresets(info);
-            Info($"Registering mod {pluginInfo.Metadata.GUID} with Mira API.");
-        };
-        IL2CPPChainloader.Instance.Finished += PaletteManager.RegisterAllColors;
-        IL2CPPChainloader.Instance.Finished += () =>
-        {
-            // Save all buttons into a read-only collection for easy access
-            CustomButtonManager.Buttons = new ReadOnlyCollection<CustomActionButton>(CustomButtonManager.CustomButtons);
-
-            // Cache all the registered plugins into an array for easy access
-            RegisteredPlugins = [.. _registeredPlugins.Values];
-
-            ModifierManager.Modifiers = new ReadOnlyCollection<BaseModifier>(ModifierManager.InternalModifiers);
-        };
-
         RegisterKeybinds(typeof(MiraGlobalKeybinds), PluginSingleton<MiraApiPlugin>.Instance);
         RegisterLocalTabs(typeof(MiraApiSettings), PluginSingleton<MiraApiPlugin>.Instance);
+        
+    }
+
+    [HarmonyPatch(typeof(GameObject), nameof(GameObject.AddComponent))]
+    [HarmonyPostfix]
+    internal static void PostAddComponent(Component __result)
+    {
+        if (__result is not BaseUnityPlugin plugin)
+            return;
+        var pluginInfo = plugin.Info;
+        var assembly = plugin.GetType().Assembly;
+        if (plugin is not IMiraPlugin miraPlugin)
+        {
+            return;
+        }
+
+        var info = new MiraPluginInfo(miraPlugin, pluginInfo);
+        var roles = new List<Type>();
+
+        var oldConfigSetting = info.PluginConfig.SaveOnConfigSet;
+        info.PluginConfig.SaveOnConfigSet = false;
+
+        foreach (var type in assembly.GetTypes())
+        {
+            if (type.GetCustomAttribute<MiraIgnoreAttribute>() != null)
+            {
+                continue;
+            }
+
+            foreach (var method in AccessTools.GetDeclaredMethods(type))
+            {
+                var eventAttribute = method.GetCustomAttribute<RegisterEventAttribute>();
+                if (eventAttribute == null)
+                {
+                    continue;
+                }
+
+                if (!method.IsStatic)
+                {
+                    Error($"Event method {method.Name} in {type.Name} must be static.");
+                    continue;
+                }
+
+                var parameters = method.GetParameters();
+                if (parameters.Length != 1 || !parameters[0].ParameterType.IsSubclassOf(typeof(MiraEvent)))
+                {
+                    Error($"Invalid event registration method {method.Name} in {type.Name}");
+                    continue;
+                }
+
+                var paramType = parameters[0].ParameterType;
+                MiraEventManager.RegisterEventHandler(paramType, method, eventAttribute.Priority);
+            }
+
+            if (RegisterModifier(type, info))
+            {
+                continue;
+            }
+
+            if (RegisterOptions(type, info))
+            {
+                continue;
+            }
+
+            if (RegisterLocalTabs(type, plugin))
+            {
+                continue;
+            }
+
+            if (RegisterRole(type, info, out var role))
+            {
+                roles.Add(role);
+                continue;
+            }
+
+            if (RegisterButton(type, info))
+            {
+                continue;
+            }
+
+            if (RegisterGameOver(type))
+            {
+                continue;
+            }
+
+            RegisterColorClasses(type);
+            RegisterKeybinds(type, plugin);
+        }
+
+        info.PluginConfig.Save();
+        info.PluginConfig.SaveOnConfigSet = oldConfigSetting;
+
+        info.InternalOptionGroups.Sort((x, y) => x.GroupPriority.CompareTo(y.GroupPriority));
+        Instance.QueuedRoleRegistrations.Add(info, roles);
+
+        Instance._registeredPlugins.Add(assembly, info);
+
+        info.SavePublicCollections();
+        PresetManager.CreateDefaultPreset(info);
+        PresetManager.LoadPresets(info);
+        Info($"Registering mod {pluginInfo.Metadata.GUID} with Mira API.");
+    }
+
+    internal void Finished()
+    {
+        // Save all buttons into a read-only collection for easy access
+        CustomButtonManager.Buttons = new ReadOnlyCollection<CustomActionButton>(CustomButtonManager.CustomButtons);
+        // Cache all the registered plugins into an array for easy access
+        RegisteredPlugins = [.. _registeredPlugins.Values];
+        ModifierManager.Modifiers = new ReadOnlyCollection<BaseModifier>(ModifierManager.InternalModifiers);
+        PaletteManager.RegisterAllColors();
+        
     }
 
     /// <summary>
@@ -318,7 +327,7 @@ public sealed class MiraPluginManager
         return false;
     }
 
-    private static bool RegisterLocalTabs(Type type, BasePlugin pluginInfo)
+    private static bool RegisterLocalTabs(Type type, BaseUnityPlugin pluginInfo)
     {
         try
         {
@@ -389,7 +398,7 @@ public sealed class MiraPluginManager
         return false;
     }
 
-    private static void RegisterKeybinds(Type type, BasePlugin source)
+    private static void RegisterKeybinds(Type type, BaseUnityPlugin source)
     {
         try
         {

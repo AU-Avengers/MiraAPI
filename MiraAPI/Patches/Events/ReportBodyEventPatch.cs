@@ -31,7 +31,7 @@ public static class ReportBodyEventPatch
     [HarmonyPatch(typeof(InnerNetClient), nameof(InnerNetClient.LateBroadcastReliableMessage))]
     public static bool LateBroadcastReliableMessagePrefix(IGameDataMessage rpcMessage)
     {
-        var reportBodyMessage = rpcMessage.TryCast<RpcReportDeadBodyMessage>();
+        var reportBodyMessage = rpcMessage as RpcReportDeadBodyMessage;
 
         if (reportBodyMessage == null)
         {

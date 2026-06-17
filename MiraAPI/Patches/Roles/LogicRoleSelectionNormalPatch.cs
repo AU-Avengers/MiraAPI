@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using AmongUs.GameOptions;
 using HarmonyLib;
-using Il2CppSystem.Collections.Generic;
 using System.Linq;
 using MiraAPI.Roles;
 
@@ -17,7 +17,7 @@ public static class LogicRoleSelectionNormalPatch
         IGameOptions opts,
         RoleTeamTypes team,
         int teamMax,
-        Il2CppSystem.Nullable<RoleTypes> defaultRole)
+        RoleTypes? defaultRole)
     {
         int num = 0;
         var source = RoleManager.Instance.AllRoles.ToArray()

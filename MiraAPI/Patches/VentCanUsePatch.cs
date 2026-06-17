@@ -16,7 +16,7 @@ internal static class VentCanUsePatch
     // ReSharper disable InconsistentNaming
     public static void Postfix(Vent __instance, ref float __result, [HarmonyArgument(0)] NetworkedPlayerInfo pc, [HarmonyArgument(1)] ref bool canUse, [HarmonyArgument(2)] ref bool couldUse)
     {
-        var @event = new PlayerCanUseEvent(__instance.Cast<IUsable>());
+        var @event = new PlayerCanUseEvent(__instance);
         MiraEventManager.InvokeEvent(@event);
 
         if (@event.IsCancelled)

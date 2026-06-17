@@ -32,10 +32,10 @@ internal static class HowToPlayPatch
                         HowToPlayRoleButton component = Object.Instantiate(__instance.roleButtonPrefab, __instance.roleButtonsParent).GetComponent<HowToPlayRoleButton>();
                         Sprite roleIcon = __instance.rolesScenes.ToArray().First(r => r.role == role.Role).roleIcon;
                         component.SetRoleInfo(role, roleIcon);
-                        component.SetButtonAction((Il2CppSystem.Action)(() =>
+                        component.SetButtonAction(() =>
                         {
                             __instance.OpenRolePage(role.Role);
-                        }));
+                        });
                         __instance.controllerSelectables.Add(component.GetComponent<PassiveButton>());
                     }
                 }

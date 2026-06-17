@@ -115,15 +115,15 @@ public static class NameplatesTabPatches
 
         if (ActiveInputManager.currentControlType == ActiveInputManager.InputType.Keyboard)
         {
-            colorChip.Button.OnClick.AddListener((Action)__instance.ClickEquip);
-            colorChip.Button.OnMouseOver.AddListener((Action)(() => __instance.SelectNameplate(namePlate)));
+            colorChip.Button.OnClick.AddListener(__instance.ClickEquip);
+            colorChip.Button.OnMouseOver.AddListener(() => __instance.SelectNameplate(namePlate));
             colorChip.Button.OnMouseOut.AddListener(
-                (Action)(() => __instance.SelectNameplate(
-                    HatManager.Instance.GetNamePlateById(DataManager.Player.Customization.NamePlate))));
+                () => __instance.SelectNameplate(
+                    HatManager.Instance.GetNamePlateById(DataManager.Player.Customization.NamePlate)));
         }
         else
         {
-            colorChip.Button.OnClick.AddListener((Action)(() => __instance.SelectNameplate(namePlate)));
+            colorChip.Button.OnClick.AddListener(() => __instance.SelectNameplate(namePlate));
         }
 
         colorChip.Button.ClickMask = __instance.scroller.Hitbox;

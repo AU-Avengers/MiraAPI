@@ -1,7 +1,6 @@
 ﻿using System;
 using MiraAPI.Utilities;
 using MiraAPI.Utilities.Assets;
-using Reactor.Utilities.Attributes;
 using Reactor.Utilities.Extensions;
 using TMPro;
 using UnityEngine;
@@ -9,10 +8,9 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-[RegisterInIl2Cpp]
 #pragma warning disable S3903
 #pragma warning disable CA1050
-public class SavePresetPopup(nint cppPtr) : Minigame(cppPtr)
+public class SavePresetPopup : Minigame
 #pragma warning restore CA1050
 #pragma warning restore S3903
 {

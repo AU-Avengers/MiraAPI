@@ -43,7 +43,7 @@ public static class RoleManagerPatches
         // innersloth decided to check the roleType manually instead of the role behaviour.
         if (!roleBehaviour.IsDead)
         {
-            targetPlayer.Data.RoleWhenAlive = new Il2CppSystem.Nullable<RoleTypes>(roleType);
+            targetPlayer.Data.RoleWhenAlive = roleType;
         }
         roleBehaviour.AdjustTasks(targetPlayer);
         switch (roleBehaviour.IsDead)

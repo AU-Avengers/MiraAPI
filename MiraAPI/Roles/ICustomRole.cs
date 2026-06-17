@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using BepInEx.Configuration;
 using MiraAPI.GameOptions;
@@ -201,11 +202,11 @@ public interface ICustomRole : IOptionable
     /// <param name="instance">The intro cutscene instance.</param>
     /// <param name="yourTeam">The reference to the list of player in the team.</param>
     /// <returns>True to use the original team intro code, false to skip.</returns>
-    public virtual bool SetupIntroTeam(IntroCutscene instance, ref Il2CppSystem.Collections.Generic.List<PlayerControl> yourTeam)
+    public virtual bool SetupIntroTeam(IntroCutscene instance, ref List<PlayerControl> yourTeam)
     {
         if (Team == ModdedRoleTeams.Custom)
         {
-            var team = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
+            var team = new List<PlayerControl>();
 
             team.Add(PlayerControl.LocalPlayer);
 

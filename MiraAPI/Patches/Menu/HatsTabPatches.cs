@@ -141,13 +141,13 @@ public static class HatsTabPatches
         colorChip.gameObject.name = hat.ProductId;
         if (ActiveInputManager.currentControlType == ActiveInputManager.InputType.Keyboard)
         {
-            colorChip.Button.OnClick.AddListener((Action)__instance.ClickEquip);
-            colorChip.Button.OnMouseOver.AddListener((Action)(() => __instance.SelectHat(hat)));
-            colorChip.Button.OnMouseOut.AddListener((Action)(() => __instance.SelectHat(HatManager.Instance.GetHatById(DataManager.Player.Customization.Hat))));
+            colorChip.Button.OnClick.AddListener(__instance.ClickEquip);
+            colorChip.Button.OnMouseOver.AddListener(() => __instance.SelectHat(hat));
+            colorChip.Button.OnMouseOut.AddListener(() => __instance.SelectHat(HatManager.Instance.GetHatById(DataManager.Player.Customization.Hat)));
         }
         else
         {
-            colorChip.Button.OnClick.AddListener((Action)(() => __instance.SelectHat(hat)));
+            colorChip.Button.OnClick.AddListener(() => __instance.SelectHat(hat));
         }
 
         colorChip.Inner.SetHat(hat, __instance.HasLocalPlayer() ? PlayerControl.LocalPlayer.Data.DefaultOutfit.ColorId : DataManager.Player.Customization.Color);

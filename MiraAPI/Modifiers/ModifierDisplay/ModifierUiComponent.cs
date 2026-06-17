@@ -1,6 +1,4 @@
-﻿using Il2CppInterop.Runtime.Attributes;
-using Reactor.Utilities.Attributes;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace MiraAPI.Modifiers.ModifierDisplay;
@@ -8,13 +6,11 @@ namespace MiraAPI.Modifiers.ModifierDisplay;
 /// <summary>
 /// The code placed on every Modifier HUD object. Used to handle updating.
 /// </summary>
-[RegisterInIl2Cpp]
-public class ModifierUiComponent(nint cppPtr) : MonoBehaviour(cppPtr)
+public class ModifierUiComponent : MonoBehaviour
 {
     /// <summary>
     /// Gets the modifier which this component is for.
     /// </summary>
-    [HideFromIl2Cpp]
     public BaseModifier? Modifier { get; internal set; }
 
     // ReSharper disable InconsistentNaming

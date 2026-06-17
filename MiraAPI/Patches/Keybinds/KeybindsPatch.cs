@@ -5,7 +5,8 @@ using Rewired;
 
 namespace MiraAPI.Patches.Keybinds;
 
-[HarmonyPatch(typeof(InputManager_Base), nameof(InputManager_Base.Awake))]
+//TODO: publicize mono gamelibs so raw name doesn't have to be used
+[HarmonyPatch(typeof(InputManager_Base), "Awake")]
 public static class KeybindMenuPatch
 {
     private static bool _registered;

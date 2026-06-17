@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MiraAPI.Networking;
 using Reactor.Localization.Utilities;
 using UnityEngine;
@@ -51,11 +50,11 @@ public class ModdedEnumOption : ModdedOption<int>
             $"{ParentMod!.OptionsTitleText}.EnumOption.{TranslationController.Instance.GetString(StringName)}";
 
         stringOption.SetUpFromData(Data, 20);
-        stringOption.OnValueChanged = (Il2CppSystem.Action<OptionBehaviour>)ValueChanged;
+        stringOption.OnValueChanged = ValueChanged;
 
         // SetUpFromData method doesnt work correctly so we must set the values manually
         stringOption.Title = StringName;
-        stringOption.Values = (Data as StringGameSetting)?.Values ?? new Il2CppStructArray<StringNames>(0);
+        stringOption.Values = (Data as StringGameSetting)?.Values ?? [];
         stringOption.Value = Value;
 
         OptionBehaviour = stringOption;
@@ -144,11 +143,11 @@ public class ModdedEnumOption<T> : ModdedOption<T> where T : Enum
             $"{ParentMod!.OptionsTitleText}.EnumOption.{TranslationController.Instance.GetString(StringName)}";
 
         stringOption.SetUpFromData(Data, 20);
-        stringOption.OnValueChanged = (Il2CppSystem.Action<OptionBehaviour>)ValueChanged;
+        stringOption.OnValueChanged = ValueChanged;
 
         // SetUpFromData method doesnt work correctly so we must set the values manually
         stringOption.Title = StringName;
-        stringOption.Values = (Data as StringGameSetting)?.Values ?? new Il2CppStructArray<StringNames>(0);
+        stringOption.Values = (Data as StringGameSetting)?.Values ?? [];
         stringOption.Value = Convert.ToInt32(Value, NumberFormatInfo.InvariantInfo);
 
         OptionBehaviour = stringOption;

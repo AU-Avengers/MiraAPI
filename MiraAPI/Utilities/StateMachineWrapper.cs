@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes;
-using Object = Il2CppSystem.Object;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace MiraAPI.Utilities;
 
@@ -11,9 +11,10 @@ namespace MiraAPI.Utilities;
 /// A wrapper for state machine objects to access their parent instance and state.
 /// </summary>
 /// <typeparam name="T">The type of the parent class that owns the state machine.</typeparam>
-public class StateMachineWrapper<T> where T : Il2CppObjectBase
+/// TODO: convert this to mono equivalent. I think it could maybe just be removed tbh, seems to only guard against il2cpp stuff.
+public class StateMachineWrapper<T> where T : Object
 {
-    private readonly Il2CppObjectBase _stateMachine;
+    private readonly Object _stateMachine;
 
     // normally it is fields, but IL2CPP turns them into properties
     private readonly PropertyInfo _thisProperty;
@@ -32,7 +33,7 @@ public class StateMachineWrapper<T> where T : Il2CppObjectBase
     /// Initializes a new instance of the <see cref="StateMachineWrapper{T}"/> class.
     /// </summary>
     /// <param name="stateMachine">The state machine instance to wrap.</param>
-    public StateMachineWrapper(Il2CppObjectBase stateMachine)
+    public StateMachineWrapper(Object stateMachine)
     {
         _stateMachine = stateMachine;
 

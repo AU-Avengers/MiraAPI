@@ -1,5 +1,4 @@
 using System.Collections;
-using BepInEx.Unity.IL2CPP.Utils.Collections;
 using HarmonyLib;
 using MiraAPI.LocalSettings;
 using UnityEngine;
@@ -14,7 +13,7 @@ public static class HudManagerFlashPatches
     {
         if (__instance.ReactorFlash == null)
         {
-            __instance.ReactorFlash = __instance.StartCoroutine(CoReactorFlash().WrapToIl2Cpp());
+            __instance.ReactorFlash = __instance.StartCoroutine(CoReactorFlash());
         }
 
         return false;
@@ -25,7 +24,7 @@ public static class HudManagerFlashPatches
     {
         if (__instance.OxyFlash == null)
         {
-            __instance.OxyFlash = __instance.StartCoroutine(CoReactorFlash().WrapToIl2Cpp());
+            __instance.OxyFlash = __instance.StartCoroutine(CoReactorFlash());
         }
 
         return false;

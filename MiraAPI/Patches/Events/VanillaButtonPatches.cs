@@ -23,15 +23,15 @@ public static class VanillaButtonPatches
         var role = PlayerControl.LocalPlayer.Data.Role;
         if (role.Role is RoleTypes.Tracker)
         {
-            playerTarget = role.Cast<TrackerRole>().currentTarget;
+            playerTarget = ((TrackerRole)role).currentTarget;
         }
         else if (role.Role is RoleTypes.GuardianAngel)
         {
-            playerTarget = role.Cast<GuardianAngelRole>().currentTarget;
+            playerTarget = ((GuardianAngelRole)role).currentTarget;
         }
         else if (role.Role is RoleTypes.Engineer)
         {
-            ventTarget = role.Cast<EngineerRole>().currentTarget;
+            ventTarget = ((EngineerRole)role).currentTarget;
         }
         var genericEvent = new VanillaButtonClickEvent(__instance, playerTarget, ventTarget);
         MiraEventManager.InvokeEvent(genericEvent);
@@ -56,7 +56,7 @@ public static class VanillaButtonPatches
         var role = PlayerControl.LocalPlayer.Data.Role;
         if (role.Role is RoleTypes.Detective)
         {
-            playerTarget = role.Cast<DetectiveRole>().currentTarget;
+            playerTarget = ((DetectiveRole)role).currentTarget;
         }
         var genericEvent = new VanillaButtonClickEvent(__instance, playerTarget);
         MiraEventManager.InvokeEvent(genericEvent);

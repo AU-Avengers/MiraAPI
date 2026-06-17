@@ -1,18 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using AmongUs.GameOptions;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MiraAPI.Roles;
 using MiraAPI.Utilities.Assets;
+using QRCoder;
 using Reactor.Utilities;
 using Rewired;
 using TMPro;
 using UnityEngine;
 using MethodBase = System.Reflection.MethodBase;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace MiraAPI.Utilities;
 
@@ -86,7 +88,7 @@ public static class Helpers
         scroller.allowX = false;
         scroller.allowY = true;
         scroller.DragScrollSpeed = 1f;
-        scroller.Colliders = new Il2CppReferenceArray<Collider2D>([hitBoxCollider]);
+        scroller.Colliders = [hitBoxCollider];
         scroller.Inner = inner.transform;
 
         return scroller;
@@ -101,7 +103,7 @@ public static class Helpers
     {
         foreach (var collider in obj.GetComponentsInChildren<Collider2D>(true))
         {
-            if (collider.TryCast<BoxCollider2D>() is { } col)
+            if (collider as BoxCollider2D is { } col)
             {
                 col.size = new Vector2(col.size.x / amount, col.size.y);
             }
@@ -140,7 +142,7 @@ public static class Helpers
                 return true;
             default:
                 {
-                    var num = Random.RandomRangeInt(1, 101);
+                    var num = Random.Range(1, 101);
                     return num <= probability;
                 }
         }
@@ -258,7 +260,9 @@ public static class Helpers
     /// <returns>A new ContactFilter2D that represents the layer mask.</returns>
     public static ContactFilter2D CreateFilter(int layerMask)
     {
-        return ContactFilter2D.CreateLegacyFilter(layerMask, float.MinValue, float.MaxValue);
+        // TODO: publicize mono gamelibs
+        //return ContactFilter2D.CreateLegacyFilter(layerMask, float.MinValue, float.MaxValue);
+        throw new Exception(); // suppresses error
     }
 
     /// <summary>
@@ -280,7 +284,7 @@ public static class Helpers
     /// <returns>A list of dead bodies.</returns>
     public static List<DeadBody> GetNearestDeadBodies(Vector2 source, float radius, ContactFilter2D filter)
     {
-        var results = new Il2CppSystem.Collections.Generic.List<Collider2D>();
+        var results = new List<Collider2D>();
         Physics2D.OverlapCircle(source, radius, filter, results);
         return results.ToArray()
             .Where(collider2D => collider2D.CompareTag("DeadBody"))
@@ -299,7 +303,7 @@ public static class Helpers
     public static List<T> GetNearestObjectsOfType<T>(Vector2 source, float radius, ContactFilter2D filter, string? colliderTag = null)
         where T : Component
     {
-        var results = new Il2CppSystem.Collections.Generic.List<Collider2D>();
+        var results = new List<Collider2D>();
         Physics2D.OverlapCircle(source, radius, filter, results);
         return results.ToArray()
             .Where(collider2D => colliderTag == null || collider2D.CompareTag(colliderTag))
@@ -501,7 +505,7 @@ public static class Helpers
     public static string RandomString(int length, string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     {
         return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[Random.RandomRangeInt(0, s.Length)]).ToArray());
+            .Select(s => s[Random.Range(0, s.Length)]).ToArray());
     }
 
     /// <summary>
@@ -520,7 +524,7 @@ public static class Helpers
             MiraNumberSuffixes.Percent => value.ToString(formatString, NumberFormatInfo.InvariantInfo) + "%",
             _ => TranslationController.Instance.GetString(
                 StringNames.GameSecondsAbbrev,
-                (Il2CppSystem.Object[])[value.ToString(formatString, CultureInfo.InvariantCulture)]),
+                [value.ToString(formatString, CultureInfo.InvariantCulture)]),
         };
     }
 

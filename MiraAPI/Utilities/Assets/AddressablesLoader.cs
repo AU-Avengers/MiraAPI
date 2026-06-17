@@ -1,5 +1,4 @@
-﻿using Il2CppInterop.Runtime.Attributes;
-using MiraAPI.Patches.Menu;
+﻿using MiraAPI.Patches.Menu;
 using Reactor.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -136,7 +135,6 @@ public static class AddressablesLoader
         LoadedLocations.Add(location);
     }
 
-    [HideFromIl2Cpp]
     internal static IEnumerator LoadCosmetics()
     {
         while (!AmongUsClient.Instance || CatalogLocations.Select(x=>x.Location).Any(x=>!LoadedLocations.Contains(x))) yield return null;
@@ -188,7 +186,7 @@ public static class AddressablesLoader
             {
                 var allLocations = Addressables.LoadResourceLocationsAsync(tag).WaitForCompletion();
                 var assets = Addressables.LoadAssetsAsync<T>(allLocations, null, false).WaitForCompletion();
-                var array = new Il2CppSystem.Collections.Generic.List<T>(assets.Pointer);
+                var array = new List<T>(assets);
                 behaviours.AddRange(array.ToArray());
             }
             catch
@@ -209,8 +207,8 @@ public static class AddressablesLoader
             {
                 var allLocations = Addressables.LoadResourceLocationsAsync(tag.Tag).WaitForCompletion();
                 var assets = Addressables.LoadAssetsAsync<T>(allLocations, null, false).WaitForCompletion();
-                var array = new Il2CppSystem.Collections.Generic.List<T>(assets.Pointer);
-                behaviours.AddRange(array.ToArray().Select(x => (tag.Category, x)));
+                var array = new List<T>(assets);
+                behaviours.AddRange(array.Select(x => (tag.Category, x)));
             }
             catch
             {

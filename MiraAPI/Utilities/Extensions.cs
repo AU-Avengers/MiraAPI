@@ -192,24 +192,6 @@ public static class Extensions
     }
 
     /// <summary>
-    /// Used to convert a System.Collections.Generic.List to Il2cppSystem.
-    /// </summary>
-    /// <param name="systemList">The list.</param>
-    /// <typeparam name="T">The type in the list.</typeparam>
-    /// <returns>The converted list.</returns>
-    public static Il2CppSystem.Collections.Generic.List<T> ToIl2CppList<T>(this List<T> systemList)
-    {
-        var il2cppList = new Il2CppSystem.Collections.Generic.List<T>();
-
-        foreach (var item in systemList)
-        {
-            il2cppList.Add(item);
-        }
-
-        return il2cppList;
-    }
-
-    /// <summary>
     /// Determines if a float is an integer.
     /// </summary>
     /// <param name="number">The float number.</param>
@@ -600,7 +582,10 @@ public static class Extensions
     /// <returns>The action ID of the newly registered action.</returns>
     public static InputAction RegisterModBind(this UserData userData, string id, string name, string? group, KeyboardKeyCode key, int category = 0, int elementIdentifierId = -1, InputActionType type = InputActionType.Button, ModifierKey[]? modifiers = null)
     {
-        userData.AddAction(category);
+        // TODO: figure out why this doesn't resolve
+        //userData.AddAction(category);
+        // TODO: publicize mono gamelibs (also give every property a setter?)
+        /*
         var action = userData.GetAction(userData.actions.Count - 1)!;
 
         action.name = id;
@@ -630,5 +615,7 @@ public static class Extensions
         userData.keyboardMaps[0].actionElementMaps.Add(map);
         userData.joystickMaps[0].actionElementMaps.Add(map);
         return action;
+        */
+        return null;
     }
 }

@@ -6,7 +6,7 @@ using MiraAPI.GameOptions.OptionTypes;
 using MiraAPI.Utilities;
 using Reactor.Utilities;
 using UnityEngine;
-using Object = Il2CppSystem.Object;
+using Object = UnityEngine.Object;
 
 namespace MiraAPI.Patches.Options;
 
@@ -30,7 +30,7 @@ public static class PlayerOptionPatches
         {
             filteredPlayers.Sort((a, b) => a.PlayerId.CompareTo(b.PlayerId));
 
-            __instance.Values = filteredPlayers.ToIl2CppList();
+            __instance.Values = filteredPlayers;
             moddedPlrOpt.Values = __instance.Values;
             __instance.playerIndex = filteredPlayers.FindIndex(p => p.PlayerId == __instance.Value);
             __instance.SetValueText();

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.Utilities;
 using Reactor.Utilities;
 using Rewired;
@@ -18,7 +17,6 @@ public static class KeybindManager
     /// </summary>
     public static List<MiraKeybind> Keybinds { get; } = new();
 
-    [HideFromIl2Cpp]
     internal static Dictionary<Type, VanillaKeybind> VanillaKeybinds { get; set; } = [];
 
     internal static void RewiredInit()
@@ -28,11 +26,14 @@ public static class KeybindManager
             var instance = KeybindUtils.RewiredInputManager!;
             foreach (var keybind in Keybinds)
             {
+                //TODO: publicize mono gamelibs
+                /*
                 if (instance.userData.actions.ToArray().Any(x => x.name == keybind.Id))
                 {
                     Warning($"Keybind of id {keybind.Id} already exists. Skipping it");
                     continue;
                 }
+                */
 
                 keybind.RewiredInputAction = instance.userData.RegisterModBind(
                     keybind.Id,

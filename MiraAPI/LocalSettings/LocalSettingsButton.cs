@@ -59,7 +59,7 @@ public class LocalSettingsButton(string text, Action onClick)
         rollover.OverColor = Tab!.TabAppearance.ButtonHoverColor;
         rollover.Target = background;
         background.color = Tab!.TabAppearance.ButtonColor;
-        button.OnClick.AddListener((UnityAction)OnClick);
+        button.OnClick.AddListener(() => OnClick.Invoke());
 
         background.transform.localScale = new Vector3(1, 1.25f, 1);
         Helpers.DivideSize(button.gameObject, 1.1f);

@@ -320,7 +320,7 @@ internal static class GameSettingMenuPatches
 
         foreach (var collider in _smallRolesButton.Colliders)
         {
-            if (collider.TryCast<BoxCollider2D>() is { } col)
+            if (collider as BoxCollider2D is { } col)
             {
                 col.size = new Vector2(col.size.x / 2, col.size.y);
             }
@@ -564,11 +564,11 @@ internal static class GameSettingMenuPatches
         CleanupTab(settings, roles);
     }
 
-    private static void ClearOptions(Il2CppSystem.Collections.Generic.List<OptionBehaviour> options)
+    private static void ClearOptions(List<OptionBehaviour> options)
     {
         foreach (var child in options)
         {
-            if (child.TryCast<GameOptionsMapPicker>() || !child.gameObject)
+            if (child as GameOptionsMapPicker || !child.gameObject)
             {
                 continue;
             }

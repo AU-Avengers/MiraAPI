@@ -28,7 +28,7 @@ public class PlayerUseEvent : MiraCancelableEvent
     {
         Usable = usable;
 
-        IsPrimaryConsole = usable.TryCast<Console>() || usable.TryCast<SystemConsole>() || usable.TryCast<MapConsole>();
-        IsVent = usable.TryCast<Vent>();
+        IsPrimaryConsole = usable as Console || usable as SystemConsole || usable as MapConsole;
+        IsVent = usable as Vent;
     }
 }

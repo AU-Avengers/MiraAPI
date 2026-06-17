@@ -28,12 +28,12 @@ public static class InventoryUtility
         leftSpriteRenderer.flipX = true;
 
         leftButton.OnMouseOver = new UnityEvent();
-        leftButton.OnMouseOver.AddListener((Action)(() => leftSpriteRenderer.sprite = MiraAssets.NextButtonActive.LoadAsset()));
+        leftButton.OnMouseOver.AddListener(() => leftSpriteRenderer.sprite = MiraAssets.NextButtonActive.LoadAsset());
         leftButton.OnMouseOut = new UnityEvent();
-        leftButton.OnMouseOut.AddListener((Action)(() => leftSpriteRenderer.sprite = MiraAssets.NextButton.LoadAsset()));
+        leftButton.OnMouseOut.AddListener(() => leftSpriteRenderer.sprite = MiraAssets.NextButton.LoadAsset());
 
         leftButton.OnClick = new Button.ButtonClickedEvent();
-        leftButton.OnClick.AddListener((Action)(() => previousPage(tab)));
+        leftButton.OnClick.AddListener(() => previousPage(tab));
 
         var rightButtonElement = Object.Instantiate(leftButtonElement, tab.transform);
         var rightSpriteRenderer = rightButtonElement.GetComponent<SpriteRenderer>();
@@ -44,11 +44,11 @@ public static class InventoryUtility
         rightSpriteRenderer.flipX = false;
 
         rightButton.OnMouseOver = new UnityEvent();
-        rightButton.OnMouseOver.AddListener((Action)(() => rightSpriteRenderer.sprite = MiraAssets.NextButtonActive.LoadAsset()));
+        rightButton.OnMouseOver.AddListener(() => rightSpriteRenderer.sprite = MiraAssets.NextButtonActive.LoadAsset());
         rightButton.OnMouseOut = new UnityEvent();
-        rightButton.OnMouseOut.AddListener((Action)(() => rightSpriteRenderer.sprite = MiraAssets.NextButton.LoadAsset()));
+        rightButton.OnMouseOut.AddListener(() => rightSpriteRenderer.sprite = MiraAssets.NextButton.LoadAsset());
 
         rightButton.OnClick = new Button.ButtonClickedEvent();
-        rightButton.OnClick.AddListener((Action)(() => nextPage(tab)));
+        rightButton.OnClick.AddListener(() => nextPage(tab));
     }
 }

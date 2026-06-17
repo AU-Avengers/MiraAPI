@@ -37,7 +37,7 @@ public class ModdedToggleOption : ModdedOption<bool>
         toggleOption.Title = StringName;
         toggleOption.TitleText.text = Title;
         toggleOption.CheckMark.enabled = Value;
-        toggleOption.OnValueChanged = (Il2CppSystem.Action<OptionBehaviour>)ValueChanged;
+        toggleOption.OnValueChanged = ValueChanged;
 
         OptionBehaviour = toggleOption;
 

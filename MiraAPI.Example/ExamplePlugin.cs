@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
 using MiraAPI.PluginLoading;
 using Reactor;
@@ -15,12 +13,12 @@ namespace MiraAPI.Example;
 [BepInDependency(ReactorPlugin.Id)]
 [BepInDependency(MiraApiPlugin.Id)]
 [ReactorModFlags(ModFlags.RequireOnAllClients)]
-public partial class ExamplePlugin : BasePlugin, IMiraPlugin
+public partial class ExamplePlugin : BaseUnityPlugin, IMiraPlugin
 {
     public Harmony Harmony { get; } = new(Id);
     public string OptionsTitleText => "Mira API\nExample Mod";
     public ConfigFile GetConfigFile() => Config;
-    public override void Load()
+    public void Awake()
     {
         ExampleEventHandlers.Initialize();
         Harmony.PatchAll();

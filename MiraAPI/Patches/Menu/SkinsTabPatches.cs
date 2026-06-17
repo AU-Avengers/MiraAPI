@@ -116,15 +116,15 @@ public static class SkinsTabPatches
         colorChip.gameObject.name = skin.ProductId;
         if (ActiveInputManager.currentControlType == ActiveInputManager.InputType.Keyboard)
         {
-            colorChip.Button.OnClick.AddListener((Action)__instance.ClickEquip);
-            colorChip.Button.OnMouseOver.AddListener((Action)(() => __instance.SelectSkin(skin)));
+            colorChip.Button.OnClick.AddListener(__instance.ClickEquip);
+            colorChip.Button.OnMouseOver.AddListener(() => __instance.SelectSkin(skin));
             colorChip.Button.OnMouseOut.AddListener(
-                (Action)(() =>
-                    __instance.SelectSkin(HatManager.Instance.GetSkinById(DataManager.Player.Customization.Skin))));
+                () =>
+                    __instance.SelectSkin(HatManager.Instance.GetSkinById(DataManager.Player.Customization.Skin)));
         }
         else
         {
-            colorChip.Button.OnClick.AddListener((Action)(() => __instance.SelectSkin(skin)));
+            colorChip.Button.OnClick.AddListener(() => __instance.SelectSkin(skin));
         }
         colorChip.Button.ClickMask = __instance.scroller.Hitbox;
         colorChip.ProductId = skin.ProductId;

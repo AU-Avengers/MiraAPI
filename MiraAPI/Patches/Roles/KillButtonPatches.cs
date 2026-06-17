@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using Il2CppSystem;
 using MiraAPI.Networking;
 using MiraAPI.Roles;
 using UnityEngine;
@@ -31,12 +30,12 @@ public static class KillButtonPatches
 
         if (__instance.currentTarget && __instance.currentTarget != target)
         {
-            __instance.currentTarget.cosmetics.SetOutline(false, new Nullable<Color>(Color.clear));
+            __instance.currentTarget.cosmetics.SetOutline(false, Color.clear);
         }
         __instance.currentTarget = target;
         if (__instance.currentTarget)
         {
-            __instance.currentTarget.cosmetics.SetOutline(true, new Nullable<Color>(customRole.Configuration.KillButtonOutlineColor));
+            __instance.currentTarget.cosmetics.SetOutline(true, customRole.Configuration.KillButtonOutlineColor);
             __instance.SetEnabled();
             return false;
         }

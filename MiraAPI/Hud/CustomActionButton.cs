@@ -321,7 +321,8 @@ public abstract class CustomActionButton
     /// <param name="color">The new color.</param>
     public virtual void SetTextOutline(Color color)
     {
-        Button?.buttonLabelText.SetOutlineColor(color);
+        // TODO: publicize mono gamelibs
+        //Button?.buttonLabelText.SetOutlineColor(color);
     }
 
     /// <summary>

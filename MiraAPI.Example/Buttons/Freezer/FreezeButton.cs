@@ -33,7 +33,7 @@ public class FreezeButton : CustomActionButton<PlayerControl>
 
     public override void SetOutline(bool active)
     {
-        Target?.cosmetics.SetOutline(active, new Il2CppSystem.Nullable<Color>(Palette.Blue));
+        Target?.cosmetics.SetOutline(active, Palette.Blue);
     }
 
     public override bool IsTargetValid(PlayerControl? target)

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using AmongUs.GameOptions;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.Patches.Stubs;
-using Reactor.Utilities.Attributes;
 using Reactor.Utilities.Extensions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,12 +15,10 @@ namespace MiraAPI.Hud;
 /// <summary>
 /// Custom Player Menu using the ShapeshifterPanel as a base.
 /// </summary>
-/// <param name="il2CppPtr">Used by Il2Cpp. Do not use constructor, this is a MonoBehaviour.</param>
-[RegisterInIl2Cpp]
 [SuppressMessage("Design", "CA1051:Do not declare visible instance fields", Justification = "Unity Convention")]
 [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1307:Accessible fields should begin with upper-case letter", Justification = "Unity Convention")]
 [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:Fields should be private", Justification = "Unity Convention")]
-public class CustomPlayerMenu(IntPtr il2CppPtr) : Minigame(il2CppPtr)
+public class CustomPlayerMenu : Minigame
 {
     public ShapeshifterPanel panelPrefab;
     public float xStart = -0.8f;
@@ -41,7 +37,7 @@ public class CustomPlayerMenu(IntPtr il2CppPtr) : Minigame(il2CppPtr)
     {
         var shapeShifterRole = RoleManager.Instance.GetRole(RoleTypes.Shapeshifter);
 
-        var ogMenu = shapeShifterRole.TryCast<ShapeshifterRole>()!.ShapeshifterMenu;
+        var ogMenu = (shapeShifterRole as ShapeshifterRole)!.ShapeshifterMenu;
         var newMenu = Instantiate(ogMenu);
         var customMenu = newMenu.gameObject.AddComponent<CustomPlayerMenu>();
 
@@ -59,7 +55,8 @@ public class CustomPlayerMenu(IntPtr il2CppPtr) : Minigame(il2CppPtr)
         }));
 
         customMenu.CloseSound = newMenu.CloseSound;
-        customMenu.logger = newMenu.logger;
+        // TODO: publicize mono gamelibs
+        //customMenu.logger = newMenu.logger;
         customMenu.OpenSound = newMenu.OpenSound;
 
         newMenu.DestroyImmediate();
@@ -85,7 +82,6 @@ public class CustomPlayerMenu(IntPtr il2CppPtr) : Minigame(il2CppPtr)
     /// </summary>
     /// <param name="playerMatch">Function to determine if player should show in the custom menu.</param>
     /// <param name="onClick">Onclick action for player.</param>
-    [HideFromIl2Cpp]
     public void Begin(Func<PlayerControl, bool> playerMatch, Action<PlayerControl?> onClick)
     {
         MinigameStubs.Begin(this, null);
@@ -97,9 +93,9 @@ public class CustomPlayerMenu(IntPtr il2CppPtr) : Minigame(il2CppPtr)
         }));
 
         DestroyableSingleton<DebugAnalytics>.Instance.Analytics.MinigameOpened(PlayerControl.LocalPlayer.Data, TaskType);
-        var list = PlayerControl.AllPlayerControls.ToArray().Where(playerMatch).ToList();
+        var list = PlayerControl.AllPlayerControls.Where(playerMatch).ToList();
         potentialVictims = [];
-        var list2 = new Il2CppSystem.Collections.Generic.List<UiElement>();
+        var list2 = new List<UiElement>();
 
         for (var i = 0; i < list.Count; i++)
         {
@@ -109,7 +105,7 @@ public class CustomPlayerMenu(IntPtr il2CppPtr) : Minigame(il2CppPtr)
             var flag = PlayerControl.LocalPlayer.Data.Role.NameColor == player.Data.Role.NameColor;
             var shapeshifterPanel = Instantiate(panelPrefab, transform);
             shapeshifterPanel.transform.localPosition = new Vector3(xStart + num * xOffset, yStart + num2 * yOffset, -1f);
-            shapeshifterPanel.SetPlayer(i, player.Data, (Il2CppSystem.Action)(() => { onClick(player); }));
+            shapeshifterPanel.SetPlayer(i, player.Data, () => { onClick(player); });
             shapeshifterPanel.NameText.color = flag ? player.Data.Role.NameColor : Color.white;
             potentialVictims.Add(shapeshifterPanel);
             list2.Add(shapeshifterPanel.Button);

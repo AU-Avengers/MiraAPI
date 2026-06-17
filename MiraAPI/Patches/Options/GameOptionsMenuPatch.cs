@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AmongUs.GameOptions;
 using HarmonyLib;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.GameOptions;
 using MiraAPI.Modifiers;
 using MiraAPI.Presets;
@@ -242,7 +242,7 @@ internal static class GameOptionsMenuPatch
         __instance.MapPicker.Initialize(20);
         var mapNameSetting = GameManager.Instance.GameSettingsList.MapNameSetting;
         __instance.MapPicker.SetUpFromData(mapNameSetting, 20);
-        __instance.Children = new Il2CppSystem.Collections.Generic.List<OptionBehaviour>();
+        __instance.Children = new List<OptionBehaviour>();
         __instance.Children.Add(__instance.MapPicker);
         __instance.CreateSettings();
         __instance.cachedData = GameOptionsManager.Instance.CurrentGameOptions;

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.LocalSettings;
 using MiraAPI.Modifiers.ModifierDisplay;
 using MiraAPI.Modifiers.Types;
 using MiraAPI.Patches.Roles;
 using Reactor.Utilities;
-using Reactor.Utilities.Attributes;
 using UnityEngine;
 
 namespace MiraAPI.Modifiers;
@@ -17,18 +15,15 @@ namespace MiraAPI.Modifiers;
 /// <summary>
 /// The component for handling modifiers.
 /// </summary>
-[RegisterInIl2Cpp]
-public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
+public class ModifierComponent : MonoBehaviour
 {
     /// <summary>
     /// Gets the active modifiers on the player.
     /// </summary>
-    [HideFromIl2Cpp]
     public ImmutableList<BaseModifier> ActiveModifiers { get; private set; } = ImmutableList<BaseModifier>.Empty;
 
     private ModifierDisplayComponent? ModifierDisplay { get; set; }
 
-    [HideFromIl2Cpp]
     private List<BaseModifier> Modifiers { get; set; } = [];
 
     private PlayerControl _player = null!;
@@ -170,7 +165,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>A collection of modifiers.</returns>
-    [HideFromIl2Cpp]
     public IEnumerable<T> GetModifiers<T>(Func<T, bool>? predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.OfType<T>().Where(x => predicate == null || predicate(x));
@@ -182,7 +176,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>A collection of modifiers.</returns>
-    [HideFromIl2Cpp]
     public IEnumerable<BaseModifier> GetModifiers(Type type, Func<BaseModifier, bool>? predicate=null)
     {
         return ActiveModifiers.Where(x => x.GetType() == type && (predicate == null || predicate(x)));
@@ -194,7 +187,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="id">The modifier's type ID.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>A collection of modifiers.</returns>
-    [HideFromIl2Cpp]
     public IEnumerable<BaseModifier> GetModifiers(uint id, Func<BaseModifier, bool>? predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -210,7 +202,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool TryGetModifier<T>([NotNullWhen(true)] out T? modifier, Func<T, bool>? predicate = null) where T : BaseModifier
     {
         modifier = GetModifier(predicate);
@@ -224,7 +215,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="modifier">The modifier or null.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool TryGetModifier(Type type, [NotNullWhen(true)] out BaseModifier? modifier, Func<BaseModifier, bool>? predicate = null)
     {
         modifier = GetModifier(type, predicate);
@@ -238,7 +228,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="modifier">The modifier or null.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool TryGetModifier(uint id, [NotNullWhen(true)] out BaseModifier? modifier, Func<BaseModifier, bool>? predicate = null)
     {
         modifier = GetModifier(id, predicate);
@@ -251,7 +240,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="modifierGuid">The modifier unique ID.</param>
     /// <param name="modifier">The modifier or null.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool TryGetModifier(Guid modifierGuid, [NotNullWhen(true)] out BaseModifier? modifier)
     {
         modifier = GetModifier(modifierGuid);
@@ -264,7 +252,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>The Modifier if it is found, null otherwise.</returns>
-    [HideFromIl2Cpp]
     public T? GetModifier<T>(Func<T, bool>? predicate = null) where T : BaseModifier
     {
         return GetModifiers(predicate).FirstOrDefault();
@@ -276,7 +263,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>The Modifier if it is found, null otherwise.</returns>
-    [HideFromIl2Cpp]
     public BaseModifier? GetModifier(Type type, Func<BaseModifier, bool>? predicate = null)
     {
         return GetModifiers(type).FirstOrDefault(predicate ?? (_ => true));
@@ -288,7 +274,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="id">The modifier ID.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>The Modifier if it is found, null otherwise.</returns>
-    [HideFromIl2Cpp]
     public BaseModifier? GetModifier(uint id, Func<BaseModifier, bool>? predicate = null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -302,7 +287,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// </summary>
     /// <param name="modifierGuid">The modifier's unique ID.</param>
     /// <returns>The modifier if it is found, or null.</returns>
-    [HideFromIl2Cpp]
     public BaseModifier? GetModifier(Guid modifierGuid)
     {
         return ActiveModifiers.Find(x => x.UniqueId == modifierGuid);
@@ -313,7 +297,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// </summary>
     /// <typeparam name="T">The modifier type.</typeparam>
     /// <param name="predicate">The predicate to check the modifier by.</param>
-    [HideFromIl2Cpp]
     public void RemoveModifier<T>(Func<T, bool>? predicate = null) where T : BaseModifier
     {
         RemoveModifier(typeof(T), x => predicate == null || predicate((T)x));
@@ -324,7 +307,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// </summary>
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
-    [HideFromIl2Cpp]
     public void RemoveModifier(Type type, Func<BaseModifier, bool>? predicate = null)
     {
         var modifiers = ActiveModifiers.Where(x => x.GetType() == type && (predicate == null || predicate(x))).ToList();
@@ -347,7 +329,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// Removes a modifier from the player.
     /// </summary>
     /// <param name="modifier">The modifier object.</param>
-    [HideFromIl2Cpp]
     public void RemoveModifier(BaseModifier modifier)
     {
         if (!ActiveModifiers.Contains(modifier))
@@ -364,7 +345,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// </summary>
     /// <param name="typeId">The modifier's type ID.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
-    [HideFromIl2Cpp]
     public void RemoveModifier(uint typeId, Func<BaseModifier, bool>? predicate = null)
     {
         var type = ModifierManager.GetModifierType(typeId) ?? throw new InvalidOperationException(
@@ -376,7 +356,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// Removes a modifier from the player.
     /// </summary>
     /// <param name="uniqueId">The modifier's unique ID.</param>
-    [HideFromIl2Cpp]
     public void RemoveModifier(Guid uniqueId)
     {
         var modifier = GetModifier(uniqueId);
@@ -395,7 +374,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <typeparam name="T">The Type of the modifier.</typeparam>
     /// <returns>The new modifier.</returns>
-    [HideFromIl2Cpp]
     public T? AddModifier<T>(params object[] args) where T : BaseModifier
     {
         return AddModifier(typeof(T), args) as T;
@@ -406,7 +384,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// </summary>
     /// <param name="modifier">The modifier to add.</param>
     /// <returns>The modifier that was added.</returns>
-    [HideFromIl2Cpp]
     public BaseModifier? AddModifier(BaseModifier modifier)
     {
         // TODO: Make a proper synchronization system.
@@ -444,7 +421,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="type">The modifier type.</param>
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <returns>The modifier that was added.</returns>
-    [HideFromIl2Cpp]
     public BaseModifier? AddModifier(Type type, params object[] args)
     {
         BaseModifier? modifier;
@@ -470,7 +446,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="id">The ID of the modifier.</param>
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <returns>The modifier if it was created, or null if it failed.</returns>
-    [HideFromIl2Cpp]
     public BaseModifier? AddModifier(uint id, params object[] args)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -485,7 +460,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier<T>(Func<T, bool>? predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.Exists(x => x is T modifier && (predicate == null || predicate(modifier)));
@@ -497,7 +471,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier(Type type, Func<BaseModifier, bool>? predicate=null)
     {
         return ActiveModifiers.Exists(x => x.GetType() == type && (predicate == null || predicate(x)));
@@ -509,7 +482,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="id">The modifier's type ID.</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier(uint id, Func<BaseModifier, bool>? predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -523,7 +495,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// </summary>
     /// <param name="id">The modifier's guid.</param>
     /// <returns>True if the modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier(Guid id)
     {
         return ActiveModifiers.Exists(x => x.UniqueId == id);
@@ -536,7 +507,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier<T>(bool checkInactive, Func<T, bool>? predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.Exists(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
@@ -550,7 +520,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier(Type type, bool checkInactive, Func<BaseModifier, bool>? predicate=null)
     {
         return ActiveModifiers.Exists(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
@@ -564,7 +533,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier(uint id, bool checkInactive, Func<BaseModifier, bool>? predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -579,7 +547,6 @@ public class ModifierComponent(IntPtr cppPtr) : MonoBehaviour(cppPtr)
     /// <param name="id">The modifier's guid.</param>
     /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
     /// <returns>True if the modifier is present, false otherwise.</returns>
-    [HideFromIl2Cpp]
     public bool HasModifier(Guid id, bool checkInactive)
     {
         return ActiveModifiers.Exists(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));

@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Gameplay;
 using MiraAPI.Utilities;
+using UnityEngine;
 
 namespace MiraAPI.Patches.Events;
 
@@ -18,7 +18,7 @@ public static class KillAnimationMurderEventPatch
         return Helpers.GetStateMachineMoveNext<KillAnimation>(nameof(KillAnimation.CoPerformKill))!;
     }
 
-    public static void Postfix(Il2CppObjectBase __instance)
+    public static void Postfix(KillAnimation __instance)
     {
         var wrapper = new StateMachineWrapper<KillAnimation>(__instance);
         if (wrapper.GetState() != 1)

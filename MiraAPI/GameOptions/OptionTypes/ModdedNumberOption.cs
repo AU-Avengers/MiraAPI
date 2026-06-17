@@ -181,7 +181,7 @@ public class ModdedNumberOption : ModdedOption<float>
         optionComponent.ZeroValue = ZeroWordValue;
 
         numberOption.SetUpFromData(Data, 20);
-        numberOption.OnValueChanged = (Il2CppSystem.Action<OptionBehaviour>)ValueChanged;
+        numberOption.OnValueChanged = ValueChanged;
 
         numberOption.Title = StringName;
         numberOption.Value = Value;

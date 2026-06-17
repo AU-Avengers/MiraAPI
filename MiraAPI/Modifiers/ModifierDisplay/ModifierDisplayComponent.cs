@@ -2,10 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using HarmonyLib;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.LocalSettings;
 using MiraAPI.Utilities.Assets;
-using Reactor.Utilities.Attributes;
 using Reactor.Utilities.Extensions;
 using TMPro;
 using UnityEngine;
@@ -17,8 +15,7 @@ namespace MiraAPI.Modifiers.ModifierDisplay;
 /// <summary>
 /// The code used to display Mira modifiers.
 /// </summary>
-[RegisterInIl2Cpp]
-public class ModifierDisplayComponent(nint cppPtr) : MonoBehaviour(cppPtr)
+public class ModifierDisplayComponent : MonoBehaviour
 {
     /// <summary>
     /// Gets the instance of the Modifier Display.
@@ -43,7 +40,6 @@ public class ModifierDisplayComponent(nint cppPtr) : MonoBehaviour(cppPtr)
     /// <summary>
     /// Gets a read only dictionary of the created modifier UI components.
     /// </summary>
-    [HideFromIl2Cpp]
     public ReadOnlyDictionary<BaseModifier, ModifierUiComponent> Modifiers => new(_modifiers);
 
     /// <summary>
@@ -141,7 +137,6 @@ public class ModifierDisplayComponent(nint cppPtr) : MonoBehaviour(cppPtr)
         RefreshModifiers();
     }
 
-    [HideFromIl2Cpp]
     internal static ModifierDisplayComponent CreateDisplay()
     {
         var gameObject = Instantiate(MiraAssets.ModifierDisplay.LoadAsset(), HudManager.Instance.transform);
@@ -149,7 +144,6 @@ public class ModifierDisplayComponent(nint cppPtr) : MonoBehaviour(cppPtr)
         return minigame;
     }
 
-    [HideFromIl2Cpp]
     private ModifierUiComponent CreateForModifier(BaseModifier modifier)
     {
         var newMod = Instantiate(_modTemplate, _children.transform);
@@ -193,7 +187,6 @@ public class ModifierDisplayComponent(nint cppPtr) : MonoBehaviour(cppPtr)
         _pagination.SetAsLastSibling();
     }
 
-    [HideFromIl2Cpp]
     internal void UpdateModifiersList(List<BaseModifier> modifiers)
     {
         var filteredModifiers = modifiers.Where(x => !x.HideOnUi && x.GetDescription() != string.Empty).ToList();

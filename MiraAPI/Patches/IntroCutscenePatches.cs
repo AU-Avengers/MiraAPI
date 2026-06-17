@@ -1,12 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Gameplay;
 using MiraAPI.Roles;
 using MiraAPI.Utilities;
 using Reactor.Utilities;
+using UnityEngine;
 
 namespace MiraAPI.Patches;
 
@@ -41,7 +42,7 @@ public static class IntroCutscenePatches
             return Helpers.GetStateMachineMoveNext<IntroCutscene>(nameof(IntroCutscene.ShowRole))!;
         }
 
-        public static void Postfix(Il2CppObjectBase __instance)
+        public static void Postfix(GameObject __instance)
         {
             var wrapper = new StateMachineWrapper<IntroCutscene>(__instance);
             // run before the first yield
@@ -61,7 +62,7 @@ public static class IntroCutscenePatches
     [HarmonyPrefix]
     [HarmonyPatch(nameof(IntroCutscene.BeginImpostor))]
     [HarmonyPatch(nameof(IntroCutscene.BeginCrewmate))]
-    public static bool BeginPrefix(IntroCutscene __instance, [HarmonyArgument(0)] ref Il2CppSystem.Collections.Generic.List<PlayerControl> yourTeam)
+    public static bool BeginPrefix(IntroCutscene __instance, [HarmonyArgument(0)] ref List<PlayerControl> yourTeam)
     {
         return PlayerControl.LocalPlayer.Data.Role is not ICustomRole customRole || customRole.SetupIntroTeam(__instance, ref yourTeam);
     }
@@ -104,7 +105,7 @@ public static class IntroCutscenePatches
             return Helpers.GetStateMachineMoveNext<IntroCutscene>(nameof(IntroCutscene.CoBegin))!;
         }
 
-        public static void Postfix(Il2CppObjectBase __instance)
+        public static void Postfix(Object __instance)
         {
             IntroCutscene introCutscene;
 
@@ -120,7 +121,7 @@ public static class IntroCutscenePatches
             }
             else
             {
-                introCutscene = __instance.Cast<IntroCutscene>();
+                introCutscene = (IntroCutscene)__instance;
             }
 
 

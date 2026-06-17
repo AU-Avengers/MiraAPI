@@ -115,15 +115,15 @@ public static class VisorsTabPatches
 
         if (ActiveInputManager.currentControlType == ActiveInputManager.InputType.Keyboard)
         {
-            colorChip.Button.OnClick.AddListener((Action)__instance.ClickEquip);
-            colorChip.Button.OnMouseOver.AddListener((Action)(() => __instance.SelectVisor(visor)));
+            colorChip.Button.OnClick.AddListener(__instance.ClickEquip);
+            colorChip.Button.OnMouseOver.AddListener(() => __instance.SelectVisor(visor));
             colorChip.Button.OnMouseOut.AddListener(
-                (Action)(() =>
-                    __instance.SelectVisor(HatManager.Instance.GetVisorById(DataManager.Player.Customization.Visor))));
+                () =>
+                    __instance.SelectVisor(HatManager.Instance.GetVisorById(DataManager.Player.Customization.Visor)));
         }
         else
         {
-            colorChip.Button.OnClick.AddListener((Action)(() => __instance.SelectVisor(visor)));
+            colorChip.Button.OnClick.AddListener(() => __instance.SelectVisor(visor));
         }
 
         colorChip.Button.ClickMask = __instance.scroller.Hitbox;

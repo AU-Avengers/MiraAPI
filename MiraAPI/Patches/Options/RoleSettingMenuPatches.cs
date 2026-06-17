@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AmongUs.GameOptions;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MiraAPI.GameOptions;
 using MiraAPI.Networking;
 using MiraAPI.Roles;
@@ -66,8 +65,8 @@ public static class RoleSettingMenuPatches
         CurrentRole = null;
         CurrentRoleOptions = null;
 
-        __instance.roleChances = new Il2CppSystem.Collections.Generic.List<RoleOptionSetting>();
-        __instance.advancedSettingChildren = new Il2CppSystem.Collections.Generic.List<OptionBehaviour>();
+        __instance.roleChances = new List<RoleOptionSetting>();
+        __instance.advancedSettingChildren = new List<OptionBehaviour>();
 
         var maskBg = __instance.scrollBar.transform.FindChild("MaskBg");
         var hitbox = __instance.scrollBar.transform.FindChild("Hitbox");
@@ -384,7 +383,7 @@ public static class RoleSettingMenuPatches
 
     private static void ValueChanged(OptionBehaviour obj)
     {
-        var roleSetting = obj.Cast<RoleOptionSetting>();
+        var roleSetting = (obj as RoleOptionSetting)!;
         var role = roleSetting.Role as ICustomRole;
         if (role is null or { Configuration.HideSettings: true })
         {

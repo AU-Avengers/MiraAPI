@@ -1,7 +1,7 @@
 ﻿global using static Reactor.Utilities.Logger<MiraAPI.MiraApiPlugin>;
 using System;
+using System.Linq;
 using BepInEx;
-using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
 using MiraAPI.PluginLoading;
 using Reactor;
@@ -20,7 +20,7 @@ namespace MiraAPI;
 [BepInDependency(ReactorPlugin.Id)]
 [BepInDependency(ModCompatibility.SubmergedId, BepInDependency.DependencyFlags.SoftDependency)]
 [ReactorModFlags(ModFlags.RequireOnAllClients)]
-public partial class MiraApiPlugin : BasePlugin
+public partial class MiraApiPlugin : BaseUnityPlugin
 {
     /// <summary>
     /// Gets a value indicating whether the current device is running Starlight (on mobile).
@@ -46,13 +46,21 @@ public partial class MiraApiPlugin : BasePlugin
     internal Harmony Harmony { get; } = new(Id);
 
     /// <inheritdoc />
-    public override void Load()
+    private void Awake()
     {
         Harmony.PatchAll();
-
         ReactorCredits.Register("Mira API", Version, IsDevBuild, ReactorCredits.AlwaysShow);
 
         PluginManager = new MiraPluginManager();
         PluginManager.Initialize();
+    }
+
+    private void Start()
+    {
+        MiraPluginManager.Instance.Finished();
+        Harmony.Unpatch(
+            Harmony.GetPatchedMethods().First(method => method.DeclaringType == typeof(GameObject) && method.Name.Equals("AddComponent", StringComparison.Ordinal)),
+            AccessTools.Method(typeof(MiraPluginManager), nameof(MiraPluginManager.PostAddComponent))
+        );
     }
 }

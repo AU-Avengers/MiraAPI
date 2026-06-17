@@ -3,6 +3,7 @@ using System.Reflection;
 using HarmonyLib;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Usables;
+using UnityEngine;
 
 namespace MiraAPI.Patches.Events;
 
@@ -26,14 +27,14 @@ public static class CanUsePatches
 
     [HarmonyPriority(Priority.Last)]
     [HarmonyPrefix]
-    public static bool CanUsePatch(Il2CppSystem.Object __instance, [HarmonyArgument(0)] NetworkedPlayerInfo pc, [HarmonyArgument(1)] out bool canUse, [HarmonyArgument(2)] out bool couldUse)
+    public static bool CanUsePatch(Object __instance, [HarmonyArgument(0)] NetworkedPlayerInfo pc, [HarmonyArgument(1)] out bool canUse, [HarmonyArgument(2)] out bool couldUse)
     {
         canUse = couldUse = false;
 
-        IUsable usable = __instance.Cast<IUsable>();
+        var usable = __instance as IUsable;
         if (usable != null)
         {
-            var @event = new PlayerCanUseEvent(__instance.Cast<IUsable>());
+            var @event = new PlayerCanUseEvent((IUsable) __instance);
             MiraEventManager.InvokeEvent(@event);
 
             return !@event.IsCancelled;

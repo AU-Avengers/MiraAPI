@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text;
 using HarmonyLib;
 using Hazel;
-using Il2CppSystem.Text;
 
 namespace MiraAPI.Patches.Stubs;
 

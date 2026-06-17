@@ -54,8 +54,8 @@ public class LoadableAddressableAssets<T>(string key) where T : UnityEngine.Obje
             throw new InvalidOperationException($"INVALID ASSET/s: {key}");
         }
 
-        var assetsList = new Il2CppSystem.Collections.Generic.List<T>(assetsIList.Pointer);
-        LoadedAssets = assetsList.ToArray().ToList();
+        var assetsList = new List<T>(assetsIList);
+        LoadedAssets = assetsList.ToList();
 
         _gcAction?.Invoke(this);
         GC.EndNoGCRegion();

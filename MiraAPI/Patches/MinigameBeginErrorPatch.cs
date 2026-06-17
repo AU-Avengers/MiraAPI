@@ -14,6 +14,7 @@ public static class MinigameBeginErrorPatch
     [HarmonyPrefix]
     public static void Prefix(Minigame __instance)
     {
-        __instance.logger ??= _logger;
+        // TODO: publicize mono gamelibs
+        //__instance.logger ??= _logger;
     }
 }

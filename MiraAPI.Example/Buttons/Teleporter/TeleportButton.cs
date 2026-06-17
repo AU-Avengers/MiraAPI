@@ -60,13 +60,15 @@ public class TeleportButton : CustomActionButton
         for (var ft = Camera.main!.orthographicSize; ft < zoomDistance; ft += 0.3f)
         {
             Camera.main.orthographicSize = MeetingHud.Instance ? 3f : ft;
-            ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
+            //TODO: The event 'ResolutionChanged' can only appear on the left hand side of += or -= (except when used from within the class 'ResolutionManager')
+            //ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
             foreach (var cam in Camera.allCameras) cam.orthographicSize = Camera.main.orthographicSize;
             yield return null;
         }
 
         foreach (var cam in Camera.allCameras) cam.orthographicSize = zoomDistance;
-        ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
+        //TODO: The event 'ResolutionChanged' can only appear on the left hand side of += or -= (except when used from within the class 'ResolutionManager')
+        //ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
     }
 
     private static IEnumerator ZoomInCoroutine()
@@ -74,7 +76,8 @@ public class TeleportButton : CustomActionButton
         for (var ft = Camera.main!.orthographicSize; ft > 3f; ft -= 0.3f)
         {
             Camera.main.orthographicSize = MeetingHud.Instance ? 3f : ft;
-            ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
+            //TODO: The event 'ResolutionChanged' can only appear on the left hand side of += or -= (except when used from within the class 'ResolutionManager')
+            //ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
             foreach (var cam in Camera.allCameras) cam.orthographicSize = Camera.main.orthographicSize;
 
             yield return null;
@@ -83,7 +86,7 @@ public class TeleportButton : CustomActionButton
         foreach (var cam in Camera.allCameras) cam.orthographicSize = 3f;
         HudManager.Instance.ShadowQuad.gameObject.SetActive(true);
         IsZoom = false;
-
-        ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
+        //TODO: The event 'ResolutionChanged' can only appear on the left hand side of += or -= (except when used from within the class 'ResolutionManager')
+        //ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen);
     }
 }

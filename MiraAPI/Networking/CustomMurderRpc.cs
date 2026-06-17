@@ -4,7 +4,6 @@ using System.Linq;
 using AmongUs.Data;
 using AmongUs.GameOptions;
 using Assets.CoreScripts;
-using BepInEx.Unity.IL2CPP.Utils;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Gameplay;
 using MiraAPI.Utilities;

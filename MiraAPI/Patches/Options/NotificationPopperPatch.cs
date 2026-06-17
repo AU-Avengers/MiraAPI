@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
-using Il2CppSystem;
 using MiraAPI.Roles;
-using Object = Il2CppSystem.Object;
 
 namespace MiraAPI.Patches.Options;
 
@@ -31,7 +29,7 @@ public static class NotificationPopperPatch
             string.Concat(
                 "<font=\"Barlow-Black SDF\" material=\"Barlow-Black Outline\">",
                 textColor,
-                TranslationController.Instance.GetString(key, Array.Empty<Object>()),
+                TranslationController.Instance.GetString(key),
                 "</color></font>"
             ),
             "<font=\"Barlow-Black SDF\" material=\"Barlow-Black Outline\">" + roleCount + "</font>",

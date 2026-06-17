@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Meeting;
 using MiraAPI.Events.Vanilla.Meeting.Voting;
@@ -82,7 +81,7 @@ internal static class MeetingHudPatches
             return;
         }
 
-        var logicOptionsNormal = GameManager.Instance.LogicOptions.Cast<LogicOptionsNormal>();
+        var logicOptionsNormal = (GameManager.Instance.LogicOptions as LogicOptionsNormal)!;
         var votingTime = logicOptionsNormal.GetVotingTime();
         if (votingTime <= 0)
         {
@@ -190,14 +189,14 @@ internal static class MeetingHudPatches
             exiled = @event.ExiledPlayer;
         }
 
-        var voterStates = new Il2CppStructArray<MeetingHud.VoterState>([
+        MeetingHud.VoterState[] voterStates = [
             .. votes.Select(
             v=> new MeetingHud.VoterState
             {
                 VoterId = v.Voter,
                 VotedForId = v.Suspect,
             })
-        ]);
+        ];
 
         __instance.RpcVotingComplete(voterStates, exiled, isTie);
         return false;
@@ -205,7 +204,7 @@ internal static class MeetingHudPatches
 
     [HarmonyPrefix]
     [HarmonyPatch(nameof(MeetingHud.PopulateResults))]
-    public static bool PopulateResultsPatch(MeetingHud __instance, ref Il2CppStructArray<MeetingHud.VoterState> states)
+    public static bool PopulateResultsPatch(MeetingHud __instance, ref MeetingHud.VoterState[] states)
     {
         var votes = states.Select(x=> new CustomVote(x.VoterId, x.VotedForId)).ToList();
         var @event = new PopulateResultsEvent(votes);

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AmongUs.GameOptions;
-using Il2CppInterop.Runtime;
-using Il2CppInterop.Runtime.Injection;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MiraAPI.Networking;
 using MiraAPI.PluginLoading;
 using MiraAPI.Utilities;
@@ -54,8 +51,8 @@ public static class CustomRoleManager
     internal static readonly Dictionary<ushort, RoleBehaviour> CustomRoles = [];
     internal static readonly Dictionary<Type, ushort> RoleIds = [];
 
-    private static Il2CppSystem.Collections.Generic.List<BaseGameSetting>? _emptySettings;
-    private static Il2CppReferenceArray<OverlayKillAnimation>? _emptyKillAnimations;
+    private static List<BaseGameSetting>? _emptySettings;
+    private static OverlayKillAnimation[]? _emptyKillAnimations;
 
     private static ushort _roleId = 100;
 
@@ -91,8 +88,6 @@ public static class CustomRoleManager
         {
             try
             {
-                ClassInjector.RegisterTypeInIl2Cpp(roleType);
-
                 var role = RegisterRole(roleType, pluginInfo);
                 if (role is null)
                 {
@@ -119,7 +114,7 @@ public static class CustomRoleManager
             return null;
         }
 
-        var roleBehaviour = (RoleBehaviour)new GameObject(roleType.Name).DontDestroy().AddComponent(Il2CppType.From(roleType));
+        var roleBehaviour = (RoleBehaviour)new GameObject(roleType.Name).DontDestroy().AddComponent(roleType);
 
         if (roleBehaviour is not ICustomRole customRole)
         {
@@ -145,7 +140,7 @@ public static class CustomRoleManager
         roleBehaviour.RoleScreenshot = customRole.Configuration.OptionsScreenshot?.LoadAsset();
 
         _emptySettings ??= new(0);
-        _emptyKillAnimations ??= new(0);
+        _emptyKillAnimations ??= [];
 
         roleBehaviour.AllGameSettings = _emptySettings;
         roleBehaviour.CustomKillAnimations = _emptyKillAnimations;

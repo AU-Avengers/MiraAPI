@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using AmongUs.GameOptions;
 using HarmonyLib;
-using Il2CppSystem.Collections.Generic;
 using MiraAPI.Roles;
 using UnityEngine;
 

@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using HarmonyLib;
-using Il2CppSystem;
+﻿using HarmonyLib;
 using MiraAPI.GameOptions;
-using MiraAPI.GameOptions.OptionTypes;
 using MiraAPI.Roles;
 using MiraAPI.Utilities;
 using UnityEngine;
-using Object = Il2CppSystem.Object;
 
 namespace MiraAPI.Patches.Options;
 
@@ -124,17 +119,17 @@ public static class OptionsPatches
     {
         if (__instance.IsCustom())
         {
-            if (__instance.TryCast<NumberOption>() is { } numberOption)
+            if (__instance as NumberOption is { } numberOption)
             {
                 numberOption.MinusBtn.SetInteractable(true);
                 numberOption.PlusBtn.SetInteractable(true);
             }
-            if (__instance.TryCast<StringOption>() is { } stringOption)
+            if (__instance as StringOption is { } stringOption)
             {
                 stringOption.MinusBtn.SetInteractable(true);
                 stringOption.PlusBtn.SetInteractable(true);
             }
-            if (__instance.TryCast<PlayerOption>() is { } playerOption)
+            if (__instance as PlayerOption is { } playerOption)
             {
                 playerOption.MinusBtn.SetInteractable(true);
                 playerOption.PlusBtn.SetInteractable(true);
@@ -143,7 +138,7 @@ public static class OptionsPatches
             return false;
         }
 
-        if (__instance.TryCast<RoleOptionSetting>() is { } roleOptionSetting && roleOptionSetting.Role.IsCustomRole())
+        if (__instance as RoleOptionSetting is { } roleOptionSetting && roleOptionSetting.Role.IsCustomRole())
         {
             roleOptionSetting.CountMinusBtn.SetInteractable(true);
             roleOptionSetting.CountPlusBtn.SetInteractable(true);
@@ -165,7 +160,7 @@ public static class OptionsPatches
             return true;
         }
 
-        __instance.TitleText.text = TranslationController.Instance.GetString(__instance.Title, Array.Empty<Object>());
+        __instance.TitleText.text = TranslationController.Instance.GetString(__instance.Title, []);
 
         return false;
     }
@@ -203,7 +198,7 @@ public static class OptionsPatches
             return true;
         }
 
-        __instance.TitleText.text = TranslationController.Instance.GetString(__instance.Title, Array.Empty<Object>());
+        __instance.TitleText.text = TranslationController.Instance.GetString(__instance.Title, []);
         return false;
     }
 
@@ -310,8 +305,8 @@ public static class OptionsPatches
             return true;
         }
 
-        __instance.TitleText.text = TranslationController.Instance.GetString(__instance.Title, Array.Empty<Object>());
-        __instance.ValueText.text = TranslationController.Instance.GetString(__instance.Values[__instance.Value], Array.Empty<Object>());
+        __instance.TitleText.text = TranslationController.Instance.GetString(__instance.Title, []);
+        __instance.ValueText.text = TranslationController.Instance.GetString(__instance.Values[__instance.Value], []);
 
         return false;
     }

@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Il2CppSystem.Collections.Generic;
 using MiraAPI.Networking;
 using MiraAPI.Utilities;
 using UnityEngine;
@@ -59,10 +59,10 @@ public class ModdedPlayerOption : ModdedOption<int>
             $"{ParentMod!.OptionsTitleText}.PlayerOption.{TranslationController.Instance.GetString(StringName)}";
 
         var filteredList = GetFilteredPlayers();
-        Values = filteredList.ToIl2CppList();
+        Values = filteredList;
 
         playerOption.SetUpFromData(Data, 20);
-        playerOption.OnValueChanged = (Il2CppSystem.Action<OptionBehaviour>)ValueChanged;
+        playerOption.OnValueChanged = ValueChanged;
 
         playerOption.Title = StringName;
         playerOption.TitleText.text = TranslationController.Instance.GetString(StringName);

@@ -298,7 +298,8 @@ public static class HudManagerPatches
                 modifierKeysPressed = true;
                 foreach (var key in modKeys)
                 {
-                    if (keyboard.GetModifierKey(key)) continue;
+                    // TODO: check if this actually works
+                    if (keyboard.GetModifierKeyTimePressed(key) > 0) continue;
                     modifierKeysPressed = false;
                     break;
                 }

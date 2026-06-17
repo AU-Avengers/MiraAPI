@@ -1,6 +1,5 @@
 using AmongUs.GameOptions;
 using System;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.Patches.Freeplay;
 using MiraAPI.Utilities.Assets;
 using UnityEngine;
@@ -78,19 +77,16 @@ public record struct CustomRoleConfiguration
     /// <summary>
     /// Gets or sets the Sprite used for the Role Options menu screenshot.
     /// </summary>
-    [HideFromIl2Cpp]
     public LoadableAsset<Sprite>? OptionsScreenshot { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the Sprite used for the Role Icon.
     /// </summary>
-    [HideFromIl2Cpp]
     public LoadableAsset<Sprite>? Icon { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the Intro sound for the Role.
     /// </summary>
-    [HideFromIl2Cpp]
     public LoadableAsset<AudioClip>? IntroSound { get; set; } = null;
 
     /// <summary>
