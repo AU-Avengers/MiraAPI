@@ -167,7 +167,7 @@ internal static class GamePresetsTabPatches
 
         if (!_newDivider)
         {
-            var oldDiv = presetTab.transform.FindChild("DividerImage");
+            var oldDiv = presetTab.transform.Find("DividerImage");
             _newDivider = Object.Instantiate(oldDiv.gameObject, oldDiv.transform.parent);
             _newDivider.transform.localPosition = new Vector3(1.85f, 0.13f, 0f);
             _newDivider.transform.localScale = new Vector3(1.13f, 1, 1);
@@ -276,7 +276,7 @@ internal static class GamePresetsTabPatches
             _folderButton.name = "OpenFolderButton";
             _folderButton.transform.localPosition = new Vector3(3.55f, 1.1f, -2);
 
-            var folderRend = openFolderButton.transform.FindChild("Sprite").gameObject.GetComponent<SpriteRenderer>();
+            var folderRend = openFolderButton.transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>();
             folderRend.sprite = MiraAssets.FolderIcon.LoadAsset();
             folderRend.transform.localScale = new Vector3(0.4f, 0.4f, 1);
 

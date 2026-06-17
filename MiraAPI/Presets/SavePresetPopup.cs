@@ -35,8 +35,8 @@ public class SavePresetPopup : Minigame
     private void Awake()
     {
         var textboxHolder = transform.GetChild(1).GetChild(1);
-        var saveButton = transform.FindChild("SaveButton").GetComponent<PassiveButton>();
-        var closeButton = transform.FindChild("CloseButton").GetComponent<PassiveButton>();
+        var saveButton = transform.Find("SaveButton").GetComponent<PassiveButton>();
+        var closeButton = transform.Find("CloseButton").GetComponent<PassiveButton>();
         textBox = textboxHolder.GetChild(0).GetComponent<TextBoxTMP>();
         textBoxText = textBox.transform.GetChild(0).GetComponent<TextMeshPro>();
 

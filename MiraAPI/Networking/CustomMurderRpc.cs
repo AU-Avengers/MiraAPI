@@ -208,10 +208,11 @@ public static class CustomMurderRpc
             {
                 target.ShowFailedMurder();
 
-                if (resetKillTimer)
+                if (resetKillTimer && GameOptionsManager.Instance.CurrentGameOptions.TryGetFloat(
+                        FloatOptionNames.KillCooldown,
+                        out var killcd))
                 {
-                    source.SetKillTimer(
-                        GameOptionsManager.Instance.CurrentGameOptions.GetFloat(FloatOptionNames.KillCooldown) / 2f);
+                    source.SetKillTimer(killcd / 2f);
                 }
             }
             else
@@ -246,9 +247,9 @@ public static class CustomMurderRpc
                 SoundManager.Instance.PlaySound(source.KillSfx, false, 0.8f);
             }
 
-            if (resetKillTimer)
+            if (resetKillTimer && GameOptionsManager.Instance.CurrentGameOptions.TryGetFloat(FloatOptionNames.KillCooldown, out var cd))
             {
-                source.SetKillTimer(GameOptionsManager.Instance.CurrentGameOptions.GetFloat(FloatOptionNames.KillCooldown));
+                source.SetKillTimer(cd);
             }
         }
 

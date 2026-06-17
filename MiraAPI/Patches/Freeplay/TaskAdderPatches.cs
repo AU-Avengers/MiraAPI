@@ -71,13 +71,13 @@ public static class TaskAdderPatches
         __instance.TaskParent = inner.transform;
         var crewmateFolder = __instance.Root.SubFolders.FirstOrDefault(x => x.FolderName == CrewmateName)!;
         var impostorFolder = __instance.Root.SubFolders.FirstOrDefault(x => x.FolderName == ImpostorName)!;
-        //var neutralFolder = __instance.CreateFolder("Neutral", __instance.Root, 2, Color.gray);
+        // var neutralFolder = __instance.CreateFolder("Neutral", __instance.Root, 2, Color.gray);
         var modifiersFolder = __instance.CreateFolder(ModifiersName, __instance.Root, 0, Color.blue);
 
         folders.Clear();
         folders.Add(crewmateFolder.FolderName, crewmateFolder);
         folders.Add(impostorFolder.FolderName, impostorFolder);
-        //folders.Add("Neutrals", neutralFolder);
+        // folders.Add("Neutrals", neutralFolder);
         folders.Add(ModifiersName, modifiersFolder);
 
         int folderIdx = 2;
@@ -272,7 +272,7 @@ public static class TaskAdderPatches
         {
             __instance.PathText.fontSizeMin = 3;
             __instance.PathText.fontSizeMax = 3;
-            __instance.transform.FindChild("TitleText_TMP")?.gameObject.DestroyImmediate();
+            __instance.transform.Find("TitleText_TMP")?.gameObject.DestroyImmediate();
         }
 
         __instance.ActiveItems.ToArray().Do(x => x.gameObject.Destroy());
@@ -410,7 +410,7 @@ public static class TaskAdderPatches
                     roleAddButton.SafePositionWorld = __instance.SafePositionWorld;
                     roleAddButton.Text.text = prettyEnabled ? roleBehaviour.GetRoleName() : "Be_" + roleBehaviour.GetRoleName() + ".exe";
                     // TODO: publicize mono gamelibs
-                    //roleAddButton.Text.EnableMasking();
+                    // roleAddButton.Text.EnableMasking();
                     roleAddButton.role = roleBehaviour;
                     if (prettyEnabled)
                     {
@@ -461,7 +461,7 @@ public static class TaskAdderPatches
                     taskAddButton.Text.text = modifier.ModifierName;
                     taskAddButton.Text.fontSizeMin = 1;
                     // TODO: publicize mono gamelibs
-                    //taskAddButton.Text.EnableMasking();
+                    // taskAddButton.Text.EnableMasking();
                     taskAddButton.FileImage.color = modifier.FreeplayFileColor;
                     taskAddButton.RolloverHandler.OutColor = modifier.FreeplayFileColor;
                     if (modifier is TimedModifier timed)

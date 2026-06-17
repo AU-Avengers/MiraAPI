@@ -42,7 +42,7 @@ public static class HudManagerPatches
 
     public static void ResizeUI(float scaleFactor)
     {
-        var baseButtons = HudManager.Instance.transform.FindChild("Buttons");
+        var baseButtons = HudManager.Instance.transform.Find("Buttons");
         if (baseButtons != null)
         {
             foreach (var aspect in baseButtons.GetComponentsInChildren<AspectPosition>(true))

@@ -57,7 +57,7 @@ public static class ExampleEventHandlers
     [RegisterEvent]
     public static void StartMeetingEvent(StartMeetingEvent _)
     {
-        foreach (var plr in PlayerControl.AllPlayerControls.ToArray().Where(player => player.Data.Role is MayorRole))
+        foreach (var plr in PlayerControl.AllPlayerControls.Where(player => player.Data.Role is MayorRole))
         {
             plr.GetVoteData().IncreaseRemainingVotes(1);
         }
@@ -76,7 +76,7 @@ public static class ExampleEventHandlers
             @event.VoteData.VoteForPlayer(@event.TargetId);
         }
 
-        foreach (var plr in PlayerControl.AllPlayerControls.ToArray().Where(player => player != @event.VoteData.Owner))
+        foreach (var plr in PlayerControl.AllPlayerControls.Where(player => player != @event.VoteData.Owner))
         {
             plr.GetVoteData().Votes.Clear();
             plr.GetVoteData().VotesRemaining = 0;

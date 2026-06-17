@@ -13,7 +13,7 @@ internal static class HowToPlayPatch
     // yes i patched the entire method
     private static void Prefix(HowToPlayScene __instance)
     {
-        if (RoleManager.Instance.AllRoles.ToArray().All(x => !x.IsCustomRole()))
+        if (RoleManager.Instance.AllRoles.All(x => !x.IsCustomRole()))
         {
             return;
         }
@@ -22,7 +22,7 @@ internal static class HowToPlayPatch
         __instance.startPage.SetActive(false);
         if (__instance.roleButtonsParent.childCount == 0)
         {
-            using (IEnumerator<RoleBehaviour> enumerator = RoleManager.Instance.AllRoles.ToArray().Where(x => !x.IsCustomRole()).GetEnumerator())
+            using (IEnumerator<RoleBehaviour> enumerator = RoleManager.Instance.AllRoles.Where(x => !x.IsCustomRole()).GetEnumerator())
             {
                 while (enumerator.MoveNext())
                 {
@@ -30,7 +30,7 @@ internal static class HowToPlayPatch
                     if (!role.IsSimpleRole && role.Role != RoleTypes.CrewmateGhost && role.Role != RoleTypes.ImpostorGhost)
                     {
                         HowToPlayRoleButton component = Object.Instantiate(__instance.roleButtonPrefab, __instance.roleButtonsParent).GetComponent<HowToPlayRoleButton>();
-                        Sprite roleIcon = __instance.rolesScenes.ToArray().First(r => r.role == role.Role).roleIcon;
+                        Sprite roleIcon = __instance.rolesScenes.First(r => r.role == role.Role).roleIcon;
                         component.SetRoleInfo(role, roleIcon);
                         component.SetButtonAction(() =>
                         {

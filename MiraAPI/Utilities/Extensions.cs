@@ -97,6 +97,8 @@ public static class Extensions
     public static void SetCooldownFormat(this ActionButton? button, float timer, float maxTimer, string format = "0")
     {
         var num = Mathf.Clamp(timer / maxTimer, 0f, 1f);
+        if (button == null)
+            return;
         button.isCoolingDown = num > 0f;
         button.SetCooldownFill(num);
         if (button.isCoolingDown)

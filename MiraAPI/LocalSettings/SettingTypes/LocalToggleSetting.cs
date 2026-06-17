@@ -31,7 +31,7 @@ public class LocalToggleSetting : LocalSettingBase<bool>
     public override GameObject CreateOption(ToggleButtonBehaviour toggle, SlideBar slider, Transform parent, ref float offset, ref int order, bool last)
     {
         var toggleObject = Object.Instantiate(toggle, parent).GetComponent<ToggleButtonBehaviour>();
-        var tmp = toggleObject.transform.FindChild("Text_TMP").GetComponent<TextMeshPro>();
+        var tmp = toggleObject.transform.Find("Text_TMP").GetComponent<TextMeshPro>();
         var passiveButton = toggleObject.GetComponent<PassiveButton>();
         var rollover = toggleObject.GetComponent<ButtonRolloverHandler>();
         toggleObject.gameObject.SetActive(true);

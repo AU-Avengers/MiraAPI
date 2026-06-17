@@ -44,5 +44,6 @@ public abstract class GameModifier : BaseModifier
     /// Determines whether the modifier can spawn in general, accounting for gamemodes and everything else.
     /// </summary>
     /// <returns>True if the modifier is able to spawn, otherwise false.</returns>
+    // TODO: figure out why this is obsolete
     public virtual bool CanSpawnOnCurrentMode() => !GameManager.Instance.IsHideAndSeek();
 }

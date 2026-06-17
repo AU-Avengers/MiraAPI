@@ -14,9 +14,9 @@ public class BaseKeybind
     public InputAction? RewiredInputAction { get; internal set; }
 
     /// <summary>
-    /// Gets the unique identifier for this keybind. Used in Rewired.
+    /// Gets or sets the unique identifier for this keybind. Used in Rewired.
     /// </summary>
-    public string Id { get; protected set; }
+    public string? Id { get; protected set; }
 
     /// <summary>
     /// Gets the currently assigned keycode.

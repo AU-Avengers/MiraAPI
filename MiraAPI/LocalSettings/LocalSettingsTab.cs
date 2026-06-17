@@ -88,7 +88,7 @@ public abstract class LocalSettingsTab(ConfigFile config)
     /// <returns>The created tab <see cref="GameObject"/>.</returns>
     public virtual GameObject CreateTab(OptionsMenuBehaviour instance)
     {
-         var tab = Object.Instantiate(instance.transform.FindChild("GeneralTab").gameObject, instance.transform);
+         var tab = Object.Instantiate(instance.transform.Find("GeneralTab").gameObject, instance.transform);
          tab.name = $"{TabName}Tab";
          tab.transform.DestroyChildren();
          tab.gameObject.SetActive(false);
@@ -103,10 +103,10 @@ public abstract class LocalSettingsTab(ConfigFile config)
              TabButton.Content = tab.gameObject;
          }
 
-         var generalLabel = instance.transform.FindChild("GeneralTab").FindChild("ControlGroup")
-             .FindChild("ControlText_TMP").gameObject;
-         var toggle = instance.transform.FindChild("GeneralTab").FindChild("ChatGroup").FindChild("CensorChatButton").GetComponent<ToggleButtonBehaviour>();
-         var slider = instance.transform.FindChild("GeneralTab").FindChild("SoundGroup").FindChild("SFXSlider").GetComponent<SlideBar>();
+         var generalLabel = instance.transform.Find("GeneralTab").Find("ControlGroup")
+             .Find("ControlText_TMP").gameObject;
+         var toggle = instance.transform.Find("GeneralTab").Find("ChatGroup").Find("CensorChatButton").GetComponent<ToggleButtonBehaviour>();
+         var slider = instance.transform.Find("GeneralTab").Find("SoundGroup").Find("SFXSlider").GetComponent<SlideBar>();
 
          Dictionary<string, List<ILocalSetting>> entriesByGroup = new();
          foreach (var entry in Settings)
@@ -211,7 +211,7 @@ public abstract class LocalSettingsTab(ConfigFile config)
         tabButtonObject.Button.color = TabAppearance.TabButtonColor;
         TabButton = tabButtonObject;
 
-        var tabButtonText = tabButtonObject.transform.FindChild("Text_TMP").GetComponent<TextMeshPro>();
+        var tabButtonText = tabButtonObject.transform.Find("Text_TMP").GetComponent<TextMeshPro>();
         tabButtonText.GetComponent<TextTranslatorTMP>().Destroy(); // i hate text translators
         tabButtonText.transform.localPosition = new Vector3(0.078f, 0, 0);
         tabButtonText.transform.localScale = new Vector3(0.9f, 0.9f);

@@ -12,7 +12,7 @@ public static class InventoryUtility
 {
     public static void CreateNextBackButtons<T>(T tab, Action<T> previousPage, Action<T> nextPage) where T : InventoryTab
     {
-        var title = tab.transform.FindChild("Text");
+        var title = tab.transform.Find("Text");
         title.localPosition = new Vector3(.9123f, -.23f, -55);
         title.GetComponent<TextMeshPro>().alignment = TextAlignmentOptions.Center;
 

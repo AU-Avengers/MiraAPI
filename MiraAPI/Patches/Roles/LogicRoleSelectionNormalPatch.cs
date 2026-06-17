@@ -20,7 +20,7 @@ public static class LogicRoleSelectionNormalPatch
         RoleTypes? defaultRole)
     {
         int num = 0;
-        var source = RoleManager.Instance.AllRoles.ToArray()
+        var source = RoleManager.Instance.AllRoles
             .Where(role => role.TeamType == team && !RoleManager.IsGhostRole(role.Role) &&
                            CustomRoleUtils.CanSpawnOnCurrentMode(role));
         List<RoleTypes> list = new List<RoleTypes>();
@@ -72,14 +72,8 @@ public static class LogicRoleSelectionNormalPatch
 
         __instance.AssignRolesFromList(players, teamMax, list, ref num);
         var defaultRole2 = team is RoleTeamTypes.Crewmate ? RoleTypes.Crewmate : RoleTypes.Impostor;
-        try
-        {
+        if (defaultRole != null)
             defaultRole2 = defaultRole.Value;
-        }
-        catch
-        {
-            // Ignored
-        }
 
         while (list.Count < players.Count && list.Count + num < teamMax)
         {

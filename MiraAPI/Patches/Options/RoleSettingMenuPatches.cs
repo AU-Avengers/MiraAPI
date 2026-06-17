@@ -68,9 +68,9 @@ public static class RoleSettingMenuPatches
         __instance.roleChances = new List<RoleOptionSetting>();
         __instance.advancedSettingChildren = new List<OptionBehaviour>();
 
-        var maskBg = __instance.scrollBar.transform.FindChild("MaskBg");
-        var hitbox = __instance.scrollBar.transform.FindChild("Hitbox");
-        var dividerImage = __instance.transform.FindChild("HeaderButtons/DividerImage");
+        var maskBg = __instance.scrollBar.transform.Find("MaskBg");
+        var hitbox = __instance.scrollBar.transform.Find("Hitbox");
+        var dividerImage = __instance.transform.Find("HeaderButtons/DividerImage");
 
         if (GameSettingMenuPatches.SelectedModIdx == 0)
         {
@@ -167,7 +167,7 @@ public static class RoleSettingMenuPatches
             .OrderBy(x => x.Key.Priority)
             .ThenBy(x => x.Key.Name);
 
-        var quotaThing = __instance.categoryHeaderEditRoleOrigin.transform.FindChild("QuotaHeader");
+        var quotaThing = __instance.categoryHeaderEditRoleOrigin.transform.Find("QuotaHeader");
         var template = __instance.transform.parent.parent.GetComponent<GameSettingMenu>().GameSettingsTab.categoryHeaderOrigin;
 
         foreach (var grouping in sortedRoleGroups)
@@ -200,15 +200,15 @@ public static class RoleSettingMenuPatches
             quotaInst.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             quotaInst.transform.localPosition = new Vector3(0.7f, -0.82f, 0);
 
-            var chanceText = quotaInst.transform.FindChild("Chance Text");
+            var chanceText = quotaInst.transform.Find("Chance Text");
             chanceText.transform.localPosition = new Vector3(4.3f, 0.0993f, 0);
 
-            var countText = quotaInst.transform.FindChild("# Text");
+            var countText = quotaInst.transform.Find("# Text");
             countText.transform.localPosition = new Vector3(1.9f, 0.0993f, 0f);
 
-            var blankLabel = quotaInst.transform.FindChild("BlankLabel").gameObject;
-            var chanceLabel = quotaInst.transform.FindChild("Chance Label").gameObject;
-            var countLabel = quotaInst.transform.FindChild("# Label").gameObject;
+            var blankLabel = quotaInst.transform.Find("BlankLabel").gameObject;
+            var chanceLabel = quotaInst.transform.Find("Chance Label").gameObject;
+            var countLabel = quotaInst.transform.Find("# Label").gameObject;
             blankLabel.Destroy();
             chanceLabel.Destroy();
             countLabel.Destroy();
@@ -487,8 +487,8 @@ public static class RoleSettingMenuPatches
         __instance.roleDescriptionText.text = customRole.RoleLongDescription;
         __instance.roleTitleText.text = role.GetRoleName();
 
-        var imgBg = __instance.AdvancedRolesSettings.transform.FindChild("Imagebackground");
-        var labelBg = __instance.AdvancedRolesSettings.transform.FindChild("InfoLabelBackground");
+        var imgBg = __instance.AdvancedRolesSettings.transform.Find("Imagebackground");
+        var labelBg = __instance.AdvancedRolesSettings.transform.Find("InfoLabelBackground");
         if (role.RoleScreenshot == null)
         {
             imgBg.gameObject.SetActive(false);
@@ -623,10 +623,10 @@ public static class RoleSettingMenuPatches
             var newButton = Object.Instantiate(roleOptionSetting.buttons[0], roleOptionSetting.transform);
             newButton.name = "ConfigButton";
             newButton.transform.localPosition = new Vector3(0.4473f, -0.3f, -2f);
-            newButton.transform.FindChild("Text_TMP").gameObject.DestroyImmediate();
+            newButton.transform.Find("Text_TMP").gameObject.DestroyImmediate();
             newButton.activeSprites.Destroy();
 
-            var btnRend = newButton.transform.FindChild("ButtonSprite").GetComponent<SpriteRenderer>();
+            var btnRend = newButton.transform.Find("ButtonSprite").GetComponent<SpriteRenderer>();
             btnRend.sprite = MiraAssets.Cog.LoadAsset();
 
             var passiveButton = newButton.GetComponent<GameOptionButton>();

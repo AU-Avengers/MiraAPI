@@ -3,12 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using AmongUs.GameOptions;
 using HarmonyLib;
 using MiraAPI.Roles;
 using MiraAPI.Utilities.Assets;
-using QRCoder;
-using Reactor.Utilities;
 using Rewired;
 using TMPro;
 using UnityEngine;
@@ -29,7 +26,7 @@ public static class Helpers
     /// <returns>A list of alive players.</returns>
     public static List<PlayerControl> GetAlivePlayers()
     {
-        return [.. GameData.Instance.AllPlayers.ToArray().Where(x => !x.IsDead && !x.Disconnected && x.Object).Select(x => x.Object)];
+        return [.. GameData.Instance.AllPlayers.Where(x => !x.IsDead && !x.Disconnected && x.Object).Select(x => x.Object)];
     }
 
     internal static GameObject CreateKeybindIcon(GameObject button, KeyboardKeyCode keyCode, Vector3 localPos)
@@ -232,7 +229,7 @@ public static class Helpers
         var popper = HudManager.Instance.Notifier;
         var newMessage = Object.Instantiate(popper.notificationMessageOrigin, Vector3.zero, Quaternion.identity, popper.transform);
         newMessage.transform.localPosition = localPos;
-        newMessage.SetUp(text, spr ?? null, color, new System.Action(() => popper.OnMessageDestroy(newMessage)));
+        newMessage.SetUp(text, spr ?? null, color, () => popper.OnMessageDestroy(newMessage));
         popper.lastMessageKey = -1;
         popper.ShiftMessages();
         popper.AddMessageToQueue(newMessage);
@@ -286,7 +283,7 @@ public static class Helpers
     {
         var results = new List<Collider2D>();
         Physics2D.OverlapCircle(source, radius, filter, results);
-        return results.ToArray()
+        return results
             .Where(collider2D => collider2D.CompareTag("DeadBody"))
             .Select(collider2D => collider2D.GetComponent<DeadBody>()).ToList();
     }
@@ -305,7 +302,7 @@ public static class Helpers
     {
         var results = new List<Collider2D>();
         Physics2D.OverlapCircle(source, radius, filter, results);
-        return results.ToArray()
+        return results
             .Where(collider2D => colliderTag == null || collider2D.CompareTag(colliderTag))
             .Select(collider2D => collider2D.GetComponent<T>()).ToList();
     }
@@ -384,7 +381,7 @@ public static class Helpers
 
         List<PlayerControl> outputList = [];
         outputList.Clear();
-        var allPlayers = GameData.Instance.AllPlayers.ToArray().Select(x => x.Object);
+        var allPlayers = GameData.Instance.AllPlayers.Select(x => x.Object);
 
         outputList.AddRange(
             from playerControl in allPlayers
@@ -504,8 +501,7 @@ public static class Helpers
     /// <returns>The random string.</returns>
     public static string RandomString(int length, string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     {
-        return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[Random.Range(0, s.Length)]).ToArray());
+        return new string([.. Enumerable.Repeat(chars, length).Select(s => s[Random.Range(0, s.Length)])]);
     }
 
     /// <summary>

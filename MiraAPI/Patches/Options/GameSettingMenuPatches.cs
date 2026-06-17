@@ -100,7 +100,7 @@ internal static class GameSettingMenuPatches
             _customTwoButton?.SelectButton(tabNum == 5);
             if (tabNum >= 3 && tabNum <= 5)
             {
-                if (__instance.RoleSettingsButton.gameObject.active)
+                if (__instance.RoleSettingsButton.gameObject.activeSelf)
                 {
                     __instance.RoleSettingsButton.SelectButton(true);
                 }
@@ -137,7 +137,7 @@ internal static class GameSettingMenuPatches
 
         if (tabNum >= 3 && tabNum <= 5)
         {
-            if (__instance.RoleSettingsButton.gameObject.active)
+            if (__instance.RoleSettingsButton.gameObject.activeSelf)
             {
                 __instance.RoleSettingsButton.SelectButton(true);
             }
@@ -168,10 +168,10 @@ internal static class GameSettingMenuPatches
     public static void StartPrefix(GameSettingMenu __instance)
     {
         _roleBtnOgPos = __instance.RoleSettingsButton.transform.localPosition;
-        __instance.transform.FindChild("GameSettingsLabel").gameObject.SetActive(false);
+        __instance.transform.Find("GameSettingsLabel").gameObject.SetActive(false);
 
-        var helpThing = __instance.transform.FindChild("What Is This?");
-        var tmpText = Object.Instantiate(helpThing.transform.FindChild("InfoText"), helpThing.parent).gameObject;
+        var helpThing = __instance.transform.Find("What Is This?");
+        var tmpText = Object.Instantiate(helpThing.transform.Find("InfoText"), helpThing.parent).gameObject;
 
         tmpText.GetComponent<TextTranslatorTMP>().Destroy();
         tmpText.name = "SelectedMod";
@@ -186,9 +186,9 @@ internal static class GameSettingMenuPatches
         _nextModButton = Object.Instantiate(__instance.BackButton, __instance.BackButton.transform.parent).gameObject;
         _nextModButton.transform.localPosition = new Vector3(-2.2663f, 1.5272f, -25f);
         _nextModButton.name = "RightArrowButton";
-        _nextModButton.transform.FindChild("Inactive").gameObject.GetComponent<SpriteRenderer>().sprite =
+        _nextModButton.transform.Find("InactiveSelf").gameObject.GetComponent<SpriteRenderer>().sprite =
             MiraAssets.NextButton.LoadAsset();
-        _nextModButton.transform.FindChild("Active").gameObject.GetComponent<SpriteRenderer>().sprite =
+        _nextModButton.transform.Find("activeSelf").gameObject.GetComponent<SpriteRenderer>().sprite =
             MiraAssets.NextButtonActive.LoadAsset();
         _nextModButton.gameObject.GetComponent<CloseButtonConsoleBehaviour>().DestroyImmediate();
 
@@ -211,8 +211,8 @@ internal static class GameSettingMenuPatches
         _previousModButton.transform.localPosition = new Vector3(-4.4209f, 1.5272f, -25f);
         _previousModButton.name = "LeftArrowButton";
         _previousModButton.gameObject.GetComponent<CloseButtonConsoleBehaviour>().Destroy();
-        _previousModButton.transform.FindChild("Active").gameObject.GetComponent<SpriteRenderer>().flipX =
-            _previousModButton.transform.FindChild("Inactive").gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        _previousModButton.transform.Find("activeSelf").gameObject.GetComponent<SpriteRenderer>().flipX =
+            _previousModButton.transform.Find("InactiveSelf").gameObject.GetComponent<SpriteRenderer>().flipX = true;
         _previousModButton.gameObject.GetComponent<PassiveButton>().OnClick.AddListener(
             (UnityAction)(() =>
             {
@@ -422,8 +422,8 @@ internal static class GameSettingMenuPatches
         if (SelectedModIdx != 0)
         {
             _customOneButton.buttonText.text = SelectedMod!.MiraPlugin.CustomOptionMenuNameOne;
-            _customTwoButton.buttonText.text = SelectedMod!.MiraPlugin.CustomOptionMenuNameTwo;
-            var modHasRoles = SelectedMod!.InternalRoles.Count != 0;
+            _customTwoButton.buttonText.text = SelectedMod.MiraPlugin.CustomOptionMenuNameTwo;
+            var modHasRoles = SelectedMod.InternalRoles.Count != 0;
             var modHasCustomOne = SelectedMod.InternalOptionGroups.Exists(
                 x => x.ParentMenu == MenuCategory.CustomOne);
             var modHasCustomTwo = SelectedMod.InternalOptionGroups.Exists(
@@ -447,7 +447,7 @@ internal static class GameSettingMenuPatches
             {
                 _smallRolesButton.gameObject.SetActive(false);
 
-                if (roles.gameObject.active)
+                if (roles.gameObject.activeSelf)
                 {
                     menu.ChangeTab(0, false);
                 }
@@ -459,7 +459,7 @@ internal static class GameSettingMenuPatches
                     menu.RoleSettingsButton.gameObject.SetActive(true);
                     defaultButton = _modifiersButton;
 
-                    if (_modifiersTab!.gameObject.active)
+                    if (_modifiersTab!.gameObject.activeSelf)
                     {
                         menu.RoleSettingsButton.SelectButton(true);
                     }
@@ -472,7 +472,7 @@ internal static class GameSettingMenuPatches
                 replaceWithModifiers = false;
                 _modifiersButton.gameObject.SetActive(false);
 
-                if (_modifiersTab!.gameObject.active)
+                if (_modifiersTab!.gameObject.activeSelf)
                 {
                     menu.ChangeTab(0, false);
                 }
@@ -491,18 +491,18 @@ internal static class GameSettingMenuPatches
             {
                 menu.GameSettingsButton.gameObject.SetActive(false);
 
-                if (settings.gameObject.active)
+                if (settings.gameObject.activeSelf)
                 {
                     menu.ChangeTab(0, false);
                 }
                 defaultButton = menu.RoleSettingsButton;
 
                 // If the mod has roles and modifiers, we can move their buttons to the game settings button position, since nothing is there.
-                if (menu.RoleSettingsButton.gameObject.active)
+                if (menu.RoleSettingsButton.gameObject.activeSelf)
                 {
                     menu.RoleSettingsButton.transform.localPosition = menu.GameSettingsButton.transform.localPosition;
                 }
-                else if (_modifiersButton.gameObject.active && _smallRolesButton.gameObject.active)
+                else if (_modifiersButton.gameObject.activeSelf && _smallRolesButton.gameObject.activeSelf)
                 {
                     _modifiersButton.transform.localPosition = new Vector3(
                         _modifiersButton.transform.localPosition.x,
@@ -520,7 +520,7 @@ internal static class GameSettingMenuPatches
             if (!modHasCustomOne)
             {
                 _customOneButton.gameObject.SetActive(false);
-                if (_customOneTab!.gameObject.active)
+                if (_customOneTab!.gameObject.activeSelf)
                 {
                     defaultButton.SelectButton(true);
                 }
@@ -529,7 +529,7 @@ internal static class GameSettingMenuPatches
             if (!modHasCustomTwo)
             {
                 _customTwoButton.gameObject.SetActive(false);
-                if (_customTwoTab!.gameObject.active)
+                if (_customTwoTab!.gameObject.activeSelf)
                 {
                     defaultButton.SelectButton(true);
                 }
@@ -545,18 +545,18 @@ internal static class GameSettingMenuPatches
             menu.GameSettingsButton.gameObject.SetActive(true);
             replaceWithModifiers = false;
 
-            if (_modifiersTab!.gameObject.active || _customOneTab!.gameObject.active || _customTwoTab!.gameObject.active)
+            if (_modifiersTab!.gameObject.activeSelf || _customOneTab!.gameObject.activeSelf || _customTwoTab!.gameObject.activeSelf)
             {
                 menu.ChangeTab(0, false);
             }
         }
 
-        if (menu.RoleSettingsButton.gameObject.active)
+        if (menu.RoleSettingsButton.gameObject.activeSelf)
         {
             ChangeRoleSettingButton(replaceWithModifiers, menu);
         }
 
-        if (menu.PresetsTab.gameObject.active)
+        if (menu.PresetsTab.gameObject.activeSelf)
         {
             menu.ChangeTab(0, false);
         }

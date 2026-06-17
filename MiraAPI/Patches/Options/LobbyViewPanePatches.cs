@@ -61,11 +61,11 @@ public static class LobbyViewPanePatches
         nextButton.transform.localScale = new Vector3(3, 3, 2);
         nextButton.name = "RightArrowButton";
 
-        var normal = nextButton.transform.FindChild("Normal").GetComponentInChildren<SpriteRenderer>();
+        var normal = nextButton.transform.Find("Normal").GetComponentInChildren<SpriteRenderer>();
         normal.transform.localPosition = new Vector3(0, 0f, 0.3f);
         normal.sprite = MiraAssets.NextButton.LoadAsset();
 
-        var hover = nextButton.transform.FindChild("Hover").GetComponentInChildren<SpriteRenderer>();
+        var hover = nextButton.transform.Find("Hover").GetComponentInChildren<SpriteRenderer>();
         hover.transform.localPosition = new Vector3(0, 0f, 0.3f);
         hover.sprite = MiraAssets.NextButtonActive.LoadAsset();
 
@@ -87,8 +87,8 @@ public static class LobbyViewPanePatches
         var backButton = Object.Instantiate(nextButton, __instance.BackButton.transform.parent).gameObject;
         backButton.transform.localPosition = new Vector3(-6.3f, 2.4f, -2f);
         backButton.name = "LeftArrowButton";
-        backButton.transform.FindChild("Normal").gameObject.GetComponentInChildren<SpriteRenderer>().flipX
-            = backButton.transform.FindChild("Hover").gameObject.GetComponentInChildren<SpriteRenderer>().flipX
+        backButton.transform.Find("Normal").gameObject.GetComponentInChildren<SpriteRenderer>().flipX
+            = backButton.transform.Find("Hover").gameObject.GetComponentInChildren<SpriteRenderer>().flipX
                 = true;
 
         var passiveButton2 = backButton.gameObject.GetComponent<PassiveButton>();

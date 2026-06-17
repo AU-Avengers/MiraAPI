@@ -348,7 +348,7 @@ internal static class GameOptionsMenuPatch
                 toggle.CheckMark.color = group.GroupColor != MiraApiPlugin.DefaultHeaderColor
                     ? group.GroupColor
                     : MiraAssets.AcceptedTeal;
-                var rend = toggle.CheckMark.transform.parent.FindChild("ActiveSprite")
+                var rend = toggle.CheckMark.transform.parent.Find("ActiveSprite")
                     .GetComponent<SpriteRenderer>();
                 rend.sprite = MiraAssets.CheckmarkBox.LoadAsset();
                 rend.color = group.GroupColor != MiraApiPlugin.DefaultHeaderColor

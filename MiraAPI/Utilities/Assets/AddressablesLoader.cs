@@ -122,7 +122,7 @@ public static class AddressablesLoader
     {
         while (!AmongUsClient.Instance) yield return null;
         // Load the local/remote content catalog
-        var catalogOperation = Addressables.LoadContentCatalog(location, suffix);
+        var catalogOperation = Addressables.LoadContentCatalogAsync(location, suffix);
         yield return catalogOperation;
 
         // Check for errors

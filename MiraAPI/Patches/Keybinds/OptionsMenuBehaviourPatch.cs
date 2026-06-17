@@ -18,7 +18,7 @@ public static class OptionsMenuBehaviourPatch
         _remap_rollover = GameObject.Find("Remap Controls")?.GetComponent<ButtonRolloverHandler>()!;
         try
         {
-            _remap_background = _remap_rollover.transform.FindChild("Background").GetComponent<SpriteRenderer>();
+            _remap_background = _remap_rollover.transform.Find("Background").GetComponent<SpriteRenderer>();
             _remap_background.color = _conflicts ? Color.red : Color.white;
         }
         catch

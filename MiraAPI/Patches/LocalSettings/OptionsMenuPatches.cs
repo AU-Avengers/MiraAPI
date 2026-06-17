@@ -33,7 +33,7 @@ public static class OptionsMenuPatches
         if (!AmongUsClient.Instance.IsInGame)
         {
             __instance.Background.GetComponent<BoxCollider2D>().enabled = false;
-            __instance.transform.FindChild("Tint").SetLocalZ(5.6f);
+            __instance.transform.Find("Tint").SetLocalZ(5.6f);
         }
 
         background = __instance.Background;
