@@ -185,7 +185,7 @@ public sealed class MiraPluginManager
     {
         try
         {
-            if (!type.IsAssignableTo(typeof(AbstractOptionGroup)))
+            if (!type.IsAssignableFrom(typeof(AbstractOptionGroup)))
             {
                 return false;
             }
@@ -203,7 +203,7 @@ public sealed class MiraPluginManager
                     continue;
                 }
 
-                if (property.PropertyType.IsAssignableTo(typeof(IModdedOption)))
+                if (property.PropertyType.IsAssignableFrom(typeof(IModdedOption)))
                 {
                     ModdedOptionsManager.RegisterPropertyOption(type, property, pluginInfo);
                     continue;
@@ -218,7 +218,7 @@ public sealed class MiraPluginManager
                 ModdedOptionsManager.RegisterAttributeOption(type, attribute, property, pluginInfo);
             }
 
-            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableTo(typeof(IModdedOption))))
+            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableFrom(typeof(IModdedOption))))
             {
                 Error($"{field.Name} is a field, not a property. Use properties for options.");
             }
@@ -289,7 +289,7 @@ public sealed class MiraPluginManager
                 PaletteManager.CustomColors.Add(color);
             }
 
-            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableTo(typeof(CustomColor))))
+            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableFrom(typeof(CustomColor))))
             {
                 Error($"{field.Name} is a field, not a property. Use properties for colors.");
             }
@@ -331,7 +331,7 @@ public sealed class MiraPluginManager
     {
         try
         {
-            if (!type.IsAssignableTo(typeof(LocalSettingsTab)))
+            if (!type.IsAssignableFrom(typeof(LocalSettingsTab)))
             {
                 return false;
             }
@@ -349,7 +349,7 @@ public sealed class MiraPluginManager
                 }
 
                 if (property.GetCustomAttribute<LocalSettingsButtonAttribute>() != null &&
-                    property.PropertyType.IsAssignableTo(typeof(LocalSettingsButton)))
+                    property.PropertyType.IsAssignableFrom(typeof(LocalSettingsButton)))
                 {
                     var button = property.GetValue(tabInstance) as LocalSettingsButton;
                     button!.Tab = tabInstance;
@@ -383,7 +383,7 @@ public sealed class MiraPluginManager
                 attribute.CreateSetting(type, configEntry);
             }
 
-            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableTo(typeof(ConfigEntryBase)) && f.GetCustomAttribute<LocalSettingAttribute>() != null))
+            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableFrom(typeof(ConfigEntryBase)) && f.GetCustomAttribute<LocalSettingAttribute>() != null))
             {
                 Error($"{field.Name} is a field, not a property. Use properties for local settings.");
             }
@@ -437,7 +437,7 @@ public sealed class MiraPluginManager
                 }
             }
 
-            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableTo(typeof(MiraKeybind))))
+            foreach (var field in type.GetFields().Where(f => f.FieldType.IsAssignableFrom(typeof(MiraKeybind))))
             {
                 Error($"{field.Name} is a field, not a property. Use properties for keybinds.");
             }

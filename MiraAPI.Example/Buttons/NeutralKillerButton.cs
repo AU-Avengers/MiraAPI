@@ -13,7 +13,7 @@ public class NeutralKillerButton : CustomActionButton
     public override string Name => "Win Game";
     public override float Cooldown => 0f;
     public override LoadableAsset<Sprite> Sprite => ExampleAssets.ExampleButton;
-    public override MiraKeybind Keybind => ExampleKeybinds.NeutralWinKeybind;
+    public override BaseKeybind Keybind => ExampleKeybinds.NeutralWinKeybind;
 
     protected override void OnClick()
     {

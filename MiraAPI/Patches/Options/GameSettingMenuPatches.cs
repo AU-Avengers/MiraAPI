@@ -429,7 +429,7 @@ internal static class GameSettingMenuPatches
             var modHasCustomTwo = SelectedMod.InternalOptionGroups.Exists(
                 x => x.ParentMenu == MenuCategory.CustomTwo);
             var modHasModifiers = SelectedMod.InternalOptionGroups.Exists(
-                x => x.ShowInModifiersMenu || x.ParentMenu == MenuCategory.Modifiers || x.OptionableType?.IsAssignableTo(typeof(BaseModifier)) == true);
+                x => x.ShowInModifiersMenu || x.ParentMenu == MenuCategory.Modifiers || x.OptionableType?.IsAssignableFrom(typeof(BaseModifier)) == true);
             var modHasOptions =
                 SelectedMod.InternalOptionGroups.Exists(x => x.OptionableType == null && (!x.ShowInModifiersMenu ||
                     (x.ParentMenu != MenuCategory.Modifiers && x.ParentMenu != MenuCategory.Roles)));

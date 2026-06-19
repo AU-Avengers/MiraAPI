@@ -22,7 +22,7 @@ public class TeleportButton : CustomActionButton
     public override LoadableAsset<Sprite> Sprite => ExampleAssets.TeleportButton;
     public override Color TextOutlineColor => new Color32(221, 176, 152, 255);
     public static bool IsZoom { get; private set; }
-    public override MiraKeybind? Keybind => MiraGlobalKeybinds.PrimaryAbility;
+    public override BaseKeybind? Keybind => MiraGlobalKeybinds.PrimaryAbility;
 
     public override bool Enabled(RoleBehaviour? role)
     {

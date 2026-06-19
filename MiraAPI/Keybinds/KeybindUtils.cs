@@ -69,7 +69,7 @@ public static class KeybindUtils
     /// </returns>
     public static KeyboardKeyCode FindAvailableKey(KeyboardKeyCode exclude)
     {
-        foreach (KeyboardKeyCode key in Enum.GetValues<KeyboardKeyCode>())
+        foreach (KeyboardKeyCode key in Enum.GetValues(typeof(KeyboardKeyCode)))
         {
             if (key == exclude) continue;
             bool used = KeybindManager.Keybinds.Exists(e => e.DefaultKey == key);

@@ -13,7 +13,7 @@ public static class GameOverManager
     private static readonly Dictionary<Type, int> GameOverIds = [];
     private static readonly Dictionary<int, Type> GameOverTypes = [];
 
-    private static int _nextId = Enum.GetNames<GameOverReason>().Length;
+    private static int _nextId = Enum.GetNames(typeof(GameOverReason)).Length;
 
     /// <summary>
     /// Register a custom game over.

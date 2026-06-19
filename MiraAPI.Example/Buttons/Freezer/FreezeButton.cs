@@ -19,7 +19,7 @@ public class FreezeButton : CustomActionButton<PlayerControl>
     public override bool PauseTimerInVent => true;
 
     public override LoadableAsset<Sprite> Sprite => ExampleAssets.ExampleButton;
-    public override MiraKeybind? Keybind => MiraGlobalKeybinds.PrimaryAbility;
+    public override BaseKeybind? Keybind => MiraGlobalKeybinds.PrimaryAbility;
 
     protected override void OnClick()
     {

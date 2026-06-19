@@ -16,7 +16,7 @@ public class MeetingButton : CustomActionButton
     public override int MaxUses => 3;
 
     public override LoadableAsset<Sprite> Sprite => ExampleAssets.ExampleButton;
-    public override MiraKeybind? Keybind => MiraGlobalKeybinds.ModifierPrimaryAbility;
+    public override BaseKeybind? Keybind => MiraGlobalKeybinds.ModifierPrimaryAbility;
 
     public override bool Enabled(RoleBehaviour? role)
     {
