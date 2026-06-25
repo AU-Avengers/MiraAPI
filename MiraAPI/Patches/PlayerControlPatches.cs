@@ -50,7 +50,10 @@ internal static class PlayerControlPatches
 
         if (modifiersComponent)
         {
-            modifiersComponent.ActiveModifiers.ForEach(x => x.OnDeath(reason));
+            foreach (var modifier in modifiersComponent.ActiveModifiers)
+            {
+                modifier.OnDeath(reason);
+            }
         }
     }
 

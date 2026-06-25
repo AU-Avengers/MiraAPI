@@ -20,7 +20,9 @@ public class ModifierComponent : MonoBehaviour
     /// <summary>
     /// Gets the active modifiers on the player.
     /// </summary>
-    public ImmutableList<BaseModifier> ActiveModifiers { get; private set; } = ImmutableList<BaseModifier>.Empty;
+    public IReadOnlyList<BaseModifier> ActiveModifiers => _activeModifiers;
+
+    private List<BaseModifier> _activeModifiers = [];
 
     private ModifierDisplayComponent? ModifierDisplay { get; set; }
 
@@ -106,7 +108,7 @@ public class ModifierComponent : MonoBehaviour
                 ModifierDisplay?.UpdateModifiersList(Modifiers);
             }
 
-            ActiveModifiers = Modifiers.ToImmutableList();
+            _activeModifiers = Modifiers;
         }
 
         foreach (var modifier in ActiveModifiers)
@@ -289,7 +291,7 @@ public class ModifierComponent : MonoBehaviour
     /// <returns>The modifier if it is found, or null.</returns>
     public BaseModifier? GetModifier(Guid modifierGuid)
     {
-        return ActiveModifiers.Find(x => x.UniqueId == modifierGuid);
+        return ActiveModifiers.FirstOrDefault(x => x.UniqueId == modifierGuid);
     }
 
     /// <summary>
@@ -393,7 +395,7 @@ public class ModifierComponent : MonoBehaviour
         }
 
         var id = modifier.TypeId;
-        if (modifier.Unique && ActiveModifiers.Find(x => x.TypeId == id) != null)
+        if (modifier.Unique && ActiveModifiers.FirstOrDefault(x => x.TypeId == id) != null)
         {
             Error($"Player already has modifier with id {id}!");
             return null;
@@ -462,7 +464,7 @@ public class ModifierComponent : MonoBehaviour
     /// <returns>True if the Modifier is present, false otherwise.</returns>
     public bool HasModifier<T>(Func<T, bool>? predicate=null) where T : BaseModifier
     {
-        return ActiveModifiers.Exists(x => x is T modifier && (predicate == null || predicate(modifier)));
+        return ActiveModifiers.Any(x => x is T modifier && (predicate == null || predicate(modifier)));
     }
 
     /// <summary>
@@ -473,7 +475,7 @@ public class ModifierComponent : MonoBehaviour
     /// <returns>True if the Modifier is present, false otherwise.</returns>
     public bool HasModifier(Type type, Func<BaseModifier, bool>? predicate=null)
     {
-        return ActiveModifiers.Exists(x => x.GetType() == type && (predicate == null || predicate(x)));
+        return ActiveModifiers.Any(x => x.GetType() == type && (predicate == null || predicate(x)));
     }
 
     /// <summary>
@@ -497,7 +499,7 @@ public class ModifierComponent : MonoBehaviour
     /// <returns>True if the modifier is present, false otherwise.</returns>
     public bool HasModifier(Guid id)
     {
-        return ActiveModifiers.Exists(x => x.UniqueId == id);
+        return ActiveModifiers.Any(x => x.UniqueId == id);
     }
 
     /// <summary>
@@ -509,7 +511,7 @@ public class ModifierComponent : MonoBehaviour
     /// <returns>True if the Modifier is present, false otherwise.</returns>
     public bool HasModifier<T>(bool checkInactive, Func<T, bool>? predicate=null) where T : BaseModifier
     {
-        return ActiveModifiers.Exists(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
+        return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
         bool MatchExpr(BaseModifier bm) => bm is T modifier && (predicate == null || predicate(modifier));
     }
 
@@ -522,7 +524,7 @@ public class ModifierComponent : MonoBehaviour
     /// <returns>True if the Modifier is present, false otherwise.</returns>
     public bool HasModifier(Type type, bool checkInactive, Func<BaseModifier, bool>? predicate=null)
     {
-        return ActiveModifiers.Exists(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
+        return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
         bool MatchExpr(BaseModifier bm) => bm.GetType() == type && (predicate == null || predicate(bm));
     }
 
@@ -549,7 +551,7 @@ public class ModifierComponent : MonoBehaviour
     /// <returns>True if the modifier is present, false otherwise.</returns>
     public bool HasModifier(Guid id, bool checkInactive)
     {
-        return ActiveModifiers.Exists(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
+        return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
         bool MatchExpr(BaseModifier bm) => bm.UniqueId == id;
     }
 }

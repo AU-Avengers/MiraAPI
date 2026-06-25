@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Linq;
+using HarmonyLib;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Usables;
 using MiraAPI.Modifiers;
@@ -36,10 +37,10 @@ internal static class VentCanUsePatch
         {
             switch (canVent)
             {
-                case true when modifiers.Exists(x => x.CanVent().HasValue && x.CanVent() == false):
+                case true when modifiers.Any(x => x.CanVent().HasValue && x.CanVent() == false):
                     couldUse = canUse = false;
                     return;
-                case false when modifiers.Exists(x => x.CanVent().HasValue && x.CanVent() == true):
+                case false when modifiers.Any(x => x.CanVent().HasValue && x.CanVent() == true):
                     couldUse = true;
                     break;
             }

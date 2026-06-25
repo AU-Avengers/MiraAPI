@@ -37,7 +37,7 @@ public static class SkinsTabPatches
     public static bool OnEnablePrefix(SkinsTab __instance)
     {
         __instance.skinId = HatManager.Instance.GetSkinById(DataManager.Player.Customization.Skin).ProdId;
-        var allSkins = HatManager.Instance.GetUnlockedSkins().ToImmutableList();
+        var allSkins = HatManager.Instance.GetUnlockedSkins();
 
         if (sortedSkins.Count == 0)
         {

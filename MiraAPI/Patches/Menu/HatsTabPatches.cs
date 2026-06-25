@@ -42,7 +42,7 @@ public static class HatsTabPatches
     public static bool OnEnablePrefix(HatsTab __instance)
     {
         __instance.currentHat = HatManager.Instance.GetHatById(DataManager.Player.Customization.Hat);
-        var allHats = HatManager.Instance.GetUnlockedHats().ToImmutableList();
+        var allHats = HatManager.Instance.GetUnlockedHats();
 
         if (sortedHats.Count == 0)
         {
