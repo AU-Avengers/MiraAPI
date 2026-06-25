@@ -42,12 +42,11 @@ public sealed class MiraPluginManager
     internal void Initialize()
     {
         Instance = this;
-        RegisterKeybinds(typeof(MiraGlobalKeybinds), PluginSingleton<MiraApiPlugin>.Instance);
-        RegisterLocalTabs(typeof(MiraApiSettings), PluginSingleton<MiraApiPlugin>.Instance);
-        
+        RegisterKeybinds(typeof(MiraGlobalKeybinds), MiraApiPlugin.Instance);
+        RegisterLocalTabs(typeof(MiraApiSettings), MiraApiPlugin.Instance);
     }
 
-    [HarmonyPatch(typeof(GameObject), nameof(GameObject.AddComponent))]
+    [HarmonyPatch(typeof(GameObject), nameof(GameObject.AddComponent), new Type[] { typeof(Type) })]
     [HarmonyPostfix]
     internal static void PostAddComponent(Component __result)
     {

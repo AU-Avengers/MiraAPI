@@ -39,29 +39,14 @@ public static class Helpers
         return keybindIcon;
     }
 
-    public static MethodBase? GetStateMachineMoveNext<T>(string methodName)
+    public static System.Collections.IEnumerator CreateWrapper(System.Collections.IEnumerator original, System.Action action)
     {
-        var typeName = typeof(T).FullName;
-        var showRoleStateMachine =
-            typeof(T)
-                .GetNestedTypes()
-                .FirstOrDefault(x=>x.Name.Contains(methodName));
-
-        if (showRoleStateMachine == null)
+        while (original.MoveNext())
         {
-            Error($"Failed to find {methodName} state machine for {typeName}");
-            return null;
+            yield return original.Current;
         }
 
-        var moveNext = AccessTools.Method(showRoleStateMachine, "MoveNext");
-        if (moveNext == null)
-        {
-            Error($"Failed to find MoveNext method for {typeName}.{methodName}");
-            return null;
-        }
-
-        Info($"Found {methodName}.MoveNext");
-        return moveNext;
+        action();
     }
 
     /// <summary>

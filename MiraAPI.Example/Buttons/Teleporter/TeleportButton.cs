@@ -31,12 +31,12 @@ public class TeleportButton : CustomActionButton
 
     protected override void OnClick()
     {
-        Coroutines.Start(ZoomOutCoroutine());
+        MiraApiPlugin.Instance.StartCoroutine(ZoomOutCoroutine());
     }
 
     public override void OnEffectEnd()
     {
-        Coroutines.Start(ZoomInCoroutine());
+        MiraApiPlugin.Instance.StartCoroutine(ZoomInCoroutine());
     }
 
     protected override void FixedUpdate(PlayerControl playerControl)

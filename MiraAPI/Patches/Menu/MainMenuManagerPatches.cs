@@ -21,7 +21,7 @@ public static class MainMenuManagerPatches
     public static void AwakePostfix()
     {
         AddressablesLoader.LoadAll();
-        Coroutines.Start(SetFps());
+        MiraApiPlugin.Instance.StartCoroutine(SetFps());
     }
 
     private static IEnumerator SetFps()

@@ -232,7 +232,7 @@ public static class HudManagerPatches
         }
         MiraApiSettings.OldButtonScaleFactor =
             LocalSettingsTabSingleton<MiraApiSettings>.Instance.ButtonUIFactorSlider.Value;
-        Coroutines.Start(CoResizeUI());
+        MiraApiPlugin.Instance.StartCoroutine(CoResizeUI());
     }
 
     /// <summary>

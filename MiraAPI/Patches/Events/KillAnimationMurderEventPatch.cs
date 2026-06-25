@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Collections;
 using HarmonyLib;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Gameplay;
@@ -10,26 +11,17 @@ namespace MiraAPI.Patches.Events;
 /// <summary>
 /// Patch to invoke AfterMurderEvent after a kill animation is performed.
 /// </summary>
-[HarmonyPatch]
+[HarmonyPatch(typeof(KillAnimation), nameof(KillAnimation.CoPerformKill))]
 public static class KillAnimationMurderEventPatch
 {
-    public static MethodBase TargetMethod()
+    public static void Postfix(KillAnimation __instance, ref IEnumerator __result, PlayerControl source, PlayerControl target)
     {
-        return Helpers.GetStateMachineMoveNext<KillAnimation>(nameof(KillAnimation.CoPerformKill))!;
-    }
-
-    public static void Postfix(KillAnimation __instance)
-    {
-        var wrapper = new StateMachineWrapper<KillAnimation>(__instance);
-        if (wrapper.GetState() != 1)
+        __result = Helpers.CreateWrapper(__result, () => 
         {
-            return;
-        }
-
-        var source = wrapper.GetParameter<PlayerControl>("source");
-        var target = wrapper.GetParameter<PlayerControl>("target");
-
-        var afterMurderEvent = new AfterMurderEvent(source, target, Helpers.GetBodyById(target.PlayerId));
-        MiraEventManager.InvokeEvent(afterMurderEvent);
+            var deadBody = Helpers.GetBodyById(target.PlayerId);
+            var afterMurderEvent = new AfterMurderEvent(source, target, deadBody);
+        
+            MiraEventManager.InvokeEvent(afterMurderEvent);
+        });
     }
 }

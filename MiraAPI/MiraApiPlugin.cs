@@ -44,10 +44,13 @@ public partial class MiraApiPlugin : BaseUnityPlugin
 
     private static MiraPluginManager? PluginManager { get; set; }
     internal Harmony Harmony { get; } = new(Id);
+    public static MiraApiPlugin Instance { get; private set; }
 
     /// <inheritdoc />
     private void Awake()
     {
+        Instance = this;
+
         Harmony.PatchAll();
         ReactorCredits.Register("Mira API", Version, IsDevBuild, ReactorCredits.AlwaysShow);
 

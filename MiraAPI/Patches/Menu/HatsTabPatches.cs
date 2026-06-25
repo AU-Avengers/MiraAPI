@@ -78,12 +78,12 @@ public static class HatsTabPatches
         }
     }
 
-    private static IEnumerator? loadRoutine;
+    private static Coroutine loadRoutine;
     private static int hatIndex;
 
     private static void GenerateHats(HatsTab __instance, int page)
     {
-        if (loadRoutine != null) Coroutines.Stop(loadRoutine);
+        if (loadRoutine != null) MiraApiPlugin.Instance.StopCoroutine(loadRoutine);
 
         hatIndex = 0;
         foreach (var instanceColorChip in __instance.ColorChips) instanceColorChip.gameObject.Destroy();
@@ -108,7 +108,7 @@ public static class HatsTabPatches
         text.transform.localPosition = new Vector3(xLerp, yLerp, -1f);
 
         hatIndex += 5;
-        loadRoutine = Coroutines.Start(CoGenerateChips(__instance, hats));
+        loadRoutine = MiraApiPlugin.Instance.StartCoroutine(CoGenerateChips(__instance, hats));
     }
 
     private static IEnumerator CoGenerateChips(HatsTab __instance, List<HatData> hats)

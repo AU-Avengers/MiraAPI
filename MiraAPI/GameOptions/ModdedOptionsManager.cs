@@ -101,11 +101,11 @@ public static class ModdedOptionsManager
 
         var setterOriginal = property.GetSetMethod();
         var setterPatch = typeof(ModdedOptionsManager).GetMethod(nameof(PropertySetterPatch));
-        PluginSingleton<MiraApiPlugin>.Instance.Harmony.Patch(setterOriginal, postfix: new HarmonyMethod(setterPatch));
+        MiraApiPlugin.Instance.Harmony.Patch(setterOriginal, postfix: new HarmonyMethod(setterPatch));
 
         var getterOriginal = property.GetGetMethod();
         var getterPatch = typeof(ModdedOptionsManager).GetMethod(nameof(PropertyGetterPatch));
-        PluginSingleton<MiraApiPlugin>.Instance.Harmony.Patch(getterOriginal, prefix: new HarmonyMethod(getterPatch));
+        MiraApiPlugin.Instance.Harmony.Patch(getterOriginal, prefix: new HarmonyMethod(getterPatch));
 
         OptionAttributes.Add(property, attribute);
         attribute.HolderOption = option;

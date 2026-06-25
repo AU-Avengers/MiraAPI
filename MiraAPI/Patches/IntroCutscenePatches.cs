@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
@@ -34,27 +35,14 @@ public static class IntroCutscenePatches
         MiraEventManager.InvokeEvent(@event);
     }
 
-    [HarmonyPatch]
+    [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.ShowRole))]
     public static class IntroCutsceneShowRolePatch
     {
-        public static MethodBase TargetMethod()
+        public static void Prefix(IntroCutscene __instance)
         {
-            return Helpers.GetStateMachineMoveNext<IntroCutscene>(nameof(IntroCutscene.ShowRole))!;
-        }
-
-        public static void Postfix(GameObject __instance)
-        {
-            var wrapper = new StateMachineWrapper<IntroCutscene>(__instance);
-            // run before the first yield
-            if (wrapper.GetState() != 1)
-            {
-                return;
-            }
-
-            var introCutscene = wrapper.Instance;
-
             Info("IntroCutscene ShowRole reached");
-            var @event = new IntroRoleRevealEvent(introCutscene);
+        
+            var @event = new IntroRoleRevealEvent(__instance);
             MiraEventManager.InvokeEvent(@event);
         }
     }
@@ -93,38 +81,31 @@ public static class IntroCutscenePatches
 
         public static MethodBase TargetMethod()
         {
-            var onDestroy = AccessTools.Method(typeof(IntroCutscene), "OnDestroy");
-            if (onDestroy != null)
-            {
-                _usedFallback = false;
-                Info("Using OnDestroy for IntroCutsceneDestroyPatch");
-                return onDestroy;
-            }
-
+            // For now, we just force the fallback
+            
             _usedFallback = true;
-            return Helpers.GetStateMachineMoveNext<IntroCutscene>(nameof(IntroCutscene.CoBegin))!;
+            return AccessTools.Method(typeof(IntroCutscene), nameof(IntroCutscene.CoBegin));
         }
-
-        public static void Postfix(Object __instance)
+        
+        public static void Postfix(IntroCutscene __instance, ref IEnumerator __result)
         {
-            IntroCutscene introCutscene;
-
-            if (_usedFallback)
+            if (!_usedFallback)
             {
-                var wrapper = new StateMachineWrapper<IntroCutscene>(__instance);
-                // run after the final yield
-                if (wrapper.GetState() != -1)
-                {
-                    return;
-                }
-                introCutscene = wrapper.Instance;
-            }
-            else
-            {
-                introCutscene = (IntroCutscene)__instance;
+                TriggerIntroEndEvents(__instance);
+                return;
             }
 
+            if (__result == null)
+            {
+                TriggerIntroEndEvents(__instance);
+                return;
+            }
 
+            __result = Helpers.CreateWrapper(__result, () => TriggerIntroEndEvents(__instance));
+        }
+        
+        private static void TriggerIntroEndEvents(IntroCutscene introCutscene)
+        {
             Info("IntroCutscene ended");
 
             MiraEventManager.InvokeEvent(new IntroEndEvent(introCutscene));
