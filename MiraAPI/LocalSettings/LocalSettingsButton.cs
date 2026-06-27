@@ -27,7 +27,7 @@ public class LocalSettingsButton(string text, Action onClick)
     /// <summary>
     /// Gets the tab instance this button belongs to.
     /// </summary>
-    public LocalSettingsTab? Tab { get; internal set; }
+    public LocalSettingsTab Tab { get; internal set; }
 
     internal GameObject CreateButton(ToggleButtonBehaviour toggle, Transform parent, ref float offset, ref int order, bool last)
     {

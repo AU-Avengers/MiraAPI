@@ -19,7 +19,7 @@ public static class ModCompatibility
     /// </summary>
     /// <param name="submergedAssembly">Submerged mod assembly if loaded, null otherwise.</param>
     /// <returns>True if the Submerged mod is loaded, false otherwise.</returns>
-    public static bool SubmergedLoaded([NotNullWhen(true)] out Assembly? submergedAssembly)
+    public static bool SubmergedLoaded([NotNullWhen(true)] out Assembly submergedAssembly)
     {
         var result = Chainloader.PluginInfos.TryGetValue(SubmergedId, out var plugin);
         submergedAssembly = result ? plugin?.Instance.GetType().Assembly : null;

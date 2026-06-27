@@ -112,10 +112,10 @@ public static class AddressablesLoader
         _isInitialized = true;
         foreach (var (location, providerSuffix) in CatalogLocations)
         {
-            MiraApiPlugin.Instance.StartCoroutine(CoLoadAddressables(location, providerSuffix));
+            AmongUsClient.Instance.StartCoroutine(CoLoadAddressables(location, providerSuffix));
         }
 
-        MiraApiPlugin.Instance.StartCoroutine(LoadCosmetics());
+        AmongUsClient.Instance.StartCoroutine(LoadCosmetics());
     }
 
     internal static IEnumerator CoLoadAddressables(string location, string suffix = "")

@@ -15,18 +15,18 @@ namespace MiraAPI.LocalSettings.Attributes;
 /// <param name="suffixType">Suffix for the value.</param>
 [AttributeUsage(AttributeTargets.Property)]
 public class LocalSliderSettingAttribute(
-    string? name = null,
+    string name = null,
     float min = 0,
     float max = 100,
-    string? description = null,
+    string description = null,
     bool displayValue = false,
-    string? formatString = null,
+    string formatString = null,
     bool roundValue = false,
     MiraNumberSuffixes suffixType = MiraNumberSuffixes.None
     ) : LocalSettingAttribute(name, description)
 {
-    private readonly string? _name = name;
-    private readonly string? _description = description;
+    private readonly string _name = name;
+    private readonly string _description = description;
 
     /// <inheritdoc/>
     public override ILocalSetting CreateSetting(Type tab, ConfigEntryBase configEntryBase)

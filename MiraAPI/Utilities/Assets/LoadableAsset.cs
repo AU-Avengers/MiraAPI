@@ -11,7 +11,7 @@ public abstract class LoadableAsset<T> where T : UnityEngine.Object
     /// <summary>
     /// Gets or sets reference to the loaded asset. Intended to be used for caching purposes.
     /// </summary>
-    protected T? LoadedAsset { get; set; }
+    protected T LoadedAsset { get; set; }
 
     /// <summary>
     /// Loads the asset from the source.

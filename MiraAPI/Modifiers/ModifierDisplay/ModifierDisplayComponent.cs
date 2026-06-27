@@ -20,7 +20,7 @@ public class ModifierDisplayComponent : MonoBehaviour
     /// <summary>
     /// Gets the instance of the Modifier Display.
     /// </summary>
-    public static ModifierDisplayComponent? Instance { get; private set; }
+    public static ModifierDisplayComponent Instance { get; private set; }
 
     private RectTransform _children = null!;
     private GameObject _modTemplate = null!;

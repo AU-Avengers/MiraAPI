@@ -14,9 +14,9 @@ namespace MiraAPI.Patches.LocalSettings;
 [HarmonyPatch(typeof(OptionsMenuBehaviour))]
 public static class OptionsMenuPatches
 {
-    internal static OptionsMenuBehaviour? Instance { get; private set; }
+    internal static OptionsMenuBehaviour Instance { get; private set; }
     internal static BoxCollider2D MaskCollider;
-    private static SpriteRenderer? background;
+    private static SpriteRenderer background;
 
     private static int currentPage = 1;
     private static Dictionary<int, List<GameObject>> tabButtons = new();

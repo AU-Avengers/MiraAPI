@@ -29,7 +29,7 @@ public class MiraKeybind : BaseKeybind
     /// </summary>
     public bool Exclusive { get; }
 
-    internal string? SourcePluginName { get; set; }
+    internal string SourcePluginName { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MiraKeybind"/> class.
@@ -41,7 +41,7 @@ public class MiraKeybind : BaseKeybind
     public MiraKeybind(
         string name,
         KeyboardKeyCode? defaultKeycode,
-        ModifierKey[]? modifierKeys = null,
+        ModifierKey[] modifierKeys = null,
         bool exclusive = true) : base(name.ToLower(CultureInfo.InvariantCulture).Replace(' ', '_'))
     {
         Name = name;

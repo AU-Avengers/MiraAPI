@@ -28,7 +28,7 @@ public class ThinkButton : CustomActionButton
         return true;
     }
 
-    public override bool Enabled(RoleBehaviour? role)
+    public override bool Enabled(RoleBehaviour role)
     {
         return role != null && role.IsImpostor;
     }

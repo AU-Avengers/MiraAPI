@@ -31,8 +31,8 @@ public static class RoleSettingMenuPatches
 
     private static float ScrollerNum { get; set; } = 0.522f;
 
-    private static RoleBehaviour? CurrentRole { get; set; }
-    private static List<IModdedOption>? CurrentRoleOptions { get; set; }
+    private static RoleBehaviour CurrentRole { get; set; }
+    private static List<IModdedOption> CurrentRoleOptions { get; set; }
 
     [HarmonyPostfix]
     [HarmonyPatch(nameof(RolesSettingsMenu.OnEnable))]
@@ -568,7 +568,7 @@ public static class RoleSettingMenuPatches
         __instance.RefreshChildren();
     }
 
-    private static RoleOptionSetting? CreateQuotaOption(RolesSettingsMenu __instance, RoleBehaviour role, int index)
+    private static RoleOptionSetting CreateQuotaOption(RolesSettingsMenu __instance, RoleBehaviour role, int index)
     {
         if (role is not ICustomRole customRole)
         {

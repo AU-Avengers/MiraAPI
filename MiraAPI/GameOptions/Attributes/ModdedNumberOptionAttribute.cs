@@ -15,11 +15,11 @@ public class ModdedNumberOptionAttribute(
     float max,
     float increment = 1,
     MiraNumberSuffixes suffixType = MiraNumberSuffixes.None,
-    string? formatString = null,
+    string formatString = null,
     bool zeroInfinity = false)
     : ModdedOptionAttribute(title)
 {
-    internal override IModdedOption CreateOption(object? value, PropertyInfo property)
+    internal override IModdedOption CreateOption(object value, PropertyInfo property)
     {
         return new ModdedNumberOption(
             Title,

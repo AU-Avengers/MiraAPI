@@ -51,8 +51,8 @@ public static class CustomRoleManager
     internal static readonly Dictionary<ushort, RoleBehaviour> CustomRoles = [];
     internal static readonly Dictionary<Type, ushort> RoleIds = [];
 
-    private static List<BaseGameSetting>? _emptySettings;
-    private static OverlayKillAnimation[]? _emptyKillAnimations;
+    private static List<BaseGameSetting> _emptySettings;
+    private static OverlayKillAnimation[] _emptyKillAnimations;
 
     private static ushort _roleId = 100;
 
@@ -106,7 +106,7 @@ public static class CustomRoleManager
         pluginInfo.PluginConfig.SaveOnConfigSet = oldConfigSetting;
     }
 
-    private static RoleBehaviour? RegisterRole(Type roleType, MiraPluginInfo parentMod)
+    private static RoleBehaviour RegisterRole(Type roleType, MiraPluginInfo parentMod)
     {
         if (!(typeof(RoleBehaviour).IsAssignableFrom(roleType) && typeof(ICustomRole).IsAssignableFrom(roleType)))
         {
@@ -203,7 +203,7 @@ public static class CustomRoleManager
     /// <param name="roleType">The role type enum.</param>
     /// <param name="result">The ICustomRole result.</param>
     /// <returns>True if the role was found.</returns>
-    public static bool GetCustomRoleBehaviour(RoleTypes roleType, out ICustomRole? result)
+    public static bool GetCustomRoleBehaviour(RoleTypes roleType, out ICustomRole result)
     {
         CustomRoles.TryGetValue((ushort)roleType, out var temp);
         if (temp)

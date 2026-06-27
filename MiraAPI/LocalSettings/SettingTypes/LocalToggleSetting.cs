@@ -21,8 +21,8 @@ public class LocalToggleSetting : LocalSettingBase<bool>
     public LocalToggleSetting(
         Type tab,
         ConfigEntryBase configEntry,
-        string? name = null,
-        string? description = null
+        string name = null,
+        string description = null
         ) : base(tab, configEntry, name, description)
     {
     }

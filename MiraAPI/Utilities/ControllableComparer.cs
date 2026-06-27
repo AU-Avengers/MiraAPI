@@ -17,7 +17,7 @@ internal sealed class ControllableComparer<T> : IComparer<T> where T : IComparab
     }
 
     /// <inheritdoc/>
-    public int Compare(T? x, T? y)
+    public int Compare(T x, T y)
     {
         if ((_forcedToBottom.Contains(x) && _forcedToBottom.Contains(y)) || (_forcedToTop.Contains(x) && _forcedToTop.Contains(y)))
             return _fallbackComparer.Compare(x, y);

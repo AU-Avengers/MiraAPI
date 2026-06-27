@@ -101,7 +101,7 @@ public abstract class CustomGameMode
     /// Custom winner selection.
     /// </summary>
     /// <returns>List of winners or null.</returns>
-    public virtual List<NetworkedPlayerInfo>? CalculateWinners() => null;
+    public virtual List<NetworkedPlayerInfo> CalculateWinners() => null;
 
     /// <summary>
     /// Show gamemode in Intro Cutscene.

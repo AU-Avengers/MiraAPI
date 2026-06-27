@@ -57,7 +57,7 @@ public class AddModifierRpc(MiraApiPlugin plugin, uint id) : PlayerCustomRpc<Mir
     public override void Handle(PlayerControl player, ModifierData data)
     {
         var type = ModifierManager.GetModifierType(data.TypeId) ?? throw new InvalidOperationException($"Modifier type not found for ID {data.TypeId}.");
-        BaseModifier? modifier;
+        BaseModifier modifier;
         if (data.Args.Length > 0)
         {
             modifier = ModifierFactory.CreateInstance(type, data.Args);

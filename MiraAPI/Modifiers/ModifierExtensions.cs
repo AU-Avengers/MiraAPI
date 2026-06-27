@@ -78,7 +78,7 @@ public static class ModifierExtensions
     public static void RpcRemoveModifier(
         this PlayerControl target,
         uint typeId,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         var modifier = target.GetModifier(typeId, predicate);
         if (modifier is null)
@@ -99,7 +99,7 @@ public static class ModifierExtensions
     public static void RpcRemoveModifier(
         this PlayerControl player,
         Type type,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         var id = ModifierManager.GetModifierTypeId(type) ?? throw new InvalidOperationException(
             $"Modifier {type.Name} is not registered.");
@@ -113,7 +113,7 @@ public static class ModifierExtensions
     /// <param name="player">The player to remove the modifier from.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
-    public static void RpcRemoveModifier<T>(this PlayerControl player, Func<BaseModifier, bool>? predicate = null)
+    public static void RpcRemoveModifier<T>(this PlayerControl player, Func<BaseModifier, bool> predicate = null)
         where T : BaseModifier
     {
         player.RpcRemoveModifier(typeof(T), predicate);
@@ -148,7 +148,7 @@ public static class ModifierExtensions
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
     /// <returns>True if the player has the modifier, false otherwise.</returns>
-    public static bool HasModifier<T>(this PlayerControl player, Func<T, bool>? predicate = null) where T : BaseModifier
+    public static bool HasModifier<T>(this PlayerControl player, Func<T, bool> predicate = null) where T : BaseModifier
     {
         return player.GetModifierComponent().HasModifier(predicate);
     }
@@ -160,7 +160,7 @@ public static class ModifierExtensions
     /// <param name="type">The type of the modifier.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
     /// <returns>True if the player has the modifier, false otherwise.</returns>
-    public static bool HasModifier(this PlayerControl player, Type type, Func<BaseModifier, bool>? predicate = null)
+    public static bool HasModifier(this PlayerControl player, Type type, Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().HasModifier(type, predicate);
     }
@@ -175,7 +175,7 @@ public static class ModifierExtensions
     public static bool HasModifier(
         this PlayerControl player,
         uint typeId,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().HasModifier(typeId, predicate);
     }
@@ -223,7 +223,7 @@ public static class ModifierExtensions
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public static bool TryGetModifier<T>(this PlayerControl player, [NotNullWhen(true)] out T? modifier, Func<T, bool>? predicate = null) where T : BaseModifier
+    public static bool TryGetModifier<T>(this PlayerControl player, [NotNullWhen(true)] out T modifier, Func<T, bool> predicate = null) where T : BaseModifier
     {
         return player.GetModifierComponent().TryGetModifier(out modifier, predicate);
     }
@@ -236,7 +236,7 @@ public static class ModifierExtensions
     /// <param name="modifier">The modifier or null.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public static bool TryGetModifier(this PlayerControl player, Type type, [NotNullWhen(true)] out BaseModifier? modifier, Func<BaseModifier, bool>? predicate = null)
+    public static bool TryGetModifier(this PlayerControl player, Type type, [NotNullWhen(true)] out BaseModifier modifier, Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().TryGetModifier(type, out modifier, predicate);
     }
@@ -249,7 +249,7 @@ public static class ModifierExtensions
     /// <param name="modifier">The modifier or null.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public static bool TryGetModifier(this PlayerControl player, uint id, [NotNullWhen(true)] out BaseModifier? modifier, Func<BaseModifier, bool>? predicate = null)
+    public static bool TryGetModifier(this PlayerControl player, uint id, [NotNullWhen(true)] out BaseModifier modifier, Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().TryGetModifier(id, out modifier, predicate);
     }
@@ -261,7 +261,7 @@ public static class ModifierExtensions
     /// <param name="modifierGuid">The modifier unique ID.</param>
     /// <param name="modifier">The modifier or null.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public static bool TryGetModifier(this PlayerControl player, Guid modifierGuid, [NotNullWhen(true)] out BaseModifier? modifier)
+    public static bool TryGetModifier(this PlayerControl player, Guid modifierGuid, [NotNullWhen(true)] out BaseModifier modifier)
     {
         return player.GetModifierComponent().TryGetModifier(modifierGuid, out modifier);
     }
@@ -273,7 +273,7 @@ public static class ModifierExtensions
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
     /// <returns>The modifier if found, null otherwise.</returns>
-    public static T? GetModifier<T>(this PlayerControl player, Func<T, bool>? predicate = null) where T : BaseModifier
+    public static T GetModifier<T>(this PlayerControl player, Func<T, bool> predicate = null) where T : BaseModifier
     {
         return player.GetModifierComponent().GetModifier(predicate);
     }
@@ -285,10 +285,10 @@ public static class ModifierExtensions
     /// <param name="type">The type of the modifier.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
     /// <returns>The modifier if found, null otherwise.</returns>
-    public static BaseModifier? GetModifier(
+    public static BaseModifier GetModifier(
         this PlayerControl player,
         Type type,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().GetModifier(type, predicate);
     }
@@ -300,10 +300,10 @@ public static class ModifierExtensions
     /// <param name="typeId">The type ID of the modifier.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
     /// <returns>The modifier if found, null otherwise.</returns>
-    public static BaseModifier? GetModifier(
+    public static BaseModifier GetModifier(
         this PlayerControl player,
         uint typeId,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().GetModifier(typeId, predicate);
     }
@@ -314,7 +314,7 @@ public static class ModifierExtensions
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="uniqueId">The GUID of the modifier.</param>
     /// <returns>The modifier if found, null otherwise.</returns>
-    public static BaseModifier? GetModifier(
+    public static BaseModifier GetModifier(
         this PlayerControl player,
         Guid uniqueId)
     {
@@ -328,7 +328,7 @@ public static class ModifierExtensions
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
     /// <returns>A collection of modifiers.</returns>
-    public static IEnumerable<T> GetModifiers<T>(this PlayerControl player, Func<T, bool>? predicate = null)
+    public static IEnumerable<T> GetModifiers<T>(this PlayerControl player, Func<T, bool> predicate = null)
         where T : BaseModifier
     {
         return player.GetModifierComponent().GetModifiers(predicate);
@@ -344,7 +344,7 @@ public static class ModifierExtensions
     public static IEnumerable<BaseModifier> GetModifiers(
         this PlayerControl player,
         Type type,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().GetModifiers(type, predicate);
     }
@@ -359,7 +359,7 @@ public static class ModifierExtensions
     public static IEnumerable<BaseModifier> GetModifiers(
         this PlayerControl player,
         uint typeId,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         return player.GetModifierComponent().GetModifiers(typeId, predicate);
     }
@@ -380,7 +380,7 @@ public static class ModifierExtensions
     /// <typeparam name="T">The type of the modifier.</typeparam>
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
-    public static void RemoveModifier<T>(this PlayerControl player, Func<T, bool>? predicate = null)
+    public static void RemoveModifier<T>(this PlayerControl player, Func<T, bool> predicate = null)
         where T : BaseModifier
     {
         player.GetModifierComponent().RemoveModifier(predicate);
@@ -392,7 +392,7 @@ public static class ModifierExtensions
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="type">The type of the modifier.</param>
     /// <param name="predicate">Optional predicate to filter the modifiers.</param>
-    public static void RemoveModifier(this PlayerControl player, Type type, Func<BaseModifier, bool>? predicate = null)
+    public static void RemoveModifier(this PlayerControl player, Type type, Func<BaseModifier, bool> predicate = null)
     {
         player.GetModifierComponent().RemoveModifier(type, predicate);
     }
@@ -406,7 +406,7 @@ public static class ModifierExtensions
     public static void RemoveModifier(
         this PlayerControl player,
         uint typeId,
-        Func<BaseModifier, bool>? predicate = null)
+        Func<BaseModifier, bool> predicate = null)
     {
         player.GetModifierComponent().RemoveModifier(typeId, predicate);
     }
@@ -430,7 +430,7 @@ public static class ModifierExtensions
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <returns>The added modifier.</returns>
-    public static T? AddModifier<T>(this PlayerControl player, params object[] args) where T : BaseModifier
+    public static T AddModifier<T>(this PlayerControl player, params object[] args) where T : BaseModifier
     {
         return player.GetModifierComponent().AddModifier<T>(args);
     }
@@ -441,7 +441,7 @@ public static class ModifierExtensions
     /// <param name="player">The PlayerControl instance.</param>
     /// <param name="modifier">The modifier to add.</param>
     /// <returns>The added modifier.</returns>
-    public static BaseModifier? AddModifier(this PlayerControl player, BaseModifier modifier)
+    public static BaseModifier AddModifier(this PlayerControl player, BaseModifier modifier)
     {
         return player.GetModifierComponent().AddModifier(modifier);
     }
@@ -453,7 +453,7 @@ public static class ModifierExtensions
     /// <param name="type">The type of the modifier.</param>
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <returns>The added modifier.</returns>
-    public static BaseModifier? AddModifier(this PlayerControl player, Type type, params object[] args)
+    public static BaseModifier AddModifier(this PlayerControl player, Type type, params object[] args)
     {
         return player.GetModifierComponent().AddModifier(type, args);
     }
@@ -465,7 +465,7 @@ public static class ModifierExtensions
     /// <param name="typeId">The type ID of the modifier.</param>
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <returns>The added modifier.</returns>
-    public static BaseModifier? AddModifier(this PlayerControl player, uint typeId, params object[] args)
+    public static BaseModifier AddModifier(this PlayerControl player, uint typeId, params object[] args)
     {
         return player.GetModifierComponent().AddModifier(typeId, args);
     }

@@ -43,12 +43,12 @@ public sealed class VanillaButtonClickEvent : MiraCancelableEvent
     /// <summary>
     /// Gets the target player, if any, of the Vanilla Button that was clicked.
     /// </summary>
-    public PlayerControl? PlayerTarget { get; }
+    public PlayerControl PlayerTarget { get; }
 
     /// <summary>
     /// Gets the target vent, if any, of the Vanilla Button that was clicked.
     /// </summary>
-    public Vent? VentTarget { get; }
+    public Vent VentTarget { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VanillaButtonClickEvent"/> class.
@@ -56,7 +56,7 @@ public sealed class VanillaButtonClickEvent : MiraCancelableEvent
     /// <param name="button">The Vanilla Button that was clicked.</param>
     /// <param name="playerTarget">The Player target, if any.</param>
     /// <param name="ventTarget">The Vent target, if any.</param>
-    public VanillaButtonClickEvent(AbilityButton button, PlayerControl? playerTarget = null, Vent? ventTarget = null)
+    public VanillaButtonClickEvent(AbilityButton button, PlayerControl playerTarget = null, Vent ventTarget = null)
     {
         Button = button;
         PlayerTarget = playerTarget;

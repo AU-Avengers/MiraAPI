@@ -17,7 +17,7 @@ public static class MinigameStubs
     [HarmonyReversePatch]
     [HarmonyPatch(typeof(Minigame), nameof(Minigame.Begin))]
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void Begin(Minigame instance, PlayerTask? task)
+    public static void Begin(Minigame instance, PlayerTask task)
     {
         // nothing needed
     }

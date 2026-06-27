@@ -9,9 +9,9 @@ namespace MiraAPI.GameOptions.Attributes;
 /// <param name="title">The option title.</param>
 /// <param name="roleType">Optional parameter to specify a role Type.</param>
 [AttributeUsage(AttributeTargets.Property)]
-public abstract class ModdedOptionAttribute(string title, Type? roleType = null) : Attribute
+public abstract class ModdedOptionAttribute(string title, Type roleType = null) : Attribute
 {
-    internal IModdedOption? HolderOption { get; set; }
+    internal IModdedOption HolderOption { get; set; }
 
     /// <summary>
     /// Gets the title of the option.
@@ -21,7 +21,7 @@ public abstract class ModdedOptionAttribute(string title, Type? roleType = null)
     /// <summary>
     /// Gets the role type of the option.
     /// </summary>
-    protected Type? RoleType { get; private set; } = roleType;
+    protected Type RoleType { get; private set; } = roleType;
 
     /// <summary>
     /// Sets the value of the option.
@@ -35,5 +35,5 @@ public abstract class ModdedOptionAttribute(string title, Type? roleType = null)
     /// <returns>The value of the option as an object.</returns>
     public abstract object GetValue();
 
-    internal abstract IModdedOption? CreateOption(object? value, PropertyInfo property);
+    internal abstract IModdedOption CreateOption(object value, PropertyInfo property);
 }

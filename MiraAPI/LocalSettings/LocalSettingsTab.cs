@@ -45,7 +45,7 @@ public abstract class LocalSettingsTab(ConfigFile config)
     /// <summary>
     /// Gets the tab button instance.
     /// </summary>
-    public TabGroup? TabButton { get; internal set; }
+    public TabGroup TabButton { get; internal set; }
 
     /// <summary>
     /// Gets the list of settings.
@@ -62,7 +62,7 @@ public abstract class LocalSettingsTab(ConfigFile config)
     /// </summary>
     protected int TabIndex => LocalSettingsManager.Tabs.IndexOf(this) + 10;
 
-    private Scroller? Scroller { get; set; }
+    private Scroller Scroller { get; set; }
 
     /// <summary>
     /// Invoked when an option value is changed.
@@ -223,7 +223,7 @@ public abstract class LocalSettingsTab(ConfigFile config)
         rollover.OverColor = TabAppearance.TabButtonHoverColor;
         rollover.OutColor = TabAppearance.TabButtonColor;
 
-        SpriteRenderer? tabButtonRend = null;
+        SpriteRenderer tabButtonRend = null;
         if (TabAppearance.TabIcon != null)
         {
             tabButtonRend = new GameObject("sprite").AddComponent<SpriteRenderer>();

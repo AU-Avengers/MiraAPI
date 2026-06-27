@@ -18,8 +18,8 @@ public static class VanillaButtonPatches
     public static bool DoClickPrefix(AbilityButton __instance)
     {
         // Invoke the generic button click event.
-        PlayerControl? playerTarget = null;
-        Vent? ventTarget = null;
+        PlayerControl playerTarget = null;
+        Vent ventTarget = null;
         var role = PlayerControl.LocalPlayer.Data.Role;
         if (role.Role is RoleTypes.Tracker)
         {
@@ -52,7 +52,7 @@ public static class VanillaButtonPatches
     public static bool SecondaryDoClickPrefix(AbilityButton __instance)
     {
         // Invoke the generic button click event.
-        PlayerControl? playerTarget = null;
+        PlayerControl playerTarget = null;
         var role = PlayerControl.LocalPlayer.Data.Role;
         if (role.Role is RoleTypes.Detective)
         {

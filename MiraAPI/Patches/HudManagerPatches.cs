@@ -21,9 +21,9 @@ namespace MiraAPI.Patches;
 public static class HudManagerPatches
 {
     // Custom buttons parent.
-    public static GameObject? BottomLeft { get; private set; }
-    public static Transform? BottomRight { get; private set; }
-    public static Transform? Buttons { get; private set; }
+    public static GameObject BottomLeft { get; private set; }
+    public static Transform BottomRight { get; private set; }
+    public static Transform Buttons { get; private set; }
 
     private static Dictionary<TextMeshPro, int> vanillaKeybindIcons = [];
 
@@ -232,7 +232,7 @@ public static class HudManagerPatches
         }
         MiraApiSettings.OldButtonScaleFactor =
             LocalSettingsTabSingleton<MiraApiSettings>.Instance.ButtonUIFactorSlider.Value;
-        MiraApiPlugin.Instance.StartCoroutine(CoResizeUI());
+        AmongUsClient.Instance.StartCoroutine(CoResizeUI());
     }
 
     /// <summary>

@@ -5,6 +5,8 @@
         <PackageId>AllOfUs.MiraAPI</PackageId>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Nullable>disable</Nullable>
+        <WarningsAsErrors>$(WarningsAsErrors);CS8632</WarningsAsErrors>
     </PropertyGroup>
     
     <ItemGroup>

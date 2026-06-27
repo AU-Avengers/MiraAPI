@@ -221,7 +221,7 @@ public interface ICustomRole : IOptionable
     /// </summary>
     /// <param name="player">The NetworkedPlayerInfo object for this player.</param>
     /// <returns>A string with a custom ejection message or null.</returns>
-    string? GetCustomEjectionMessage(NetworkedPlayerInfo player)
+    string GetCustomEjectionMessage(NetworkedPlayerInfo player)
     {
         return Team == ModdedRoleTeams.Impostor ? $"{player.PlayerName} was The {RoleName}" : null;
     }

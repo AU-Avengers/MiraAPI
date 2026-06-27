@@ -135,7 +135,7 @@ public static class Helpers
     /// </summary>
     /// <param name="id">The vent ID.</param>
     /// <returns>The vent.</returns>
-    public static Vent? GetVentById(int id)
+    public static Vent GetVentById(int id)
     {
         return ShipStatus.Instance.AllVents.FirstOrDefault(vent => vent.Id == id);
     }
@@ -164,9 +164,9 @@ public static class Helpers
     /// <param name="position">The position of where you want to check from. For example: PlayerControl.LocalPlayer.transform.position.</param>
     /// <typeparam name="T">The object type.</typeparam>
     /// <returns>The closest object.</returns>
-    public static T? FindClosestObjectOfType<T>(List<T> objectList, Vector3 position) where T : MonoBehaviour
+    public static T FindClosestObjectOfType<T>(List<T> objectList, Vector3 position) where T : MonoBehaviour
     {
-        T? closest = null;
+        T closest = null;
         var closestDistanceSqr = Mathf.Infinity;
 
         foreach (var obj in objectList)
@@ -195,7 +195,7 @@ public static class Helpers
     /// <param name="clip">The sound you want to play with the notification.</param>
     /// <param name="spr">The sprite beside the notification.</param>
     /// <returns>The created notification.</returns>
-    public static LobbyNotificationMessage CreateAndShowNotification(string text, Color color, AudioClip? clip = null, Sprite? spr = null)
+    public static LobbyNotificationMessage CreateAndShowNotification(string text, Color color, AudioClip clip = null, Sprite spr = null)
     {
         return CreateAndShowNotification(text, color, new Vector3(0f, 0f, -2f), clip, spr);
     }
@@ -209,7 +209,7 @@ public static class Helpers
     /// <param name="clip">The sound you want to play with the notification.</param>
     /// <param name="spr">The sprite beside the notification.</param>
     /// <returns>The created notification.</returns>
-    public static LobbyNotificationMessage CreateAndShowNotification(string text, Color color, Vector3 localPos, AudioClip? clip = null, Sprite? spr = null)
+    public static LobbyNotificationMessage CreateAndShowNotification(string text, Color color, Vector3 localPos, AudioClip clip = null, Sprite spr = null)
     {
         var popper = HudManager.Instance.Notifier;
         var newMessage = Object.Instantiate(popper.notificationMessageOrigin, Vector3.zero, Quaternion.identity, popper.transform);
@@ -252,7 +252,7 @@ public static class Helpers
     /// </summary>
     /// <param name="pos">The position.</param>
     /// <returns>The ship room if its found.</returns>
-    public static PlainShipRoom? GetRoom(Vector3 pos)
+    public static PlainShipRoom GetRoom(Vector3 pos)
     {
         return ShipStatus.Instance.AllRooms.FirstOrDefault(room => room.roomArea.OverlapPoint(pos));
     }
@@ -282,7 +282,7 @@ public static class Helpers
     /// <param name="colliderTag">An optional collider tag.</param>
     /// <typeparam name="T">The type of the object.</typeparam>
     /// <returns>A list of objects of type T.</returns>
-    public static List<T> GetNearestObjectsOfType<T>(Vector2 source, float radius, ContactFilter2D filter, string? colliderTag = null)
+    public static List<T> GetNearestObjectsOfType<T>(Vector2 source, float radius, ContactFilter2D filter, string colliderTag = null)
         where T : Component
     {
         var results = new List<Collider2D>();
@@ -446,7 +446,7 @@ public static class Helpers
     /// </summary>
     /// <param name="id">The player ID.</param>
     /// <returns>A dead body or null if its not found.</returns>
-    public static DeadBody? GetBodyById(byte id)
+    public static DeadBody GetBodyById(byte id)
     {
         return Object.FindObjectsOfType<DeadBody>().FirstOrDefault(body => body.ParentId == id);
     }

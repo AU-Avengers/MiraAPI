@@ -13,12 +13,12 @@ namespace MiraAPI.Utilities.Assets;
 /// <typeparam name="T">The type of the asset to be loaded.</typeparam>
 public class LoadableAddressableAssets<T>(string key) where T : UnityEngine.Object
 {
-    private readonly Action<LoadableAddressableAssets<T>>? _gcAction;
+    private readonly Action<LoadableAddressableAssets<T>> _gcAction;
 
     /// <summary>
     /// Gets or sets reference to the loaded asset. Intended to be used for caching purposes.
     /// </summary>
-    protected List<T>? LoadedAssets { get; set; }
+    protected List<T> LoadedAssets { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadableAddressableAssets{T}"/> class, with added garbageCollector logic,
@@ -45,20 +45,16 @@ public class LoadableAddressableAssets<T>(string key) where T : UnityEngine.Obje
 
         var locations = Addressables.LoadResourceLocationsAsync(key).WaitForCompletion();
 
-        if (!GC.TryStartNoGCRegion(4096, true)) Error("Could not start NoGCRegion of size 4kb, there is the possibility of injected unmanaged classes being garbage collected as per BepInEx/Il2CppInterop/issues/40");
-
         var assetsIList = Addressables.LoadAssetsAsync<T>(locations, null, false).WaitForCompletion();
         if (assetsIList == null)
         {
-            GC.EndNoGCRegion();
             throw new InvalidOperationException($"INVALID ASSET/s: {key}");
         }
 
         var assetsList = new List<T>(assetsIList);
         LoadedAssets = assetsList.ToList();
 
-        _gcAction?.Invoke(this);
-        GC.EndNoGCRegion();
+        //_gcAction?.Invoke(this); not anymore
 
         return LoadedAssets.AsReadOnly();
     }

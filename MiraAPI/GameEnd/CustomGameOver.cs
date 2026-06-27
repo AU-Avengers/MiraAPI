@@ -12,7 +12,7 @@ public abstract class CustomGameOver
     /// <summary>
     /// Gets the current CustomGameOver.
     /// </summary>
-    public static CustomGameOver? Instance { get; internal set; }
+    public static CustomGameOver Instance { get; internal set; }
 
     /// <summary>
     /// Verifies if the condition for this CustomGameOver is met.

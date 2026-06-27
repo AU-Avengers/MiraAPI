@@ -17,7 +17,7 @@ public record struct LocalSettingTabAppearance()
     /// <summary>
     /// Gets or sets tab button icon. No icon by default.
     /// </summary>
-    public LoadableAsset<Sprite>? TabIcon { get; set; }
+    public LoadableAsset<Sprite> TabIcon { get; set; }
 
     /// <summary>
     /// Gets or sets color of the tab button.

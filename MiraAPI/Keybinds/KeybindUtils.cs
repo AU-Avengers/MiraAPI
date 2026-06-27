@@ -11,7 +11,7 @@ public static class KeybindUtils
     /// <summary>
     /// Gets the Rewired <see cref="InputManager_Base"/> instance.
     /// </summary>
-    public static InputManager_Base? RewiredInputManager { get; internal set; }
+    public static InputManager_Base RewiredInputManager { get; internal set; }
 
     /// <summary>
     /// Returns the currently assigned keycode of a keybind.
@@ -43,7 +43,7 @@ public static class KeybindUtils
     /// </summary>
     /// <param name="actionId">The action ID.</param>
     /// <returns>The keyboard keycode.</returns>
-    public static ActionElementMap? GetActionElementMap(int actionId)
+    public static ActionElementMap GetActionElementMap(int actionId)
     {
         var player = ReInput.players.GetPlayer(0);
         return player.controllers.maps.GetFirstElementMapWithAction(ControllerType.Keyboard, actionId, false);
@@ -54,7 +54,7 @@ public static class KeybindUtils
     /// </summary>
     /// <param name="id">The action identifier name.</param>
     /// <returns>The keyboard keycode.</returns>
-    public static InputAction? GetInputActionById(int id)
+    public static InputAction GetInputActionById(int id)
     {
         return RewiredInputManager?.userData?.GetActionById(id);
     }

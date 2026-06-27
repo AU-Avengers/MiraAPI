@@ -15,7 +15,7 @@ namespace MiraAPI.GameOptions.OptionTypes;
 /// <typeparam name="T">The value type.</typeparam>
 public abstract class ModdedOption<T> : IModdedOption
 {
-    private IMiraPlugin? _parentMod;
+    private IMiraPlugin _parentMod;
 
     /// <inheritdoc />
     public uint Id { get; }
@@ -30,7 +30,7 @@ public abstract class ModdedOption<T> : IModdedOption
     public BaseGameSetting Data { get; protected set; } = null!;
 
     /// <inheritdoc />
-    public IMiraPlugin? ParentMod
+    public IMiraPlugin ParentMod
     {
         get => _parentMod;
         set
@@ -56,7 +56,7 @@ public abstract class ModdedOption<T> : IModdedOption
     /// <summary>
     /// Gets or sets the event that is invoked when the value of the option changes.
     /// </summary>
-    public Action<T>? ChangedEvent { get; set; }
+    public Action<T> ChangedEvent { get; set; }
 
     /// <inheritdoc />
     public Func<bool> Visible { get; set; }
@@ -65,10 +65,10 @@ public abstract class ModdedOption<T> : IModdedOption
     public bool IncludeInPreset { get; set; }
 
     /// <inheritdoc />
-    public OptionBehaviour? OptionBehaviour { get; protected set; }
+    public OptionBehaviour OptionBehaviour { get; protected set; }
 
     /// <inheritdoc />
-    public ConfigDefinition? ConfigDefinition { get; set; }
+    public ConfigDefinition ConfigDefinition { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ModdedOption{T}"/> class.

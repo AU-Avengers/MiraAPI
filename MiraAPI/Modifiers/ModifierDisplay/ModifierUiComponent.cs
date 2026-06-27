@@ -11,7 +11,7 @@ public class ModifierUiComponent : MonoBehaviour
     /// <summary>
     /// Gets the modifier which this component is for.
     /// </summary>
-    public BaseModifier? Modifier { get; internal set; }
+    public BaseModifier Modifier { get; internal set; }
 
     // ReSharper disable InconsistentNaming
     private SpriteRenderer modBg = null!;

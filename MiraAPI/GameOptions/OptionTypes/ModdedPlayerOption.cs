@@ -21,7 +21,7 @@ public class ModdedPlayerOption : ModdedOption<int>
     /// <summary>
     /// Gets or sets a filter for the players included in the option.
     /// </summary>
-    public Func<NetworkedPlayerInfo, bool>? PlayerFilter { get; set; }
+    public Func<NetworkedPlayerInfo, bool> PlayerFilter { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the option includes a "None" option. If None is selected, value will return -1.
@@ -94,7 +94,7 @@ public class ModdedPlayerOption : ModdedOption<int>
     /// Returns a player from the value. If AllowNone is enabled and none is enabled this will return null.
     /// </summary>
     /// <returns>A player or null if chosen none.</returns>
-    public NetworkedPlayerInfo? GetPlayerValue()
+    public NetworkedPlayerInfo GetPlayerValue()
     {
         return Value < 0 ? null : Values[Value];
     }

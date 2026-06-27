@@ -11,13 +11,13 @@ namespace MiraAPI.LocalSettings.Attributes;
 /// <inheritdoc/>
 [AttributeUsage(AttributeTargets.Property)]
 public class LocalEnumSettingAttribute(
-    string? name = null,
-    string? description = null,
-    string[]? names = null
+    string name = null,
+    string description = null,
+    string[] names = null
     ) : LocalSettingAttribute(name, description)
 {
-    private readonly string? _name = name;
-    private readonly string? _description = description;
+    private readonly string _name = name;
+    private readonly string _description = description;
 
     /// <inheritdoc/>
     public override ILocalSetting CreateSetting(Type tab, ConfigEntryBase configEntryBase)

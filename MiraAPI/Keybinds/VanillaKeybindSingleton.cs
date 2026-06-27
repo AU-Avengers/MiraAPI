@@ -6,7 +6,7 @@
 /// <typeparam name="T">ActionButton type.</typeparam>
 public static class VanillaKeybinding<T> where T : ActionButton
 {
-    private static VanillaKeybind? _instance;
+    private static VanillaKeybind _instance;
 
     /// <summary>
     /// Gets the instance of the option group.

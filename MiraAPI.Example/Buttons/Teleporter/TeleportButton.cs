@@ -22,21 +22,21 @@ public class TeleportButton : CustomActionButton
     public override LoadableAsset<Sprite> Sprite => ExampleAssets.TeleportButton;
     public override Color TextOutlineColor => new Color32(221, 176, 152, 255);
     public static bool IsZoom { get; private set; }
-    public override BaseKeybind? Keybind => MiraGlobalKeybinds.PrimaryAbility;
+    public override BaseKeybind Keybind => MiraGlobalKeybinds.PrimaryAbility;
 
-    public override bool Enabled(RoleBehaviour? role)
+    public override bool Enabled(RoleBehaviour role)
     {
         return role is TeleporterRole;
     }
 
     protected override void OnClick()
     {
-        MiraApiPlugin.Instance.StartCoroutine(ZoomOutCoroutine());
+        AmongUsClient.Instance.StartCoroutine(ZoomOutCoroutine());
     }
 
     public override void OnEffectEnd()
     {
-        MiraApiPlugin.Instance.StartCoroutine(ZoomInCoroutine());
+        AmongUsClient.Instance.StartCoroutine(ZoomInCoroutine());
     }
 
     protected override void FixedUpdate(PlayerControl playerControl)

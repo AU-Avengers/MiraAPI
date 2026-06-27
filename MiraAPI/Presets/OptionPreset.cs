@@ -35,7 +35,7 @@ public class OptionPreset
     /// <summary>
     /// Gets or sets the button associated with the preset in the UI.
     /// </summary>
-    public GameObject? PresetButton { get; set; }
+    public GameObject PresetButton { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OptionPreset"/> class with the specified name and configuration file.

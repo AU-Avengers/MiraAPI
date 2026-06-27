@@ -35,7 +35,7 @@ public static class CustomRoleUtils
 
     public static List<(ushort RoleType, int Chance)> GetPossibleRoles(
         List<RoleManager.RoleAssignmentData> assignmentData,
-        Func<RoleManager.RoleAssignmentData, bool>? predicate = null)
+        Func<RoleManager.RoleAssignmentData, bool> predicate = null)
     {
         var roles = new List<(ushort, int)>();
 
@@ -62,7 +62,7 @@ public static class CustomRoleUtils
         return assignmentData;
     }
 
-    public static RoleBehaviour? GetRegisteredRole(RoleTypes roleType)
+    public static RoleBehaviour GetRegisteredRole(RoleTypes roleType)
     {
         // we want to prioritize the custom roles because the role has the right RoleColour/TeamColor
         var role = CustomRoleManager.AllRoles.FirstOrDefault(x => x.Role == roleType);
@@ -110,7 +110,7 @@ public static class CustomRoleUtils
     /// </summary>
     /// <param name="roleType">The role type.</param>
     /// <returns>The intro sound.</returns>
-    public static LoadableAsset<AudioClip>? GetIntroSound(RoleTypes roleType)
+    public static LoadableAsset<AudioClip> GetIntroSound(RoleTypes roleType)
     {
         var role = CustomRoleManager.AllRoles.FirstOrDefault(role => role.Role == roleType);
         if (role is ICustomRole customRole)

@@ -94,7 +94,7 @@ public static class Extensions
     /// <param name="timer">The current timer value.</param>
     /// <param name="maxTimer">The maximum timer value.</param>
     /// <param name="format">The format string to use for the timer text.</param>
-    public static void SetCooldownFormat(this ActionButton? button, float timer, float maxTimer, string format = "0")
+    public static void SetCooldownFormat(this ActionButton button, float timer, float maxTimer, string format = "0")
     {
         var num = Mathf.Clamp(timer / maxTimer, 0f, 1f);
         if (button == null)
@@ -164,7 +164,7 @@ public static class Extensions
     /// </summary>
     /// <param name="state">The vote area.</param>
     /// <returns>The player's PlayerControl.</returns>
-    public static PlayerControl? GetPlayer(this PlayerVoteArea state) => GameData.Instance.GetPlayerById(state.TargetPlayerId)?.Object;
+    public static PlayerControl GetPlayer(this PlayerVoteArea state) => GameData.Instance.GetPlayerById(state.TargetPlayerId)?.Object;
 
     /// <summary>
     /// Gets an int representing the amount of tasks a player has left.
@@ -286,7 +286,7 @@ public static class Extensions
     /// <param name="type">The type to get the constructor from.</param>
     /// <param name="args">The arguments to pass into the constructor.</param>
     /// <returns>The best constructor.</returns>
-    public static ConstructorInfo? GetBestConstructor(this Type type, params object[] args)
+    public static ConstructorInfo GetBestConstructor(this Type type, params object[] args)
     {
         return type.GetValidConstructors(args)
             .OrderBy(
@@ -392,7 +392,7 @@ public static class Extensions
     /// <param name="maxLength">The maximum length.</param>
     /// <param name="truncationSuffix">An option suffix to attach at the end of the truncated string.</param>
     /// <returns>A truncated string of maxLength with the attached suffix.</returns>
-    public static string? Truncate(this string? value, int maxLength, string truncationSuffix = "…")
+    public static string Truncate(this string value, int maxLength, string truncationSuffix = "…")
     {
         return value?.Length > maxLength
             ? value[..maxLength] + truncationSuffix
@@ -499,7 +499,7 @@ public static class Extensions
     /// <param name="playerControl">The player object.</param>
     /// <param name="radius">The radius to search within.</param>
     /// <returns>The dead body if it is found, or null there is none within the radius.</returns>
-    public static DeadBody? GetNearestDeadBody(this PlayerControl playerControl, float radius)
+    public static DeadBody GetNearestDeadBody(this PlayerControl playerControl, float radius)
     {
         return Helpers
             .GetNearestDeadBodies(playerControl.GetTruePosition(), radius, Helpers.CreateFilter(Constants.NotShipMask))
@@ -516,12 +516,12 @@ public static class Extensions
     /// <param name="predicate">Optional predicate to test if the object is valid.</param>
     /// <typeparam name="T">The type of the object.</typeparam>
     /// <returns>The object if it was found, or null if there is none within the radius.</returns>
-    public static T? GetNearestObjectOfType<T>(
+    public static T GetNearestObjectOfType<T>(
         this PlayerControl playerControl,
         float radius,
         ContactFilter2D filter,
-        string? colliderTag = null,
-        Predicate<T>? predicate = null) where T : Component
+        string colliderTag = null,
+        Predicate<T> predicate = null) where T : Component
     {
         return Helpers.GetNearestObjectsOfType<T>(playerControl.GetTruePosition(), radius, filter, colliderTag)
             .Find(predicate ?? (component => component));
@@ -537,13 +537,13 @@ public static class Extensions
     /// <param name="includeGhosts">Determines if Ghosts are included.</param>
     /// <param name="predicate">Optional predicate to test if the object is valid.</param>
     /// <returns>The closest player if there is one, false otherwise.</returns>
-    public static PlayerControl? GetClosestPlayer(
+    public static PlayerControl GetClosestPlayer(
         this PlayerControl playerControl,
         bool includeImpostors,
         float distance,
         bool ignoreColliders = false,
         bool includeGhosts = false,
-        Predicate<PlayerControl>? predicate = null)
+        Predicate<PlayerControl> predicate = null)
     {
         var filteredPlayers = Helpers.GetClosestPlayers(playerControl, distance, ignoreColliders)
             .Where(
@@ -582,7 +582,7 @@ public static class Extensions
     /// <param name="type">The <see cref="InputActionType"/> for this action (default is Button).</param>
     /// <param name="modifiers">Optional modifier keys (e.g., <c>Control</c>, <c>Shift</c>, <c>Alt</c>) that must be held together with the main key.</param>
     /// <returns>The action ID of the newly registered action.</returns>
-    public static InputAction RegisterModBind(this UserData userData, string id, string name, string? group, KeyboardKeyCode key, int category = 0, int elementIdentifierId = -1, InputActionType type = InputActionType.Button, ModifierKey[]? modifiers = null)
+    public static InputAction RegisterModBind(this UserData userData, string id, string name, string group, KeyboardKeyCode key, int category = 0, int elementIdentifierId = -1, InputActionType type = InputActionType.Button, ModifierKey[] modifiers = null)
     {
         // TODO: figure out why this doesn't resolve
         //userData.AddAction(category);

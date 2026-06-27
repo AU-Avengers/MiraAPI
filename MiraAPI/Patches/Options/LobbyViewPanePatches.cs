@@ -23,11 +23,11 @@ public static class LobbyViewPanePatches
 {
     private static int SelectedModIdx { get; set; }
 
-    private static MiraPluginInfo? SelectedMod => SelectedModIdx == 0
+    private static MiraPluginInfo SelectedMod => SelectedModIdx == 0
         ? null
         : MiraPluginManager.Instance.RegisteredPlugins[SelectedModIdx - 1];
 
-    private static PassiveButton? ModifiersTabButton { get; set; }
+    private static PassiveButton ModifiersTabButton { get; set; }
 
     private static StringNames ModifiersTabName { get; } = CustomStringName.CreateAndRegister("ModifiersTab");
 
@@ -520,7 +520,7 @@ public static class LobbyViewPanePatches
         instance.scrollBar.SetYBoundsMax(-num);
     }
 
-    public static void SetModdedHeader(this CategoryHeaderRoleVariant header, StringNames roleName, int maskLayer, ModdedRoleTeams team, Sprite? roleIcon = null)
+    public static void SetModdedHeader(this CategoryHeaderRoleVariant header, StringNames roleName, int maskLayer, ModdedRoleTeams team, Sprite roleIcon = null)
     {
         header.SetHeader(roleName, maskLayer);
         if (team is ModdedRoleTeams.Crewmate)

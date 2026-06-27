@@ -12,11 +12,11 @@ namespace MiraAPI.Events.Vanilla.Meeting.Voting;
 /// </remarks>
 /// <param name="votes">>The list of votes that are being processed.</param>
 /// <param name="exiledPlayer">The player to be exiled. Will be null if no player is to be exiled.</param>
-public class ProcessVotesEvent(List<CustomVote> votes, NetworkedPlayerInfo? exiledPlayer = null) : MiraEvent
+public class ProcessVotesEvent(List<CustomVote> votes, NetworkedPlayerInfo exiledPlayer = null) : MiraEvent
 {
     private readonly List<CustomVote> _originalVotes = [.. votes];
 
-    private NetworkedPlayerInfo? _exiledPlayer = exiledPlayer;
+    private NetworkedPlayerInfo _exiledPlayer = exiledPlayer;
 
     /// <summary>
     /// Gets a value indicating whether the exiled player has been modified by the event.
@@ -36,7 +36,7 @@ public class ProcessVotesEvent(List<CustomVote> votes, NetworkedPlayerInfo? exil
     /// <summary>
     /// Gets or sets the player to be exiled. Will be null if no player is to be exiled.
     /// </summary>
-    public NetworkedPlayerInfo? ExiledPlayer
+    public NetworkedPlayerInfo ExiledPlayer
     {
         get => _exiledPlayer;
         set

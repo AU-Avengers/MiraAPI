@@ -15,7 +15,7 @@ public abstract class LocalSettingBase<T> : ILocalSetting
     public string Description { get; }
 
     /// <inheritdoc />
-    public GameObject? Setting { get; } = null!;
+    public GameObject Setting { get; } = null!;
 
     /// <inheritdoc />
     public ConfigEntryBase ConfigEntry { get; }
@@ -23,7 +23,7 @@ public abstract class LocalSettingBase<T> : ILocalSetting
     /// <summary>
     /// Gets the tab of the local setting.
     /// </summary>
-    public LocalSettingsTab? Tab => LocalSettingsManager.Tabs.FirstOrDefault(x => x.Settings.Contains(this));
+    public LocalSettingsTab Tab => LocalSettingsManager.Tabs.FirstOrDefault(x => x.Settings.Contains(this));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LocalSettingBase{T}"/> class.
@@ -32,7 +32,7 @@ public abstract class LocalSettingBase<T> : ILocalSetting
     /// <param name="configEntry">The config entry.</param>
     /// <param name="name">The name of the setting.</param>
     /// <param name="description">The description of the setting.</param>
-    protected LocalSettingBase(Type tab, ConfigEntryBase configEntry, string? name = null, string? description = null)
+    protected LocalSettingBase(Type tab, ConfigEntryBase configEntry, string name = null, string description = null)
     {
         ConfigEntry = configEntry;
         Name = name ?? ConfigEntry.Definition.Key;

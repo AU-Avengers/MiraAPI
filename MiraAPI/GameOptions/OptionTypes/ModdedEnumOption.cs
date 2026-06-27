@@ -27,7 +27,7 @@ public class ModdedEnumOption : ModdedOption<int>
     /// <param name="enumType">The Enum type.</param>
     /// <param name="values">An option list of string values to use in place of the enum name.</param>
     /// <param name="includeInPreset">Whether to include this option in the preset or not.</param>
-    public ModdedEnumOption(string title, int defaultValue, Type enumType, string[]? values = null, bool includeInPreset=true) : base(title, defaultValue, includeInPreset)
+    public ModdedEnumOption(string title, int defaultValue, Type enumType, string[] values = null, bool includeInPreset=true) : base(title, defaultValue, includeInPreset)
     {
         Values = values ?? Enum.GetNames(enumType);
         Data = ScriptableObject.CreateInstance<StringGameSetting>();
@@ -120,7 +120,7 @@ public class ModdedEnumOption<T> : ModdedOption<T> where T : Enum
     /// <param name="defaultValue">The default value as an int.</param>
     /// <param name="values">An option list of string values to use in place of the enum name.</param>
     /// <param name="includeInPreset">Whether to include this option in the preset or not.</param>
-    public ModdedEnumOption(string title, T defaultValue, string[]? values = null, bool includeInPreset=true) : base(title, defaultValue, includeInPreset)
+    public ModdedEnumOption(string title, T defaultValue, string[] values = null, bool includeInPreset=true) : base(title, defaultValue, includeInPreset)
     {
         Values = values ?? Enum.GetNames(typeof(T));
         Data = ScriptableObject.CreateInstance<StringGameSetting>();

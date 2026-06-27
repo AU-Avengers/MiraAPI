@@ -29,7 +29,7 @@ public interface IModdedOption
     /// <summary>
     /// Gets or sets the MiraPlugin that created this option.
     /// </summary>
-    IMiraPlugin? ParentMod { get; set; }
+    IMiraPlugin ParentMod { get; set; }
 
     /// <summary>
     /// Gets the game setting data for the option.
@@ -39,7 +39,7 @@ public interface IModdedOption
     /// <summary>
     /// Gets the OptionBehaviour object of the option.
     /// </summary>
-    OptionBehaviour? OptionBehaviour { get; }
+    OptionBehaviour OptionBehaviour { get; }
 
     /// <summary>
     /// Gets or sets the visibility function for the option.
@@ -54,7 +54,7 @@ public interface IModdedOption
     /// <summary>
     /// Gets or sets the ConfigDefinition for the option, used for BepInEx configuration.
     /// </summary>
-    ConfigDefinition? ConfigDefinition { get; set; }
+    ConfigDefinition ConfigDefinition { get; set; }
 
     /// <summary>
     /// Creates the option behaviour for the modded option.

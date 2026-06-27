@@ -3,6 +3,8 @@
 		<Version>1.0.0</Version>
 		<Description>Example mod for Mira API</Description>
 		<Authors>Angxl, XtraCube</Authors>
+        <Nullable>disable</Nullable>
+        <WarningsAsErrors>$(WarningsAsErrors);CS8632</WarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -8,6 +8,7 @@ using Reactor;
 using Reactor.Networking;
 using Reactor.Networking.Attributes;
 using Reactor.Utilities;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
 
 namespace MiraAPI;
@@ -42,9 +43,10 @@ public partial class MiraApiPlugin : BaseUnityPlugin
     /// </summary>
     public static bool IsDevBuild => Version.Contains("ci", StringComparison.OrdinalIgnoreCase) || Version.Contains("dev", StringComparison.OrdinalIgnoreCase);
 
-    private static MiraPluginManager? PluginManager { get; set; }
+    private static MiraPluginManager PluginManager { get; set; }
     internal Harmony Harmony { get; } = new(Id);
     public static MiraApiPlugin Instance { get; private set; }
+    public Coroutines coroutines;
 
     /// <inheritdoc />
     private void Awake()
@@ -60,6 +62,9 @@ public partial class MiraApiPlugin : BaseUnityPlugin
 
     private void Start()
     {
+        coroutines = new GameObject("Coroutines").AddComponent<Coroutines>();
+        coroutines.DontDestroyOnLoad();
+        
         MiraPluginManager.Instance.Finished();
         Harmony.Unpatch(
             Harmony.GetPatchedMethods().First(method => method.DeclaringType == typeof(GameObject) && method.Name.Equals("AddComponent", StringComparison.Ordinal)),
@@ -67,3 +72,5 @@ public partial class MiraApiPlugin : BaseUnityPlugin
         );
     }
 }
+
+public class Coroutines : MonoBehaviour {}

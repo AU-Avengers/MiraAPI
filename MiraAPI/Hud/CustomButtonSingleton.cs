@@ -9,7 +9,7 @@ namespace MiraAPI.Hud;
 /// <typeparam name="T">The type of the button you are trying to access.</typeparam>
 public static class CustomButtonSingleton<T> where T : CustomActionButton
 {
-    private static T? _instance;
+    private static T _instance;
 
     /// <summary>
     /// Gets the instance of the button.

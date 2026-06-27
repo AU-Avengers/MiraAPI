@@ -19,14 +19,14 @@ public class FreezeButton : CustomActionButton<PlayerControl>
     public override bool PauseTimerInVent => true;
 
     public override LoadableAsset<Sprite> Sprite => ExampleAssets.ExampleButton;
-    public override BaseKeybind? Keybind => MiraGlobalKeybinds.PrimaryAbility;
+    public override BaseKeybind Keybind => MiraGlobalKeybinds.PrimaryAbility;
 
     protected override void OnClick()
     {
         Target?.RpcAddModifier<FreezeModifier>();
     }
 
-    public override PlayerControl? GetTarget()
+    public override PlayerControl GetTarget()
     {
         return PlayerControl.LocalPlayer.GetClosestPlayer(true, Distance);
     }
@@ -36,12 +36,12 @@ public class FreezeButton : CustomActionButton<PlayerControl>
         Target?.cosmetics.SetOutline(active, Palette.Blue);
     }
 
-    public override bool IsTargetValid(PlayerControl? target)
+    public override bool IsTargetValid(PlayerControl target)
     {
         return true;
     }
 
-    public override bool Enabled(RoleBehaviour? role)
+    public override bool Enabled(RoleBehaviour role)
     {
         return role is FreezerRole;
     }

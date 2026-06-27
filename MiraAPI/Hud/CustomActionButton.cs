@@ -81,7 +81,7 @@ public abstract class CustomActionButton
     /// <summary>
     /// Gets the keybind for this button. If null, no keybind will be added.
     /// </summary>
-    public virtual BaseKeybind? Keybind => null;
+    public virtual BaseKeybind Keybind => null;
 
     /// <summary>
     /// Gets the button's text outline color.
@@ -121,17 +121,17 @@ public abstract class CustomActionButton
     /// <summary>
     /// Gets or sets the button object in game. This is created by Mira API automatically.
     /// </summary>
-    public ActionButton? Button { get; set; }
+    public ActionButton Button { get; set; }
 
     /// <summary>
     /// Gets the gameObject used for the keybind icon.
     /// </summary>
-    public GameObject? KeybindIcon { get; private set; }
+    public GameObject KeybindIcon { get; private set; }
 
     /// <summary>
     /// Gets or sets the keybind icon text.
     /// </summary>
-    private TextMeshPro? KeybindText { get; set; }
+    private TextMeshPro KeybindText { get; set; }
 
     /// <summary>
     /// The method used to create the button.
@@ -434,7 +434,7 @@ public abstract class CustomActionButton
     /// </summary>
     /// <param name="role">The role of the local player.</param>
     /// <returns>True if the button is enabled, false otherwise.</returns>
-    public abstract bool Enabled(RoleBehaviour? role);
+    public abstract bool Enabled(RoleBehaviour role);
 
     /// <summary>
     /// Given that there is an effect, this method runs when the effect ends.
@@ -589,7 +589,7 @@ public abstract class CustomActionButton<T> : CustomActionButton where T : MonoB
     /// <summary>
     /// Gets or sets the target object of the button.
     /// </summary>
-    public T? Target { get; set; }
+    public T Target { get; set; }
 
     /// <summary>
     /// Gets the distance the player must be from the target object to use the button.
@@ -601,7 +601,7 @@ public abstract class CustomActionButton<T> : CustomActionButton where T : MonoB
     /// </summary>
     /// <param name="target">The target object being checked.</param>
     /// <returns>True if the target object is valid, false otherwise.</returns>
-    public virtual bool IsTargetValid(T? target)
+    public virtual bool IsTargetValid(T target)
     {
         return target != null;
     }
@@ -610,7 +610,7 @@ public abstract class CustomActionButton<T> : CustomActionButton where T : MonoB
     /// The method used to get the target object.
     /// </summary>
     /// <returns>The target object or null if it isn't found.</returns>
-    public abstract T? GetTarget();
+    public abstract T GetTarget();
 
     /// <summary>
     /// Sets the outline of the target object.

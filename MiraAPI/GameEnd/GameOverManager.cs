@@ -52,7 +52,7 @@ public static class GameOverManager
     /// <param name="id">ID of the custom game over.</param>
     /// <param name="customGameOver">The created instance of the custom game over.</param>
     /// <returns>An instance of the custom game over.</returns>
-    public static bool TryGetGameOver(int id, [NotNullWhen(true)] out CustomGameOver? customGameOver)
+    public static bool TryGetGameOver(int id, [NotNullWhen(true)] out CustomGameOver customGameOver)
     {
         if (GameOverTypes.TryGetValue(id, out var gameOverType))
         {

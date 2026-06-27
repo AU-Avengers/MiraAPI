@@ -50,12 +50,12 @@ public class LocalSliderSetting : LocalSettingBase<float>
     public LocalSliderSetting(
         Type tab,
         ConfigEntryBase configEntry,
-        string? name = null,
-        string? description = null,
-        FloatRange? sliderRange = null,
+        string name = null,
+        string description = null,
+        FloatRange sliderRange = null,
         bool displayValue = false,
         MiraNumberSuffixes? suffixType = null,
-        string? formatString = null,
+        string formatString = null,
         bool roundValue = false)
         : base(tab, configEntry, name, description)
     {

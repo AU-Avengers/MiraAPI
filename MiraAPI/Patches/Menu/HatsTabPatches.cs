@@ -108,7 +108,7 @@ public static class HatsTabPatches
         text.transform.localPosition = new Vector3(xLerp, yLerp, -1f);
 
         hatIndex += 5;
-        loadRoutine = MiraApiPlugin.Instance.StartCoroutine(CoGenerateChips(__instance, hats));
+        loadRoutine = AmongUsClient.Instance.StartCoroutine(CoGenerateChips(__instance, hats));
     }
 
     private static IEnumerator CoGenerateChips(HatsTab __instance, List<HatData> hats)

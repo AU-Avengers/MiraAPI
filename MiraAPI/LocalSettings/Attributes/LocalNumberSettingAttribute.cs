@@ -16,17 +16,17 @@ namespace MiraAPI.LocalSettings.Attributes;
 /// <inheritdoc/>
 [AttributeUsage(AttributeTargets.Property)]
 public class LocalNumberSettingAttribute(
-    string? name = null,
-    string? description = null,
+    string name = null,
+    string description = null,
     float min = 1,
     float max = 5,
     float increment = 1,
     MiraNumberSuffixes suffixType = MiraNumberSuffixes.None,
-    string? formatString = null
+    string formatString = null
     ) : LocalSettingAttribute(name, description)
 {
-    private readonly string? _name = name;
-    private readonly string? _description = description;
+    private readonly string _name = name;
+    private readonly string _description = description;
 
     /// <inheritdoc/>
     public override ILocalSetting CreateSetting(Type tab, ConfigEntryBase configEntryBase)

@@ -10,7 +10,7 @@ internal sealed class SyncRoleOptionsRpc(MiraApiPlugin plugin, uint id) : Player
 {
     public override RpcLocalHandling LocalHandling => RpcLocalHandling.None;
 
-    public override void Write(MessageWriter writer, NetData[]? data)
+    public override void Write(MessageWriter writer, NetData[] data)
     {
         if (data == null)
         {
@@ -40,7 +40,7 @@ internal sealed class SyncRoleOptionsRpc(MiraApiPlugin plugin, uint id) : Player
         return data;
     }
 
-    public override void Handle(PlayerControl playerControl, NetData[]? data)
+    public override void Handle(PlayerControl playerControl, NetData[] data)
     {
         if (AmongUsClient.Instance.HostId != playerControl.OwnerId)
         {

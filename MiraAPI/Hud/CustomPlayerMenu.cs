@@ -82,7 +82,7 @@ public class CustomPlayerMenu : Minigame
     /// </summary>
     /// <param name="playerMatch">Function to determine if player should show in the custom menu.</param>
     /// <param name="onClick">Onclick action for player.</param>
-    public void Begin(Func<PlayerControl, bool> playerMatch, Action<PlayerControl?> onClick)
+    public void Begin(Func<PlayerControl, bool> playerMatch, Action<PlayerControl> onClick)
     {
         MinigameStubs.Begin(this, null);
 

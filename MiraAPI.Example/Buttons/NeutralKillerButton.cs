@@ -20,7 +20,7 @@ public class NeutralKillerButton : CustomActionButton
         CustomGameOver.Trigger<NeutralKillerGameOver>([PlayerControl.LocalPlayer.Data]);
     }
 
-    public override bool Enabled(RoleBehaviour? role)
+    public override bool Enabled(RoleBehaviour role)
     {
         return role is NeutralKillerRole;
     }

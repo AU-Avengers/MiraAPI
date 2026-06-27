@@ -11,7 +11,7 @@ public class MiraNumberOptionComponent : MonoBehaviour
     /// <summary>
     /// Gets or sets the modded option associated with the object.
     /// </summary>
-    public ModdedNumberOption? NumberOption { get; set; }
+    public ModdedNumberOption NumberOption { get; set; }
 
     /// <summary>
     /// Gets or sets the default increment.

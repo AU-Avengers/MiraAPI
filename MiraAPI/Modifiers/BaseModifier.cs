@@ -19,7 +19,7 @@ public abstract class BaseModifier : IOptionable
     /// <summary>
     /// Gets the modifier component that the modifier is attached to.
     /// </summary>
-    public ModifierComponent? ModifierComponent { get; internal set; }
+    public ModifierComponent ModifierComponent { get; internal set; }
 
     /// <summary>
     /// Gets a value indicating whether the modifier has been initialized.
@@ -52,7 +52,7 @@ public abstract class BaseModifier : IOptionable
     /// <summary>
     /// Gets the modifier icon. Useless if HideOnUi is true.
     /// </summary>
-    public virtual LoadableAsset<Sprite>? ModifierIcon => null;
+    public virtual LoadableAsset<Sprite> ModifierIcon => null;
 
     /// <summary>
     /// Gets a value indicating whether the modifier is hidden on the UI. Will be hidden either way if no description is provided.

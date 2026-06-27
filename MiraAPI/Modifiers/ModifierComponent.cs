@@ -24,7 +24,7 @@ public class ModifierComponent : MonoBehaviour
 
     private List<BaseModifier> _activeModifiers = [];
 
-    private ModifierDisplayComponent? ModifierDisplay { get; set; }
+    private ModifierDisplayComponent ModifierDisplay { get; set; }
 
     private List<BaseModifier> Modifiers { get; set; } = [];
 
@@ -167,7 +167,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>A collection of modifiers.</returns>
-    public IEnumerable<T> GetModifiers<T>(Func<T, bool>? predicate=null) where T : BaseModifier
+    public IEnumerable<T> GetModifiers<T>(Func<T, bool> predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.OfType<T>().Where(x => predicate == null || predicate(x));
     }
@@ -178,7 +178,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>A collection of modifiers.</returns>
-    public IEnumerable<BaseModifier> GetModifiers(Type type, Func<BaseModifier, bool>? predicate=null)
+    public IEnumerable<BaseModifier> GetModifiers(Type type, Func<BaseModifier, bool> predicate=null)
     {
         return ActiveModifiers.Where(x => x.GetType() == type && (predicate == null || predicate(x)));
     }
@@ -189,7 +189,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="id">The modifier's type ID.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>A collection of modifiers.</returns>
-    public IEnumerable<BaseModifier> GetModifiers(uint id, Func<BaseModifier, bool>? predicate=null)
+    public IEnumerable<BaseModifier> GetModifiers(uint id, Func<BaseModifier, bool> predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
             $"Cannot get modifier with id {id} because it is not registered.");
@@ -204,7 +204,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public bool TryGetModifier<T>([NotNullWhen(true)] out T? modifier, Func<T, bool>? predicate = null) where T : BaseModifier
+    public bool TryGetModifier<T>([NotNullWhen(true)] out T modifier, Func<T, bool> predicate = null) where T : BaseModifier
     {
         modifier = GetModifier(predicate);
         return modifier != null;
@@ -217,7 +217,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="modifier">The modifier or null.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public bool TryGetModifier(Type type, [NotNullWhen(true)] out BaseModifier? modifier, Func<BaseModifier, bool>? predicate = null)
+    public bool TryGetModifier(Type type, [NotNullWhen(true)] out BaseModifier modifier, Func<BaseModifier, bool> predicate = null)
     {
         modifier = GetModifier(type, predicate);
         return modifier != null;
@@ -230,7 +230,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="modifier">The modifier or null.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public bool TryGetModifier(uint id, [NotNullWhen(true)] out BaseModifier? modifier, Func<BaseModifier, bool>? predicate = null)
+    public bool TryGetModifier(uint id, [NotNullWhen(true)] out BaseModifier modifier, Func<BaseModifier, bool> predicate = null)
     {
         modifier = GetModifier(id, predicate);
         return modifier != null;
@@ -242,7 +242,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="modifierGuid">The modifier unique ID.</param>
     /// <param name="modifier">The modifier or null.</param>
     /// <returns>True if the modifier was found, false otherwise.</returns>
-    public bool TryGetModifier(Guid modifierGuid, [NotNullWhen(true)] out BaseModifier? modifier)
+    public bool TryGetModifier(Guid modifierGuid, [NotNullWhen(true)] out BaseModifier modifier)
     {
         modifier = GetModifier(modifierGuid);
         return modifier != null;
@@ -254,7 +254,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>The Modifier if it is found, null otherwise.</returns>
-    public T? GetModifier<T>(Func<T, bool>? predicate = null) where T : BaseModifier
+    public T GetModifier<T>(Func<T, bool> predicate = null) where T : BaseModifier
     {
         return GetModifiers(predicate).FirstOrDefault();
     }
@@ -265,7 +265,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>The Modifier if it is found, null otherwise.</returns>
-    public BaseModifier? GetModifier(Type type, Func<BaseModifier, bool>? predicate = null)
+    public BaseModifier GetModifier(Type type, Func<BaseModifier, bool> predicate = null)
     {
         return GetModifiers(type).FirstOrDefault(predicate ?? (_ => true));
     }
@@ -276,7 +276,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="id">The modifier ID.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
     /// <returns>The Modifier if it is found, null otherwise.</returns>
-    public BaseModifier? GetModifier(uint id, Func<BaseModifier, bool>? predicate = null)
+    public BaseModifier GetModifier(uint id, Func<BaseModifier, bool> predicate = null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
             $"Cannot get modifier with id {id} because it is not registered.");
@@ -289,7 +289,7 @@ public class ModifierComponent : MonoBehaviour
     /// </summary>
     /// <param name="modifierGuid">The modifier's unique ID.</param>
     /// <returns>The modifier if it is found, or null.</returns>
-    public BaseModifier? GetModifier(Guid modifierGuid)
+    public BaseModifier GetModifier(Guid modifierGuid)
     {
         return ActiveModifiers.FirstOrDefault(x => x.UniqueId == modifierGuid);
     }
@@ -299,7 +299,7 @@ public class ModifierComponent : MonoBehaviour
     /// </summary>
     /// <typeparam name="T">The modifier type.</typeparam>
     /// <param name="predicate">The predicate to check the modifier by.</param>
-    public void RemoveModifier<T>(Func<T, bool>? predicate = null) where T : BaseModifier
+    public void RemoveModifier<T>(Func<T, bool> predicate = null) where T : BaseModifier
     {
         RemoveModifier(typeof(T), x => predicate == null || predicate((T)x));
     }
@@ -309,7 +309,7 @@ public class ModifierComponent : MonoBehaviour
     /// </summary>
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
-    public void RemoveModifier(Type type, Func<BaseModifier, bool>? predicate = null)
+    public void RemoveModifier(Type type, Func<BaseModifier, bool> predicate = null)
     {
         var modifiers = ActiveModifiers.Where(x => x.GetType() == type && (predicate == null || predicate(x))).ToList();
         if (modifiers.Count > 1)
@@ -347,7 +347,7 @@ public class ModifierComponent : MonoBehaviour
     /// </summary>
     /// <param name="typeId">The modifier's type ID.</param>
     /// <param name="predicate">The predicate to check the modifier by.</param>
-    public void RemoveModifier(uint typeId, Func<BaseModifier, bool>? predicate = null)
+    public void RemoveModifier(uint typeId, Func<BaseModifier, bool> predicate = null)
     {
         var type = ModifierManager.GetModifierType(typeId) ?? throw new InvalidOperationException(
             $"Cannot remove modifier with id {typeId} because it is not registered.");
@@ -376,7 +376,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <typeparam name="T">The Type of the modifier.</typeparam>
     /// <returns>The new modifier.</returns>
-    public T? AddModifier<T>(params object[] args) where T : BaseModifier
+    public T AddModifier<T>(params object[] args) where T : BaseModifier
     {
         return AddModifier(typeof(T), args) as T;
     }
@@ -386,7 +386,7 @@ public class ModifierComponent : MonoBehaviour
     /// </summary>
     /// <param name="modifier">The modifier to add.</param>
     /// <returns>The modifier that was added.</returns>
-    public BaseModifier? AddModifier(BaseModifier modifier)
+    public BaseModifier AddModifier(BaseModifier modifier)
     {
         // TODO: Make a proper synchronization system.
         if (LobbyBehaviour.Instance)
@@ -423,9 +423,9 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="type">The modifier type.</param>
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <returns>The modifier that was added.</returns>
-    public BaseModifier? AddModifier(Type type, params object[] args)
+    public BaseModifier AddModifier(Type type, params object[] args)
     {
-        BaseModifier? modifier;
+        BaseModifier modifier;
         if (args.Length > 0)
         {
             modifier = ModifierFactory.CreateInstance(type, args);
@@ -448,7 +448,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="id">The ID of the modifier.</param>
     /// <param name="args">The arguments to initialize the modifier constructor with.</param>
     /// <returns>The modifier if it was created, or null if it failed.</returns>
-    public BaseModifier? AddModifier(uint id, params object[] args)
+    public BaseModifier AddModifier(uint id, params object[] args)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
             $"Cannot add modifier with id {id} because it is not registered.");
@@ -462,7 +462,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    public bool HasModifier<T>(Func<T, bool>? predicate=null) where T : BaseModifier
+    public bool HasModifier<T>(Func<T, bool> predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.Any(x => x is T modifier && (predicate == null || predicate(modifier)));
     }
@@ -473,7 +473,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="type">The modifier type.</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    public bool HasModifier(Type type, Func<BaseModifier, bool>? predicate=null)
+    public bool HasModifier(Type type, Func<BaseModifier, bool> predicate=null)
     {
         return ActiveModifiers.Any(x => x.GetType() == type && (predicate == null || predicate(x)));
     }
@@ -484,7 +484,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="id">The modifier's type ID.</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the modifier is present, false otherwise.</returns>
-    public bool HasModifier(uint id, Func<BaseModifier, bool>? predicate=null)
+    public bool HasModifier(uint id, Func<BaseModifier, bool> predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
             $"Cannot get modifier with id {id} because it is not registered.");
@@ -509,7 +509,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <typeparam name="T">The Type of the Modifier.</typeparam>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    public bool HasModifier<T>(bool checkInactive, Func<T, bool>? predicate=null) where T : BaseModifier
+    public bool HasModifier<T>(bool checkInactive, Func<T, bool> predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
         bool MatchExpr(BaseModifier bm) => bm is T modifier && (predicate == null || predicate(modifier));
@@ -522,7 +522,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the Modifier is present, false otherwise.</returns>
-    public bool HasModifier(Type type, bool checkInactive, Func<BaseModifier, bool>? predicate=null)
+    public bool HasModifier(Type type, bool checkInactive, Func<BaseModifier, bool> predicate=null)
     {
         return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
         bool MatchExpr(BaseModifier bm) => bm.GetType() == type && (predicate == null || predicate(bm));
@@ -535,7 +535,7 @@ public class ModifierComponent : MonoBehaviour
     /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
     /// <param name="predicate">The predicate to check the modifier.</param>
     /// <returns>True if the modifier is present, false otherwise.</returns>
-    public bool HasModifier(uint id, bool checkInactive, Func<BaseModifier, bool>? predicate=null)
+    public bool HasModifier(uint id, bool checkInactive, Func<BaseModifier, bool> predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
             $"Cannot get modifier with id {id} because it is not registered.");

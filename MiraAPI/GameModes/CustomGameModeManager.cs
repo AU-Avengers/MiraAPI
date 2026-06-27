@@ -23,7 +23,7 @@ public static class CustomGameModeManager
     /// <summary>
     /// Gets the current gamemode.
     /// </summary>
-    public static CustomGameMode? ActiveMode { get; internal set; } = new DefaultMode();
+    public static CustomGameMode ActiveMode { get; internal set; } = new DefaultMode();
 
     /// <summary>
     /// Set current gamemode.

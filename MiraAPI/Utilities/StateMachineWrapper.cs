@@ -22,7 +22,7 @@ public class StateMachineWrapper<T> where T : Object
     private readonly PropertyInfo _currentProperty;
     private readonly Dictionary<string, PropertyInfo> _propertyCache;
 
-    private T? _parentInstance;
+    private T _parentInstance;
 
     /// <summary>
     /// Gets the instance of the parent class that owns the state machine.

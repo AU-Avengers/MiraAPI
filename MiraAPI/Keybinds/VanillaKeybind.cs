@@ -10,7 +10,7 @@ public class VanillaKeybind : BaseKeybind
     /// <summary>
     /// Gets the <see cref="ActionButton"/> this keybind is binded to.
     /// </summary>
-    public ActionButton? Button { get; internal set; }
+    public ActionButton Button { get; internal set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VanillaKeybind"/> class.

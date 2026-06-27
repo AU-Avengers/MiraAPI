@@ -162,7 +162,7 @@ public sealed class MiraPluginManager
     /// </summary>
     /// <param name="pluginId">The plugin GUID.</param>
     /// <returns>A MiraPluginInfo.</returns>
-    public static MiraPluginInfo? GetPluginByGuid(string pluginId)
+    public static MiraPluginInfo GetPluginByGuid(string pluginId)
     {
         return Instance._registeredPlugins.Values.FirstOrDefault(plugin => plugin.PluginId == pluginId);
     }
@@ -231,7 +231,7 @@ public sealed class MiraPluginManager
         return false;
     }
 
-    private static bool RegisterRole(Type type, MiraPluginInfo pluginInfo, [NotNullWhen(true)] out Type? role)
+    private static bool RegisterRole(Type type, MiraPluginInfo pluginInfo, [NotNullWhen(true)] out Type role)
     {
         role = null;
         try

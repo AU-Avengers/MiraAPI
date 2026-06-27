@@ -7,8 +7,8 @@ namespace MiraAPI.Patches.Keybinds;
 [HarmonyPatch(typeof(OptionsMenuBehaviour))]
 public static class OptionsMenuBehaviourPatch
 {
-    private static ButtonRolloverHandler? _remap_rollover;
-    private static SpriteRenderer? _remap_background;
+    private static ButtonRolloverHandler _remap_rollover;
+    private static SpriteRenderer _remap_background;
     private static bool _conflicts => KeybindManager.GetConflicts().Count > 0;
 
     [HarmonyPostfix]

@@ -11,7 +11,7 @@ namespace MiraAPI.Patches.Colors;
 public static class ScrollingColorsPatch
 {
     // Collider
-    private static BoxCollider2D? _collider;
+    private static BoxCollider2D _collider;
 
     /// <summary>
     /// Add scrolling to the colors tab.

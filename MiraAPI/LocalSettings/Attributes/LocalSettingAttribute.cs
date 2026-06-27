@@ -10,8 +10,8 @@ namespace MiraAPI.LocalSettings.Attributes;
 /// <param name="description">The description of the setting. Defalts to entry description.</param>
 [AttributeUsage(AttributeTargets.Property)]
 public abstract class LocalSettingAttribute(
-    string? name = null,
-    string? description = null
+    string name = null,
+    string description = null
     ) : Attribute
 {
     /// <summary>

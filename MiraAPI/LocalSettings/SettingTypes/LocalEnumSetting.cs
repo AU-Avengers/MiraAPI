@@ -35,9 +35,9 @@ public class LocalEnumSetting : LocalSettingBase<int>
         Type tab,
         ConfigEntryBase configEntry,
         Type enumType,
-        string? name = null,
-        string? description = null,
-        string[]? values = null)
+        string name = null,
+        string description = null,
+        string[] values = null)
         : base(tab, configEntry, name, description)
     {
         EnumType = enumType;

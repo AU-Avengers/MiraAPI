@@ -45,12 +45,12 @@ public class LocalNumberSetting : LocalSettingBase<float>
     public LocalNumberSetting(
         Type tab,
         ConfigEntryBase configEntry,
-        string? name = null,
-        string? description = null,
-        FloatRange? numberRange = null,
+        string name = null,
+        string description = null,
+        FloatRange numberRange = null,
         float? increment = null,
         MiraNumberSuffixes? suffixType = null,
-        string? formatString = null)
+        string formatString = null)
         : base(tab, configEntry, name, description)
     {
         SuffixType = suffixType ?? MiraNumberSuffixes.None;

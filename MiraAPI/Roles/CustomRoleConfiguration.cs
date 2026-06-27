@@ -77,17 +77,17 @@ public record struct CustomRoleConfiguration
     /// <summary>
     /// Gets or sets the Sprite used for the Role Options menu screenshot.
     /// </summary>
-    public LoadableAsset<Sprite>? OptionsScreenshot { get; set; } = null;
+    public LoadableAsset<Sprite> OptionsScreenshot { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the Sprite used for the Role Icon.
     /// </summary>
-    public LoadableAsset<Sprite>? Icon { get; set; } = null;
+    public LoadableAsset<Sprite> Icon { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the Intro sound for the Role.
     /// </summary>
-    public LoadableAsset<AudioClip>? IntroSound { get; set; } = null;
+    public LoadableAsset<AudioClip> IntroSound { get; set; } = null;
 
     /// <summary>
     /// Gets or sets a value indicating whether the role is affected by light affectors on Airship.

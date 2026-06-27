@@ -20,8 +20,8 @@ public static class MainMenuManagerPatches
     [HarmonyPostfix]
     public static void AwakePostfix()
     {
-        AddressablesLoader.LoadAll();
-        MiraApiPlugin.Instance.StartCoroutine(SetFps());
+        //AddressablesLoader.LoadAll();
+        //AmongUsClient.Instance.StartCoroutine(SetFps());
     }
 
     private static IEnumerator SetFps()

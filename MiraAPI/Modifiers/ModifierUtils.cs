@@ -15,7 +15,7 @@ public static class ModifierUtils
     /// <param name="predicate">Select if modifier is valid to be added to list.</param>
     /// <typeparam name="T">The modifier type.</typeparam>
     /// <returns>A list of modifiers.</returns>
-    public static IEnumerable<T> GetActiveModifiers<T>(Func<T, bool>? predicate = null) where T : BaseModifier
+    public static IEnumerable<T> GetActiveModifiers<T>(Func<T, bool> predicate = null) where T : BaseModifier
     {
         return PlayerControl.AllPlayerControls.ToArray().SelectMany(x => x.GetModifiers<T>(predicate)).OfType<T>();
     }
@@ -26,7 +26,7 @@ public static class ModifierUtils
     /// <param name="predicate">Select if modifier is valid.</param>
     /// <typeparam name="T">The modifier type.</typeparam>
     /// <returns>A list of players with that modifier.</returns>
-    public static IEnumerable<PlayerControl> GetPlayersWithModifier<T>(Func<T, bool>? predicate = null) where T : BaseModifier
+    public static IEnumerable<PlayerControl> GetPlayersWithModifier<T>(Func<T, bool> predicate = null) where T : BaseModifier
     {
         return PlayerControl.AllPlayerControls.ToArray().Where(x => x.HasModifier<T>(predicate));
     }

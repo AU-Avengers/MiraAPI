@@ -12,7 +12,7 @@ namespace MiraAPI.Patches.Roles;
 public static class HudManagerPatches
 {
     // Custom role tab.
-    public static TaskPanelBehaviour? RoleTab;
+    public static TaskPanelBehaviour RoleTab;
 
     /// <summary>
     /// Fixes Kill Button not showing for Neutral killing role.

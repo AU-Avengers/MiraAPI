@@ -18,7 +18,7 @@ public class AfterMurderEvent : MiraEvent
     /// <summary>
     /// Gets the player's body, if it exists.
     /// </summary>
-    public DeadBody? DeadBody { get; }
+    public DeadBody DeadBody { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AfterMurderEvent"/> class.
@@ -26,7 +26,7 @@ public class AfterMurderEvent : MiraEvent
     /// <param name="source">The killer.</param>
     /// <param name="target">The killed player.</param>
     /// <param name="deadBody">The player's vody, if it exists.</param>
-    public AfterMurderEvent(PlayerControl source, PlayerControl target, DeadBody? deadBody)
+    public AfterMurderEvent(PlayerControl source, PlayerControl target, DeadBody deadBody)
     {
         Source = source;
         Target = target;

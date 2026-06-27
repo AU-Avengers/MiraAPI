@@ -43,7 +43,7 @@ public class LoadableAudioResourceAsset(string path) : LoadableAsset<AudioClip>
 
         // Read chunks
         int channels = 0, sampleRate = 0, bitsPerSample = 0;
-        byte[]? audioData = null;
+        byte[] audioData = null;
 
         while (reader.BaseStream.Position < reader.BaseStream.Length)
         {

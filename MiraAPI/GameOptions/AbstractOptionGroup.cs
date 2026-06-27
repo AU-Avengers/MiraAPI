@@ -26,7 +26,7 @@ public abstract class AbstractOptionGroup
     /// <summary>
     /// Gets the Optionable type of the group.
     /// </summary>
-    public virtual Type? OptionableType => null;
+    public virtual Type OptionableType => null;
 
     /// <summary>
     /// Gets a value indicating whether the group should be shown in the modifiers menu. This is deprecated, please use ParentMenu!
@@ -57,7 +57,7 @@ public abstract class AbstractOptionGroup
 
     internal bool AllOptionsHidden { get; set; }
 
-    internal CategoryHeaderMasked? Header { get; set; }
+    internal CategoryHeaderMasked Header { get; set; }
 }
 
 /// <summary>

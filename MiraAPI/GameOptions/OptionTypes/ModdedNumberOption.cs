@@ -75,7 +75,7 @@ public class ModdedNumberOption : ModdedOption<float>
         string zeroBehavior,
         string negativeBehavior,
         MiraNumberSuffixes suffixType,
-        string? formatString = null,
+        string formatString = null,
         bool halfIncrements = false,
         bool includeInPreset = true) : base(title, defaultValue, includeInPreset)
     {
@@ -128,7 +128,7 @@ public class ModdedNumberOption : ModdedOption<float>
         float max,
         float increment,
         MiraNumberSuffixes suffixType,
-        string? formatString = null,
+        string formatString = null,
         bool zeroInfinity = false,
         bool includeInPreset = true) : base(title, defaultValue, includeInPreset)
     {

@@ -303,7 +303,7 @@ internal static class GameOptionsMenuPatch
             menu.playerOptionOrigin,
             menu.settingsContainer));
 
-        OptionPreset? defaultPreset = null;
+        OptionPreset defaultPreset = null;
         if (GameSettingMenuPatches.SelectedMod != null && PresetManager.DefaultPresets.TryGetValue(
                 GameSettingMenuPatches.SelectedMod,
                 out var preset))

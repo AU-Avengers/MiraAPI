@@ -21,9 +21,9 @@ internal static class GameSettingMenuPatches
 {
     public static int SelectedModIdx { get; private set; }
 
-    public static MiraPluginInfo? SelectedMod { get; private set; }
+    public static MiraPluginInfo SelectedMod { get; private set; }
 
-    private static TextMeshPro? _text;
+    private static TextMeshPro _text;
 
     private static Vector3 _roleBtnOgPos;
     private static Vector3 _smallRoleBtnOgPos;
@@ -31,15 +31,15 @@ internal static class GameSettingMenuPatches
     private static Vector3 _customOneBtnOgPos;
     private static Vector3 _customTwoBtnOgPos;
 
-    private static GameOptionsMenu? _modifiersTab;
-    private static PassiveButton? _modifiersButton;
-    private static PassiveButton? _smallRolesButton;
-    private static GameOptionsMenu? _customOneTab;
-    private static PassiveButton? _customOneButton;
-    private static GameOptionsMenu? _customTwoTab;
-    private static PassiveButton? _customTwoButton;
-    private static GameObject? _nextModButton;
-    private static GameObject? _previousModButton;
+    private static GameOptionsMenu _modifiersTab;
+    private static PassiveButton _modifiersButton;
+    private static PassiveButton _smallRolesButton;
+    private static GameOptionsMenu _customOneTab;
+    private static PassiveButton _customOneButton;
+    private static GameOptionsMenu _customTwoTab;
+    private static PassiveButton _customTwoButton;
+    private static GameObject _nextModButton;
+    private static GameObject _previousModButton;
 
     private static Dictionary<int, Vector3> OptionsPositions { get; } = [];
     private static Dictionary<int, Vector3> ModifiersPositions { get; } = [];

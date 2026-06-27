@@ -333,7 +333,7 @@ public static class CustomMurderRpc
             source.isKilling = true;
         }
 
-        DeadBody? deadBody = null;
+        DeadBody deadBody = null;
 
         if (createDeadBody)
         {

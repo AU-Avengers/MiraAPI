@@ -11,7 +11,7 @@ namespace MiraAPI.Patches.Events;
 [HarmonyPatch]
 public static class ReportBodyEventPatch
 {
-    private static bool ReportBodyEventHook(PlayerControl source, NetworkedPlayerInfo? target)
+    private static bool ReportBodyEventHook(PlayerControl source, NetworkedPlayerInfo target)
     {
         var body = target != null ? Helpers.GetBodyById(target.PlayerId) : null;
 
@@ -22,7 +22,7 @@ public static class ReportBodyEventPatch
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.ReportDeadBody))]
-    public static bool PlayerControlCmdReportDeadBodyPrefix(PlayerControl __instance, NetworkedPlayerInfo? target)
+    public static bool PlayerControlCmdReportDeadBodyPrefix(PlayerControl __instance, NetworkedPlayerInfo target)
     {
         return ReportBodyEventHook(__instance, target);
     }

@@ -46,7 +46,7 @@ public static class ModifierManager
     /// </summary>
     /// <param name="id">The ID.</param>
     /// <returns>The Type of the modifier.</returns>
-    public static Type? GetModifierType(uint id)
+    public static Type GetModifierType(uint id)
     {
         return IdToTypeModifierMap.GetValueOrDefault(id);
     }

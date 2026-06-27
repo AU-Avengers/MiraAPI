@@ -22,7 +22,7 @@ public static class VotingUtils
     /// <param name="votes">>The list of votes to check.</param>
     /// <param name="isTie">Whether the vote is a tie.</param>
     /// <returns>The player to be exiled. Will be null if no player is to be exiled.</returns>
-    public static NetworkedPlayerInfo? GetExiled(List<CustomVote> votes, out bool isTie)
+    public static NetworkedPlayerInfo GetExiled(List<CustomVote> votes, out bool isTie)
     {
         var max = CalculateNumVotes(votes).MaxPair(out var tie);
         isTie = tie;

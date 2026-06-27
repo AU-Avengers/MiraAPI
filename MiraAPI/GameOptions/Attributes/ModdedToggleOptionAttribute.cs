@@ -11,7 +11,7 @@ namespace MiraAPI.GameOptions.Attributes;
 [AttributeUsage(AttributeTargets.Property)]
 public class ModdedToggleOptionAttribute(string title) : ModdedOptionAttribute(title)
 {
-    internal override IModdedOption CreateOption(object? value, PropertyInfo property)
+    internal override IModdedOption CreateOption(object value, PropertyInfo property)
     {
         var toggleOpt = new ModdedToggleOption(Title, (bool)(value ?? false));
         return toggleOpt;
