@@ -534,6 +534,7 @@ public abstract class CustomActionButton
         {
             KeybindText.text = Keybind.CurrentKey.ToString();
             KeybindIcon?.SetActive(ActiveInputManager.currentControlType is ActiveInputManager.InputType.Keyboard &&
+                                   LocalSettingsTabSingleton<MiraApiSettings>.Instance != null &&
                                    LocalSettingsTabSingleton<MiraApiSettings>.Instance.ShowKeybinds.Value &&
                                    Keybind.CurrentKey != KeyboardKeyCode.None);
         }

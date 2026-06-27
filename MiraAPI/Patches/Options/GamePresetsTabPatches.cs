@@ -137,13 +137,16 @@ internal static class GamePresetsTabPatches
                 _newDivider.SetActive(false);
             }
 
-            foreach (var mod in MiraPluginManager.Instance.RegisteredPlugins)
+            if (MiraPluginManager.Instance.RegisteredPlugins != null)
             {
-                foreach (var button in mod.InternalPresets.Select(x => x.PresetButton))
+                foreach (var mod in MiraPluginManager.Instance.RegisteredPlugins)
                 {
-                    if (button != null)
+                    foreach (var button in mod.InternalPresets.Select(x => x.PresetButton))
                     {
-                        button.SetActive(false);
+                        if (button != null)
+                        {
+                            button.SetActive(false);
+                        }
                     }
                 }
             }
@@ -231,7 +234,7 @@ internal static class GamePresetsTabPatches
                                 option.SaveToPreset(presetFile);
                             }
 
-                            foreach (var role in GameSettingMenuPatches.SelectedMod.InternalRoles.Values.OfType<ICustomRole>().Where(x=>!x.Configuration.HideSettings))
+                            foreach (var role in GameSettingMenuPatches.SelectedMod.InternalRoles.Values.OfType<ICustomRole>().Where(x => !x.Configuration.HideSettings))
                             {
                                 role.SaveToPreset(presetFile);
                             }

@@ -7,6 +7,11 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Nullable>disable</Nullable>
         <WarningsAsErrors>$(WarningsAsErrors);CS8632</WarningsAsErrors>
+
+        <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+        <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <DisableUnmanagedBindingResolution>true</DisableUnmanagedBindingResolution>
     </PropertyGroup>
     
     <ItemGroup>
@@ -17,6 +22,5 @@
         <EmbeddedResource Include="Resources\**\*.*" />
     </ItemGroup>
 
-    <Import Project="../AmongUs.props" />   
-    
+    <Import Project="../AmongUs.props" />
 </Project>

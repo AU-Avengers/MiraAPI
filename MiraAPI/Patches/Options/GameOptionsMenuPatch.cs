@@ -171,7 +171,8 @@ internal static class GameOptionsMenuPatch
     private static void ModifiersUpdate(ref float num)
     {
         var groups = GameSettingMenuPatches.SelectedMod?.InternalOptionGroups
-            .Where(x => x.ShowInModifiersMenu || x.OptionableType?.IsAssignableFrom(typeof(BaseModifier)) == true) ?? [];
+            .Where(x => x.ShowInModifiersMenu ||
+                (x.OptionableType != null && typeof(BaseModifier).IsAssignableFrom(x.OptionableType))) ?? [];
 
         foreach (var modGroup in groups)
         {
@@ -182,7 +183,8 @@ internal static class GameOptionsMenuPatch
     private static void ModifiersCreate(GameOptionsMenu menu)
     {
         var groups = GameSettingMenuPatches.SelectedMod?.InternalOptionGroups
-            .Where(x => x.ShowInModifiersMenu || x.OptionableType?.IsAssignableFrom(typeof(BaseModifier)) == true) ?? [];
+            .Where(x => x.ShowInModifiersMenu ||
+                (x.OptionableType != null && typeof(BaseModifier).IsAssignableFrom(x.OptionableType))) ?? [];
         foreach (var group in groups)
         {
             CreateGroup(menu, group);

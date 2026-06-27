@@ -5,6 +5,11 @@
 		<Authors>Angxl, XtraCube</Authors>
         <Nullable>disable</Nullable>
         <WarningsAsErrors>$(WarningsAsErrors);CS8632</WarningsAsErrors>
+
+        <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+        <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <DisableUnmanagedBindingResolution>true</DisableUnmanagedBindingResolution>
 	</PropertyGroup>
 
 	<ItemGroup>

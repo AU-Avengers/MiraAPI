@@ -3,7 +3,6 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>latest</LangVersion>
         <DebugType>embedded</DebugType>
-        <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
@@ -27,6 +26,8 @@
         <AnalysisLevel>latest</AnalysisLevel>
         <AnalysisMode>recommended</AnalysisMode>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
     </PropertyGroup>
 
     <ItemGroup>

@@ -46,6 +46,45 @@ internal static class GameSettingMenuPatches
     private static Dictionary<int, Vector3> CustomOnePositions { get; } = [];
     private static Dictionary<int, Vector3> CustomTwoPositions { get; } = [];
 
+    private static SpriteRenderer FindButtonSpriteRenderer(GameObject button, params string[] childNames)
+    {
+        foreach (var childName in childNames)
+        {
+            var child = button.transform.Find(childName);
+            if (child && child.TryGetComponent<SpriteRenderer>(out var renderer))
+            {
+                return renderer;
+            }
+        }
+
+        var fallbackRenderer = button.GetComponentsInChildren<SpriteRenderer>(true).FirstOrDefault();
+        if (fallbackRenderer)
+        {
+            return fallbackRenderer;
+        }
+
+        var spriteObject = new GameObject("Sprite");
+        spriteObject.transform.SetParent(button.transform);
+        spriteObject.transform.localPosition = Vector3.zero;
+        spriteObject.transform.localScale = Vector3.one;
+        spriteObject.layer = button.layer;
+        return spriteObject.AddComponent<SpriteRenderer>();
+    }
+
+    private static (SpriteRenderer Inactive, SpriteRenderer Active) FindButtonSpriteRenderers(GameObject button)
+    {
+        var inactive = FindButtonSpriteRenderer(button, "InactiveSelf", "Inactive", "Normal", "Default");
+        var active = FindButtonSpriteRenderer(button, "activeSelf", "ActiveSelf", "Active", "Hover", "Selected");
+
+        if (active == inactive)
+        {
+            active = button.GetComponentsInChildren<SpriteRenderer>(true)
+                .FirstOrDefault(renderer => renderer != inactive) ?? inactive;
+        }
+
+        return (inactive, active);
+    }
+
     private static void SaveScrollPositions(GameSettingMenu gameSettingMenu)
     {
         if (_modifiersTab)
@@ -186,10 +225,12 @@ internal static class GameSettingMenuPatches
         _nextModButton = Object.Instantiate(__instance.BackButton, __instance.BackButton.transform.parent).gameObject;
         _nextModButton.transform.localPosition = new Vector3(-2.2663f, 1.5272f, -25f);
         _nextModButton.name = "RightArrowButton";
-        _nextModButton.transform.Find("InactiveSelf").gameObject.GetComponent<SpriteRenderer>().sprite =
-            MiraAssets.NextButton.LoadAsset();
-        _nextModButton.transform.Find("activeSelf").gameObject.GetComponent<SpriteRenderer>().sprite =
-            MiraAssets.NextButtonActive.LoadAsset();
+        var nextRenderers = FindButtonSpriteRenderers(_nextModButton);
+        nextRenderers.Inactive.sprite = MiraAssets.NextButton.LoadAsset();
+        if (nextRenderers.Active != nextRenderers.Inactive)
+        {
+            nextRenderers.Active.sprite = MiraAssets.NextButtonActive.LoadAsset();
+        }
         _nextModButton.gameObject.GetComponent<CloseButtonConsoleBehaviour>().DestroyImmediate();
 
         var passiveButton = _nextModButton.gameObject.GetComponent<PassiveButton>();
@@ -211,8 +252,8 @@ internal static class GameSettingMenuPatches
         _previousModButton.transform.localPosition = new Vector3(-4.4209f, 1.5272f, -25f);
         _previousModButton.name = "LeftArrowButton";
         _previousModButton.gameObject.GetComponent<CloseButtonConsoleBehaviour>().Destroy();
-        _previousModButton.transform.Find("activeSelf").gameObject.GetComponent<SpriteRenderer>().flipX =
-            _previousModButton.transform.Find("InactiveSelf").gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        var previousRenderers = FindButtonSpriteRenderers(_previousModButton);
+        previousRenderers.Active.flipX = previousRenderers.Inactive.flipX = true;
         _previousModButton.gameObject.GetComponent<PassiveButton>().OnClick.AddListener(
             (UnityAction)(() =>
             {
@@ -429,7 +470,9 @@ internal static class GameSettingMenuPatches
             var modHasCustomTwo = SelectedMod.InternalOptionGroups.Exists(
                 x => x.ParentMenu == MenuCategory.CustomTwo);
             var modHasModifiers = SelectedMod.InternalOptionGroups.Exists(
-                x => x.ShowInModifiersMenu || x.ParentMenu == MenuCategory.Modifiers || x.OptionableType?.IsAssignableFrom(typeof(BaseModifier)) == true);
+                x => x.ShowInModifiersMenu ||
+                    x.ParentMenu == MenuCategory.Modifiers ||
+                    (x.OptionableType != null && typeof(BaseModifier).IsAssignableFrom(x.OptionableType)));
             var modHasOptions =
                 SelectedMod.InternalOptionGroups.Exists(x => x.OptionableType == null && (!x.ShowInModifiersMenu ||
                     (x.ParentMenu != MenuCategory.Modifiers && x.ParentMenu != MenuCategory.Roles)));

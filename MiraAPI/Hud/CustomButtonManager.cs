@@ -24,7 +24,7 @@ public static class CustomButtonManager
 
     internal static bool RegisterButton(Type buttonType, MiraPluginInfo pluginInfo)
     {
-        if (!buttonType.IsAssignableFrom(typeof(CustomActionButton)) || Activator.CreateInstance(buttonType) is not CustomActionButton button)
+        if (!typeof(CustomActionButton).IsAssignableFrom(buttonType) || Activator.CreateInstance(buttonType) is not CustomActionButton button)
         {
             return false;
         }
