@@ -1,9 +1,13 @@
-﻿using HarmonyLib;
+﻿using System.Collections;
+using HarmonyLib;
 using InnerNet;
 using MiraAPI.Events;
 using MiraAPI.Events.Vanilla.Player;
 using MiraAPI.GameOptions;
+using MiraAPI.LocalSettings;
 using MiraAPI.Roles;
+using MiraAPI.Utilities.Assets;
+using UnityEngine;
 
 namespace MiraAPI.Patches;
 
@@ -40,5 +44,21 @@ internal static class AmongUsClientSyncPatch
     {
         var leftEvent = new PlayerLeaveEvent(data, reason);
         MiraEventManager.InvokeEvent(leftEvent);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.Awake))]
+    public static void PlayerAwake(AmongUsClient __instance)
+    {
+        AddressablesLoader.LoadAll();
+        __instance.StartCoroutine(SetFps());
+    }
+
+    private static IEnumerator SetFps()
+    {
+        Application.targetFrameRate = (int)LocalSettingsTabSingleton<MiraApiSettings>.Instance.SetFpsSlider.Value;
+        yield return new WaitForSeconds(1f);
+
+        Application.targetFrameRate = (int)LocalSettingsTabSingleton<MiraApiSettings>.Instance.SetFpsSlider.Value;
     }
 }
