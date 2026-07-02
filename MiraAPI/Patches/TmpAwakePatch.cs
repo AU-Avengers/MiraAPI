@@ -7,7 +7,7 @@ namespace MiraAPI.Patches;
 [HarmonyPatch]
 public static class TmpAwakePatch
 {
-    [HarmonyPatch(typeof(TextMeshPro), nameof(TextMeshPro.Awake))]
+    [HarmonyPatch(typeof(TextMeshPro), "Awake")]
     [HarmonyPostfix]
     public static void TmpAwakePostfix(TextMeshPro __instance)
     {
