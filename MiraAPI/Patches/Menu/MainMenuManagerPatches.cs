@@ -29,7 +29,7 @@ public static class MainMenuManagerPatches
         var version = Version.Parse(Application.version);
         NeedsDeepDestroy = version >= requiredVersion;
         AddressablesLoader.LoadAll();
-        Coroutines.Start(SetFps());
+        AmongUsClient.Instance.StartCoroutine(SetFps());
     }
 
     private static IEnumerator SetFps()
