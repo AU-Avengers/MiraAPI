@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HarmonyLib;
 using MiraAPI.LocalSettings;
+using MiraAPI.Utilities;
 using MiraAPI.Utilities.Assets;
 using Reactor.Utilities.Extensions;
 using TMPro;
@@ -13,12 +14,12 @@ using UnityEngine.UI;
 namespace MiraAPI.Modifiers.ModifierDisplay;
 
 /// <summary>
-/// The code used to display Mira modifiers.
+/// The code used to display <see cref="BaseModifier"/>s.
 /// </summary>
 public class ModifierDisplayComponent : MonoBehaviour
 {
     /// <summary>
-    /// Gets the instance of the Modifier Display.
+    /// Gets the instance of the <see cref="ModifierDisplayComponent"/>.
     /// </summary>
     public static ModifierDisplayComponent Instance { get; private set; }
 
@@ -38,7 +39,7 @@ public class ModifierDisplayComponent : MonoBehaviour
     private readonly Dictionary<BaseModifier, ModifierUiComponent> _modifiers = [];
 
     /// <summary>
-    /// Gets a read only dictionary of the created modifier UI components.
+    /// Gets a <see cref="ReadOnlyDictionary{TKey, TValue}"/> of the created <see cref="ModifierUiComponent"/>s.
     /// </summary>
     public ReadOnlyDictionary<BaseModifier, ModifierUiComponent> Modifiers => new(_modifiers);
 
@@ -104,7 +105,7 @@ public class ModifierDisplayComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Use this to refresh the modifiers UI. Useful if you hide modifiers uis based on options.
+    /// Use this to refresh the modifiers UI. Useful if you hide modifiers UIs based on options.
     /// </summary>
     public void RefreshModifiers()
     {
@@ -133,7 +134,7 @@ public class ModifierDisplayComponent : MonoBehaviour
     internal void DestroyComponent(ModifierUiComponent component)
     {
         _modifiers.Remove(component.Modifier!);
-        component.gameObject.DestroyImmediate();
+        component.gameObject.DeepDestroy();
         RefreshModifiers();
     }
 
@@ -200,7 +201,7 @@ public class ModifierDisplayComponent : MonoBehaviour
                 continue;
             }
 
-            mod.Value.gameObject.Destroy();
+            mod.Value.gameObject.DeepDestroy();
             _modifiers.Remove(mod.Key);
         }
 

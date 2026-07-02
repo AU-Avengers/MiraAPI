@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 namespace MiraAPI.GameOptions.OptionTypes;
 
 /// <summary>
-/// An option for selecting an enum value.
+/// An option for selecting an <see langword="enum"/> value.
 /// </summary>
 public class ModdedEnumOption : ModdedOption<int>
 {
@@ -24,8 +24,8 @@ public class ModdedEnumOption : ModdedOption<int>
     /// </summary>
     /// <param name="title">The title of the option.</param>
     /// <param name="defaultValue">The default value as an int.</param>
-    /// <param name="enumType">The Enum type.</param>
-    /// <param name="values">An option list of string values to use in place of the enum name.</param>
+    /// <param name="enumType">The <see cref="Enum"/> type.</param>
+    /// <param name="values">An option list of string values to use in place of the <see langword="enum"/> name.</param>
     /// <param name="includeInPreset">Whether to include this option in the preset or not.</param>
     public ModdedEnumOption(string title, int defaultValue, Type enumType, string[] values = null, bool includeInPreset=true) : base(title, defaultValue, includeInPreset)
     {
@@ -103,13 +103,13 @@ public class ModdedEnumOption : ModdedOption<int>
 }
 
 /// <summary>
-/// An option for selecting an enum value.
+/// An option for selecting an <see langword="enum"/> value.
 /// </summary>
-/// <typeparam name="T">The enum type.</typeparam>
+/// <typeparam name="T">The <see cref="Enum"/> type.</typeparam>
 public class ModdedEnumOption<T> : ModdedOption<T> where T : Enum
 {
     /// <summary>
-    /// Gets the string values of the enum.
+    /// Gets the string values of the <see langword="enum"/>.
     /// </summary>
     public string[] Values { get; }
 
@@ -117,8 +117,8 @@ public class ModdedEnumOption<T> : ModdedOption<T> where T : Enum
     /// Initializes a new instance of the <see cref="ModdedEnumOption{T}"/> class.
     /// </summary>
     /// <param name="title">The title of the option.</param>
-    /// <param name="defaultValue">The default value as an int.</param>
-    /// <param name="values">An option list of string values to use in place of the enum name.</param>
+    /// <param name="defaultValue">The default value as an <see langword="int"/>.</param>
+    /// <param name="values">An option list of string values to use in place of the <see langword="enum"/> name.</param>
     /// <param name="includeInPreset">Whether to include this option in the preset or not.</param>
     public ModdedEnumOption(string title, T defaultValue, string[] values = null, bool includeInPreset=true) : base(title, defaultValue, includeInPreset)
     {

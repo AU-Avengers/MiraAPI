@@ -13,12 +13,12 @@ using UnityEngine;
 namespace MiraAPI.Modifiers;
 
 /// <summary>
-/// The component for handling modifiers.
+/// The component for handling <see cref="BaseModifier"/>s.
 /// </summary>
 public class ModifierComponent : MonoBehaviour
 {
     /// <summary>
-    /// Gets the active modifiers on the player.
+    /// Gets the active <see cref="BaseModifier"/>s on the player.
     /// </summary>
     public IReadOnlyList<BaseModifier> ActiveModifiers => _activeModifiers;
 
@@ -162,33 +162,33 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a collection of modifiers by type.
+    /// Gets a collection of <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <typeparam name="T">The Type of the Modifier.</typeparam>
-    /// <returns>A collection of modifiers.</returns>
+    /// <param name="predicate">The predicate to check the <typeparamref name="T"/> by.</param>
+    /// <typeparam name="T">The Type of the <see cref="BaseModifier"/>e.</typeparam>
+    /// <returns>An <see cref="IEnumerable{T}"/> of <typeparamref name="T"/>s.</returns>
     public IEnumerable<T> GetModifiers<T>(Func<T, bool> predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.OfType<T>().Where(x => predicate == null || predicate(x));
     }
 
     /// <summary>
-    /// Gets a collection of modifiers by type.
+    /// Gets a collection of <see cref="BaseModifier"/>s by type.
     /// </summary>
     /// <param name="type">The modifier type.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <returns>A collection of modifiers.</returns>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
+    /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="BaseModifier"/>s.</returns>
     public IEnumerable<BaseModifier> GetModifiers(Type type, Func<BaseModifier, bool> predicate=null)
     {
         return ActiveModifiers.Where(x => x.GetType() == type && (predicate == null || predicate(x)));
     }
 
     /// <summary>
-    /// Gets a collection of modifiers by type ID.
+    /// Gets a collection of <see cref="BaseModifier"/>s by type ID.
     /// </summary>
-    /// <param name="id">The modifier's type ID.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <returns>A collection of modifiers.</returns>
+    /// <param name="id">The <see cref="BaseModifier"/>'s type ID.</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
+    /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="BaseModifier"/>s.</returns>
     public IEnumerable<BaseModifier> GetModifiers(uint id, Func<BaseModifier, bool> predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -198,12 +198,12 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Tries to get a modifier by its type.
+    /// Tries to get a <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="modifier">The modifier or null.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <typeparam name="T">The Type of the Modifier.</typeparam>
-    /// <returns>True if the modifier was found, false otherwise.</returns>
+    /// <param name="modifier">The <typeparamref name="T"/> or <see langword="null"/>.</param>
+    /// <param name="predicate">The predicate to check the <typeparamref name="T"/> by.</param>
+    /// <typeparam name="T">The Type of the <see cref="BaseModifier"/>.</typeparam>
+    /// <returns><see langword="true"/> if the <typeparamref name="T"/> was found, <see langword="false"/> otherwise.</returns>
     public bool TryGetModifier<T>([NotNullWhen(true)] out T modifier, Func<T, bool> predicate = null) where T : BaseModifier
     {
         modifier = GetModifier(predicate);
@@ -211,12 +211,12 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Tries to get a modifier by its type.
+    /// Tries to get a <see cref="BaseModifier"/> by its type.
     /// </summary>
     /// <param name="type">The modifier type.</param>
-    /// <param name="modifier">The modifier or null.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <returns>True if the modifier was found, false otherwise.</returns>
+    /// <param name="modifier">The <see cref="BaseModifier"/> or <see langword="null"/>.</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> was found, <see langword="false"/> otherwise.</returns>
     public bool TryGetModifier(Type type, [NotNullWhen(true)] out BaseModifier modifier, Func<BaseModifier, bool> predicate = null)
     {
         modifier = GetModifier(type, predicate);
@@ -224,12 +224,12 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Tries to get a modifier by its type ID.
+    /// Tries to get a <see cref="BaseModifier"/> by its type ID.
     /// </summary>
-    /// <param name="id">The modifier type ID.</param>
-    /// <param name="modifier">The modifier or null.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <returns>True if the modifier was found, false otherwise.</returns>
+    /// <param name="id">The <see cref="BaseModifier"/>'s type ID.</param>
+    /// <param name="modifier">The <see cref="BaseModifier"/> or <see langword="null"/>.</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> was found, <see langword="false"/> otherwise.</returns>
     public bool TryGetModifier(uint id, [NotNullWhen(true)] out BaseModifier modifier, Func<BaseModifier, bool> predicate = null)
     {
         modifier = GetModifier(id, predicate);
@@ -237,11 +237,11 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Tries to get a modifier by its unique ID.
+    /// Tries to get a <see cref="BaseModifier"/> by its unique ID.
     /// </summary>
-    /// <param name="modifierGuid">The modifier unique ID.</param>
-    /// <param name="modifier">The modifier or null.</param>
-    /// <returns>True if the modifier was found, false otherwise.</returns>
+    /// <param name="modifierGuid">The <see cref="BaseModifier"/>'s unique ID.</param>
+    /// <param name="modifier">The <see cref="BaseModifier"/> or <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> was found, <see langword="false"/> otherwise.</returns>
     public bool TryGetModifier(Guid modifierGuid, [NotNullWhen(true)] out BaseModifier modifier)
     {
         modifier = GetModifier(modifierGuid);
@@ -249,33 +249,33 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a modifier by its type.
+    /// Gets a <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <typeparam name="T">The Type of the Modifier.</typeparam>
-    /// <returns>The Modifier if it is found, null otherwise.</returns>
+    /// <param name="predicate">The predicate to check the <typeparamref name="T"/> by.</param>
+    /// <typeparam name="T">The Type of the <see cref="BaseModifier"/>.</typeparam>
+    /// <returns>The <typeparamref name="T"/> if it is found, <see langword="null"/> otherwise.</returns>
     public T GetModifier<T>(Func<T, bool> predicate = null) where T : BaseModifier
     {
         return GetModifiers(predicate).FirstOrDefault();
     }
 
     /// <summary>
-    /// Gets a modifier by its type.
+    /// Gets a <see cref="BaseModifier"/> by its type.
     /// </summary>
     /// <param name="type">The modifier type.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <returns>The Modifier if it is found, null otherwise.</returns>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
+    /// <returns>The <see cref="BaseModifier"/> if it is found, <see langword="null"/> otherwise.</returns>
     public BaseModifier GetModifier(Type type, Func<BaseModifier, bool> predicate = null)
     {
         return GetModifiers(type).FirstOrDefault(predicate ?? (_ => true));
     }
 
     /// <summary>
-    /// Gets a modifier by its type ID.
+    /// Gets a <see cref="BaseModifier"/> by its type ID.
     /// </summary>
-    /// <param name="id">The modifier ID.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
-    /// <returns>The Modifier if it is found, null otherwise.</returns>
+    /// <param name="id">The <see cref="BaseModifier"/> ID.</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
+    /// <returns>The <see cref="BaseModifier"/> if it is found, <see langword="null"/> otherwise.</returns>
     public BaseModifier GetModifier(uint id, Func<BaseModifier, bool> predicate = null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -285,30 +285,30 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a modifier by unique ID.
+    /// Gets a <see cref="BaseModifier"/> by unique ID.
     /// </summary>
-    /// <param name="modifierGuid">The modifier's unique ID.</param>
-    /// <returns>The modifier if it is found, or null.</returns>
+    /// <param name="modifierGuid">The <see cref="BaseModifier"/>'s unique ID.</param>
+    /// <returns>The <see cref="BaseModifier"/> if it is found, or <see langword="null"/>.</returns>
     public BaseModifier GetModifier(Guid modifierGuid)
     {
         return ActiveModifiers.FirstOrDefault(x => x.UniqueId == modifierGuid);
     }
 
     /// <summary>
-    /// Removes a modifier from the player.
+    /// Removes a <typeparamref name="T"/> from the player.
     /// </summary>
-    /// <typeparam name="T">The modifier type.</typeparam>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
+    /// <typeparam name="T">The <see cref="BaseModifier"/> type.</typeparam>
+    /// <param name="predicate">The predicate to check the <typeparamref name="T"/> by.</param>
     public void RemoveModifier<T>(Func<T, bool> predicate = null) where T : BaseModifier
     {
         RemoveModifier(typeof(T), x => predicate == null || predicate((T)x));
     }
 
     /// <summary>
-    /// Removes a modifier from the player.
+    /// Removes a <see cref="BaseModifier"/> from the player.
     /// </summary>
     /// <param name="type">The modifier type.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
     public void RemoveModifier(Type type, Func<BaseModifier, bool> predicate = null)
     {
         var modifiers = ActiveModifiers.Where(x => x.GetType() == type && (predicate == null || predicate(x))).ToList();
@@ -328,9 +328,9 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Removes a modifier from the player.
+    /// Removes a <see cref="BaseModifier"/> from the player.
     /// </summary>
-    /// <param name="modifier">The modifier object.</param>
+    /// <param name="modifier">The <see cref="BaseModifier"/> object.</param>
     public void RemoveModifier(BaseModifier modifier)
     {
         if (!ActiveModifiers.Contains(modifier))
@@ -343,10 +343,10 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Removes a modifier from the player.
+    /// Removes a <see cref="BaseModifier"/> from the player.
     /// </summary>
-    /// <param name="typeId">The modifier's type ID.</param>
-    /// <param name="predicate">The predicate to check the modifier by.</param>
+    /// <param name="typeId">The <see cref="BaseModifier"/>'s type ID.</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/> by.</param>
     public void RemoveModifier(uint typeId, Func<BaseModifier, bool> predicate = null)
     {
         var type = ModifierManager.GetModifierType(typeId) ?? throw new InvalidOperationException(
@@ -355,9 +355,9 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Removes a modifier from the player.
+    /// Removes a <see cref="BaseModifier"/> from the player.
     /// </summary>
-    /// <param name="uniqueId">The modifier's unique ID.</param>
+    /// <param name="uniqueId">The <see cref="BaseModifier"/>'s unique ID.</param>
     public void RemoveModifier(Guid uniqueId)
     {
         var modifier = GetModifier(uniqueId);
@@ -371,21 +371,21 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a modifier to the player.
+    /// Adds a <typeparamref name="T"/> to the player.
     /// </summary>
-    /// <param name="args">The arguments to initialize the modifier constructor with.</param>
-    /// <typeparam name="T">The Type of the modifier.</typeparam>
-    /// <returns>The new modifier.</returns>
+    /// <param name="args">The arguments to initialize the <typeparamref name="T"/> with.</param>
+    /// <typeparam name="T">The Type of the <see cref="BaseModifier"/>.</typeparam>
+    /// <returns>The new <typeparamref name="T"/>.</returns>
     public T AddModifier<T>(params object[] args) where T : BaseModifier
     {
         return AddModifier(typeof(T), args) as T;
     }
 
     /// <summary>
-    /// Adds a modifier to the player.
+    /// Adds a <see cref="BaseModifier"/> to the player.
     /// </summary>
-    /// <param name="modifier">The modifier to add.</param>
-    /// <returns>The modifier that was added.</returns>
+    /// <param name="modifier">The <see cref="BaseModifier"/> to add.</param>
+    /// <returns>The <see cref="BaseModifier"/> that was added.</returns>
     public BaseModifier AddModifier(BaseModifier modifier)
     {
         // TODO: Make a proper synchronization system.
@@ -418,11 +418,11 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a modifier to the player.
+    /// Adds a <see cref="BaseModifier"/> to the player.
     /// </summary>
     /// <param name="type">The modifier type.</param>
-    /// <param name="args">The arguments to initialize the modifier constructor with.</param>
-    /// <returns>The modifier that was added.</returns>
+    /// <param name="args">The arguments to initialize the <see cref="BaseModifier"/> with.</param>
+    /// <returns>The <see cref="BaseModifier"/> that was added.</returns>
     public BaseModifier AddModifier(Type type, params object[] args)
     {
         BaseModifier modifier;
@@ -443,11 +443,11 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a modifier to the player.
+    /// Adds a <see cref="BaseModifier"/> to the player.
     /// </summary>
-    /// <param name="id">The ID of the modifier.</param>
-    /// <param name="args">The arguments to initialize the modifier constructor with.</param>
-    /// <returns>The modifier if it was created, or null if it failed.</returns>
+    /// <param name="id">The ID of the <see cref="BaseModifier"/>.</param>
+    /// <param name="args">The arguments to initialize the <see cref="BaseModifier"/> with.</param>
+    /// <returns>The <see cref="BaseModifier"/> if it was created, or <see langword="null"/> if it failed.</returns>
     public BaseModifier AddModifier(uint id, params object[] args)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -457,33 +457,33 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its type.
+    /// Checks if a player has an active <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="predicate">The predicate to check the modifier.</param>
-    /// <typeparam name="T">The Type of the Modifier.</typeparam>
-    /// <returns>True if the Modifier is present, false otherwise.</returns>
+    /// <param name="predicate">The predicate to check the <typeparamref name="T"/>.</param>
+    /// <typeparam name="T">The Type of the <see cref="BaseModifier"/>.</typeparam>
+    /// <returns><see langword="true"/> if the <typeparamref name="T"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier<T>(Func<T, bool> predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.Any(x => x is T modifier && (predicate == null || predicate(modifier)));
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its type.
+    /// Checks if a player has an active <see cref="BaseModifier"/> by its type.
     /// </summary>
     /// <param name="type">The modifier type.</param>
-    /// <param name="predicate">The predicate to check the modifier.</param>
-    /// <returns>True if the Modifier is present, false otherwise.</returns>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/>.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier(Type type, Func<BaseModifier, bool> predicate=null)
     {
         return ActiveModifiers.Any(x => x.GetType() == type && (predicate == null || predicate(x)));
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its type ID.
+    /// Checks if a player has an active <see cref="BaseModifier"/> by its type ID.
     /// </summary>
-    /// <param name="id">The modifier's type ID.</param>
-    /// <param name="predicate">The predicate to check the modifier.</param>
-    /// <returns>True if the modifier is present, false otherwise.</returns>
+    /// <param name="id">The <see cref="BaseModifier"/>'s type ID.</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/>.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier(uint id, Func<BaseModifier, bool> predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -493,22 +493,22 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its unique ID.
+    /// Checks if a player has an active <see cref="BaseModifier"/> by its unique ID.
     /// </summary>
-    /// <param name="id">The modifier's guid.</param>
-    /// <returns>True if the modifier is present, false otherwise.</returns>
+    /// <param name="id">The <see cref="BaseModifier"/>'s guid.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier(Guid id)
     {
         return ActiveModifiers.Any(x => x.UniqueId == id);
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its type.
+    /// Checks if a player has an active <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
-    /// <param name="predicate">The predicate to check the modifier.</param>
-    /// <typeparam name="T">The Type of the Modifier.</typeparam>
-    /// <returns>True if the Modifier is present, false otherwise.</returns>
+    /// <param name="checkInactive">Whether to check inactive <typeparamref name="T"/>s (those pending to be added).</param>
+    /// <param name="predicate">The predicate to check the <typeparamref name="T"/>.</param>
+    /// <typeparam name="T">The Type of the <see cref="BaseModifier"/>.</typeparam>
+    /// <returns><see langword="true"/> if the <typeparamref name="T"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier<T>(bool checkInactive, Func<T, bool> predicate=null) where T : BaseModifier
     {
         return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
@@ -516,12 +516,12 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its type.
+    /// Checks if a player has an active <see cref="BaseModifier"/> by its type.
     /// </summary>
     /// <param name="type">The modifier type.</param>
-    /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
-    /// <param name="predicate">The predicate to check the modifier.</param>
-    /// <returns>True if the Modifier is present, false otherwise.</returns>
+    /// <param name="checkInactive">Whether to check inactive <see cref="BaseModifier"/>s (those pending to be added).</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/>.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier(Type type, bool checkInactive, Func<BaseModifier, bool> predicate=null)
     {
         return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));
@@ -529,12 +529,12 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its type ID.
+    /// Checks if a player has an active <see cref="BaseModifier"/> by its type ID.
     /// </summary>
-    /// <param name="id">The modifier's type ID.</param>
-    /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
-    /// <param name="predicate">The predicate to check the modifier.</param>
-    /// <returns>True if the modifier is present, false otherwise.</returns>
+    /// <param name="id">The <see cref="BaseModifier"/>'s type ID.</param>
+    /// <param name="checkInactive">Whether to check inactive <see cref="BaseModifier"/>s (those pending to be added).</param>
+    /// <param name="predicate">The predicate to check the <see cref="BaseModifier"/>.</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier(uint id, bool checkInactive, Func<BaseModifier, bool> predicate=null)
     {
         var type = ModifierManager.GetModifierType(id) ?? throw new InvalidOperationException(
@@ -544,11 +544,11 @@ public class ModifierComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a player has an active modifier by its unique ID.
+    /// Checks if a player has an active <see cref="BaseModifier"/> by its unique ID.
     /// </summary>
-    /// <param name="id">The modifier's guid.</param>
-    /// <param name="checkInactive">Whether to check inactive modifiers (those pending to be added).</param>
-    /// <returns>True if the modifier is present, false otherwise.</returns>
+    /// <param name="id">The <see cref="BaseModifier"/>'s guid.</param>
+    /// <param name="checkInactive">Whether to check inactive <see cref="BaseModifier"/>s (those pending to be added).</param>
+    /// <returns><see langword="true"/> if the <see cref="BaseModifier"/> is present, <see langword="false"/> otherwise.</returns>
     public bool HasModifier(Guid id, bool checkInactive)
     {
         return ActiveModifiers.Any(MatchExpr) || (checkInactive && _toAdd.Exists(MatchExpr));

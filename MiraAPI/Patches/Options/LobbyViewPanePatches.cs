@@ -133,7 +133,7 @@ public static class LobbyViewPanePatches
 
         var filteredGroups = SelectedMod.InternalOptionGroups
             .Where(x => x.GroupVisible() &&
-                (x.ShowInModifiersMenu ||
+                        x.ParentMenu is MenuCategory.Modifiers ||
                     (x.OptionableType != null && typeof(BaseModifier).IsAssignableFrom(x.OptionableType))));
 
         DrawOptions(__instance, filteredGroups);
@@ -154,7 +154,7 @@ public static class LobbyViewPanePatches
         }
 
         var filteredGroups = SelectedMod.InternalOptionGroups
-            .Where(x => x is { ShowInModifiersMenu: false, OptionableType: null } && x.GroupVisible());
+            .Where(x => x is { ParentMenu: not MenuCategory.Modifiers, OptionableType: null } && x.GroupVisible());
 
         DrawOptions(__instance, filteredGroups);
         return false;

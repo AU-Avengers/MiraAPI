@@ -4,12 +4,12 @@ using UnityEngine;
 namespace MiraAPI.Modifiers.ModifierDisplay;
 
 /// <summary>
-/// The code placed on every Modifier HUD object. Used to handle updating.
+/// The code placed on every <see cref="BaseModifier"/> HUD object. Used to handle updating.
 /// </summary>
 public class ModifierUiComponent : MonoBehaviour
 {
     /// <summary>
-    /// Gets the modifier which this component is for.
+    /// Gets the <see cref="BaseModifier"/> which this component is for.
     /// </summary>
     public BaseModifier Modifier { get; internal set; }
 

@@ -13,7 +13,7 @@ using UnityEngine.Events;
 namespace MiraAPI.Hud;
 
 /// <summary>
-/// Custom Player Menu using the ShapeshifterPanel as a base.
+/// Custom Player Menu using the <see cref="ShapeshifterPanel"/> as a base.
 /// </summary>
 [SuppressMessage("Design", "CA1051:Do not declare visible instance fields", Justification = "Unity Convention")]
 [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1307:Accessible fields should begin with upper-case letter", Justification = "Unity Convention")]
@@ -30,9 +30,9 @@ public class CustomPlayerMenu : Minigame
     public List<ShapeshifterPanel> potentialVictims;
 
     /// <summary>
-    /// Creates a CustomPlayerMenu.
+    /// Creates a <see cref="CustomPlayerMenu"/>.
     /// </summary>
-    /// <returns>New CustomPlayerMenu object.</returns>
+    /// <returns>New <see cref="CustomPlayerMenu"/> object.</returns>
     public static CustomPlayerMenu Create()
     {
         var shapeShifterRole = RoleManager.Instance.GetRole(RoleTypes.Shapeshifter);
@@ -81,7 +81,7 @@ public class CustomPlayerMenu : Minigame
     /// Begins/opens the custom player menu.
     /// </summary>
     /// <param name="playerMatch">Function to determine if player should show in the custom menu.</param>
-    /// <param name="onClick">Onclick action for player.</param>
+    /// <param name="onClick"><see cref="PassiveButton.OnClick"/> action for player.</param>
     public void Begin(Func<PlayerControl, bool> playerMatch, Action<PlayerControl> onClick)
     {
         MinigameStubs.Begin(this, null);
@@ -92,8 +92,8 @@ public class CustomPlayerMenu : Minigame
             onClick(null);
         }));
 
-        DestroyableSingleton<DebugAnalytics>.Instance.Analytics.MinigameOpened(PlayerControl.LocalPlayer.Data, TaskType);
-        var list = PlayerControl.AllPlayerControls.Where(playerMatch).ToList();
+        DebugAnalytics.Instance.Analytics.MinigameOpened(PlayerControl.LocalPlayer.Data, TaskType);
+        var list = PlayerControl.AllPlayerControls.ToArray().Where(playerMatch).ToList();
         potentialVictims = [];
         var list2 = new List<UiElement>();
 

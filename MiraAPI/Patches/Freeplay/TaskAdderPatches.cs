@@ -275,8 +275,9 @@ public static class TaskAdderPatches
             __instance.transform.Find("TitleText_TMP")?.gameObject.DestroyImmediate();
         }
 
-        __instance.ActiveItems.ToArray().Do(x => x.gameObject.Destroy());
+        __instance.ActiveItems.ToArray().Do(x => x.gameObject.DeepDestroy(false));
         __instance.ActiveItems.Clear();
+        Utilities.Extensions.ClearGarbageCollector();
 
         float num = 0f;
         float num2 = 0f;

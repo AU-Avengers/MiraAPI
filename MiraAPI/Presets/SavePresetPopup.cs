@@ -24,7 +24,7 @@ public class SavePresetPopup : Minigame
     // Cleanup holder object
     public void OnDestroy()
     {
-        transform.parent.gameObject.Destroy();
+        transform.parent.gameObject.DeepDestroy();
     }
 
     public override void Close()
