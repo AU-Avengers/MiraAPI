@@ -32,7 +32,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: MiraAPI.dll
-          path: MiraAPI/bin/Release/net6.0/MiraAPI.dll
+          path: MiraAPI/bin/Release/netstandard2.1/MiraAPI.dll
 
       - uses: actions/upload-artifact@v4
         with:
@@ -43,7 +43,7 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           draft: true
-          files: MiraAPI/bin/Release/net6.0/MiraAPI.dll
+          files: MiraAPI/bin/Release/netstandard2.1/MiraAPI.dll
           
       - name: Push NuGet package
         if: github.ref_type == 'tag'
