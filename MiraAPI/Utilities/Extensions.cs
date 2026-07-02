@@ -213,14 +213,14 @@ public static class Extensions
     /// <param name="clearGc">Whether to run the garbage collector immediately.</param>
     public static void DeepDestroy(this GameObject obj, bool clearGc = true)
     {
-        if (MainMenuManagerPatches.NeedsDeepDestroy)
+        /*if (MainMenuManagerPatches.NeedsDeepDestroy)
         {
             AmongUsClient.Instance.StartCoroutine(Nuke(obj, clearGc));
         }
         else
         {
-            obj?.Destroy();
-        }
+        }*/
+        obj?.Destroy();
     }
 
     private static IEnumerator Nuke(GameObject go, bool clearGc)
