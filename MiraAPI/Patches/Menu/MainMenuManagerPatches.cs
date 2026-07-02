@@ -23,10 +23,19 @@ public static class MainMenuManagerPatches
     [HarmonyPostfix]
     public static void AwakePostfix()
     {
-        //AddressablesLoader.LoadAll();
-        //AmongUsClient.Instance.StartCoroutine(SetFps());
         var requiredVersion = new Version(2026, 6, 5);
         var version = Version.Parse(Application.version);
         NeedsDeepDestroy = version >= requiredVersion;
+        // TODO: Fix addressable loader!
+        // AddressablesLoader.LoadAll();
+        AmongUsClient.Instance.StartCoroutine(SetFps());
+    }
+
+    private static IEnumerator SetFps()
+    {
+        Application.targetFrameRate = (int)LocalSettingsTabSingleton<MiraApiSettings>.Instance.SetFpsSlider.Value;
+        yield return new WaitForSeconds(1f);
+
+        Application.targetFrameRate = (int)LocalSettingsTabSingleton<MiraApiSettings>.Instance.SetFpsSlider.Value;
     }
 }
