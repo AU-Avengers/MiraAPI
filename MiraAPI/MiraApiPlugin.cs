@@ -64,7 +64,7 @@ public partial class MiraApiPlugin : BaseUnityPlugin
     {
         coroutines = new GameObject("Coroutines").AddComponent<Coroutines>();
         coroutines.DontDestroyOnLoad();
-        
+
         MiraPluginManager.Instance.Finished();
         Harmony.Unpatch(
             Harmony.GetPatchedMethods().First(method => method.DeclaringType == typeof(GameObject) && method.Name.Equals("AddComponent", StringComparison.Ordinal)),

@@ -88,7 +88,6 @@ public record struct CustomRoleConfiguration
     /// <summary>
     /// Gets or sets the <see cref="TMP_SpriteAsset"/> for the Role Icon.
     /// </summary>
-    [HideFromIl2Cpp]
     public TMP_SpriteAsset IconTmp { get; set; }
 
     /// <summary>
