@@ -11,18 +11,18 @@ public static class TmpAwakePatch
     [HarmonyPostfix]
     public static void TmpAwakePostfix(TextMeshPro __instance)
     {
-        if (!TmpSpriteUtils.AssetHolder || __instance.m_spriteAsset == TmpSpriteUtils.AssetHolder)
+        if (!TmpSpriteUtils.AssetHolder || __instance.spriteAsset == TmpSpriteUtils.AssetHolder)
         {
             return;
         }
 
-        if (!__instance.m_spriteAsset)
+        if (!__instance.spriteAsset)
         {
-            __instance.m_spriteAsset = TmpSpriteUtils.AssetHolder;
+            __instance.spriteAsset = TmpSpriteUtils.AssetHolder;
             __instance.UpdateMeshPadding();
             return;
         }
-        __instance.m_spriteAsset.fallbackSpriteAssets.Add(TmpSpriteUtils.AssetHolder);
+        __instance.spriteAsset.fallbackSpriteAssets.Add(TmpSpriteUtils.AssetHolder);
         __instance.UpdateMeshPadding();
     }
 }
