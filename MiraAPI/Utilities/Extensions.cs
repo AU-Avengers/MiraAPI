@@ -448,7 +448,7 @@ public static class Extensions
     public static bool IsCustom(this OptionBehaviour optionBehaviour)
     {
         return ModdedOptionsManager.ModdedOptions.Values.Any(
-            opt => opt.OptionBehaviour && opt.OptionBehaviour == optionBehaviour);
+            opt => opt.OptionBehaviour != null && ReferenceEquals(opt.OptionBehaviour, optionBehaviour));
     }
 
     /// <summary>

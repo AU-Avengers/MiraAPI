@@ -2,6 +2,7 @@
 using AmongUs.GameOptions;
 using MiraAPI.Networking;
 using MiraAPI.Utilities;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -184,6 +185,17 @@ public class ModdedNumberOption : ModdedOption<float>
         numberOption.OnValueChanged = ValueChanged;
 
         numberOption.Title = StringName;
+        if (numberOption.TitleText.TryGetComponent<TextTranslatorTMP>(out var titleTranslator))
+        {
+            titleTranslator.DestroyImmediate();
+        }
+
+        if (numberOption.ValueText.TryGetComponent<TextTranslatorTMP>(out var valueTranslator))
+        {
+            valueTranslator.DestroyImmediate();
+        }
+
+        numberOption.TitleText.text = Title;
         numberOption.Value = Value;
         numberOption.Increment = Increment;
         numberOption.ValidRange = new FloatRange(Min, Max);

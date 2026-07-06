@@ -1,5 +1,6 @@
 ﻿using System;
 using MiraAPI.Networking;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -35,6 +36,11 @@ public class ModdedToggleOption : ModdedOption<bool>
         toggleOption.SetUpFromData(Data, 20);
 
         toggleOption.Title = StringName;
+        if (toggleOption.TitleText.TryGetComponent<TextTranslatorTMP>(out var titleTranslator))
+        {
+            titleTranslator.DestroyImmediate();
+        }
+
         toggleOption.TitleText.text = Title;
         toggleOption.CheckMark.enabled = Value;
         toggleOption.OnValueChanged = ValueChanged;

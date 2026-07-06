@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MiraAPI.Networking;
 using MiraAPI.Utilities;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -65,6 +66,16 @@ public class ModdedPlayerOption : ModdedOption<int>
         playerOption.OnValueChanged = ValueChanged;
 
         playerOption.Title = StringName;
+        if (playerOption.TitleText.TryGetComponent<TextTranslatorTMP>(out var titleTranslator))
+        {
+            titleTranslator.DestroyImmediate();
+        }
+
+        if (playerOption.ValueText.TryGetComponent<TextTranslatorTMP>(out var valueTranslator))
+        {
+            valueTranslator.DestroyImmediate();
+        }
+
         playerOption.TitleText.text = TranslationController.Instance.GetString(StringName);
         playerOption.Values = Values;
         playerOption.Value = Value;

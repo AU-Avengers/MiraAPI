@@ -275,6 +275,11 @@ internal static class GameOptionsMenuPatch
             menu.settingsContainer);
 
         categoryHeaderMasked.SetHeader(CustomStringName.CreateAndRegister(group.GroupName), 20);
+        if (categoryHeaderMasked.Title.gameObject.TryGetComponent<TextTranslatorTMP>(out var titleTranslator))
+        {
+            titleTranslator.DestroyImmediate();
+        }
+
         categoryHeaderMasked.Background.color = group.GroupColor;
         categoryHeaderMasked.Divider.color = group.GroupColor;
         categoryHeaderMasked.Title.color = group.GroupColor.Equals(MiraApiPlugin.DefaultHeaderColor)

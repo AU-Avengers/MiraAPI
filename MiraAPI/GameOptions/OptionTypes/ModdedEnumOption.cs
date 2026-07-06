@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MiraAPI.Networking;
 using Reactor.Localization.Utilities;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -56,6 +57,18 @@ public class ModdedEnumOption : ModdedOption<int>
         stringOption.Title = StringName;
         stringOption.Values = (Data as StringGameSetting)?.Values ?? [];
         stringOption.Value = Value;
+        if (stringOption.TitleText.TryGetComponent<TextTranslatorTMP>(out var titleTranslator))
+        {
+            titleTranslator.DestroyImmediate();
+        }
+
+        if (stringOption.ValueText.TryGetComponent<TextTranslatorTMP>(out var valueTranslator))
+        {
+            valueTranslator.DestroyImmediate();
+        }
+
+        stringOption.TitleText.text = TranslationController.Instance.GetString(StringName);
+        stringOption.ValueText.text = TranslationController.Instance.GetString(stringOption.Values[stringOption.Value]);
 
         OptionBehaviour = stringOption;
 
@@ -149,6 +162,18 @@ public class ModdedEnumOption<T> : ModdedOption<T> where T : Enum
         stringOption.Title = StringName;
         stringOption.Values = (Data as StringGameSetting)?.Values ?? [];
         stringOption.Value = Convert.ToInt32(Value, NumberFormatInfo.InvariantInfo);
+        if (stringOption.TitleText.TryGetComponent<TextTranslatorTMP>(out var titleTranslator))
+        {
+            titleTranslator.DestroyImmediate();
+        }
+
+        if (stringOption.ValueText.TryGetComponent<TextTranslatorTMP>(out var valueTranslator))
+        {
+            valueTranslator.DestroyImmediate();
+        }
+
+        stringOption.TitleText.text = TranslationController.Instance.GetString(StringName);
+        stringOption.ValueText.text = TranslationController.Instance.GetString(stringOption.Values[stringOption.Value]);
 
         OptionBehaviour = stringOption;
 
