@@ -20,9 +20,7 @@ public class ModifierComponent : MonoBehaviour
     /// <summary>
     /// Gets the active modifiers on the player.
     /// </summary>
-    public List<BaseModifier> ActiveModifiers => _activeModifiers;
-
-    private List<BaseModifier> _activeModifiers = [];
+    public List<BaseModifier> ActiveModifiers = [];
 
     private ModifierDisplayComponent ModifierDisplay { get; set; }
 
@@ -108,7 +106,7 @@ public class ModifierComponent : MonoBehaviour
                 ModifierDisplay?.UpdateModifiersList(Modifiers);
             }
 
-            _activeModifiers = Modifiers;
+            ActiveModifiers = Modifiers;
         }
 
         foreach (var modifier in ActiveModifiers)
