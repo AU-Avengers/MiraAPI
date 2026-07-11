@@ -20,7 +20,7 @@ public class ModifierComponent : MonoBehaviour
     /// <summary>
     /// Gets the active modifiers on the player.
     /// </summary>
-    public IReadOnlyList<BaseModifier> ActiveModifiers => _activeModifiers;
+    public List<BaseModifier> ActiveModifiers => _activeModifiers;
 
     private List<BaseModifier> _activeModifiers = [];
 
