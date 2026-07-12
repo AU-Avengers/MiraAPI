@@ -7,7 +7,7 @@
 
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 
-        <Version>0.4.2.1</Version>
+        <Version>0.4.2.2</Version>
 
         <Authors>All Of Us, XtraCube, Angxl</Authors>
         <Company>All Of Us</Company>
