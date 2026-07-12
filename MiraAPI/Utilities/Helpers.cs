@@ -242,9 +242,7 @@ public static class Helpers
     /// <returns>A new <see cref="ContactFilter2D"/> that represents the layer mask.</returns>
     public static ContactFilter2D CreateFilter(int layerMask)
     {
-        // TODO: publicize mono gamelibs
-        //return ContactFilter2D.CreateLegacyFilter(layerMask, float.MinValue, float.MaxValue);
-        throw new Exception(); // suppresses error
+        return ContactFilter2D.CreateLegacyFilter(layerMask, float.MinValue, float.MaxValue);
     }
 
     /// <summary>
