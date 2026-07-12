@@ -242,7 +242,15 @@ public static class Helpers
     /// <returns>A new <see cref="ContactFilter2D"/> that represents the layer mask.</returns>
     public static ContactFilter2D CreateFilter(int layerMask)
     {
-        return ContactFilter2D.CreateLegacyFilter(layerMask, float.MinValue, float.MaxValue);
+        return new ContactFilter2D
+        {
+            useTriggers = Physics2D.queriesHitTriggers,
+            useLayerMask = true,
+            layerMask = layerMask,
+            useDepth = true,
+            minDepth = float.MinValue,
+            maxDepth = float.MaxValue,
+        };
     }
 
     /// <summary>
