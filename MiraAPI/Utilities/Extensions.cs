@@ -711,6 +711,7 @@ public static class Extensions
                 ? $"<b><size=70%>{Palette.CrewmateRoleHeaderDarkBlue.ToTextColor()}{group.Replace("\n", "")}</color></size></b>\n{name}"
                 : name,
             _categoryId = category,
+            _id = userData.actions.Count - 1,
             _type = type,
             _userAssignable = true,
         };
