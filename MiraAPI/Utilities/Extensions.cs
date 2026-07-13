@@ -704,7 +704,7 @@ public static class Extensions
     /// <returns>The action ID of the newly registered action.</returns>
     public static InputAction RegisterModBind(this UserData userData, string id, string name, string group, KeyboardKeyCode key, int category = 0, int elementIdentifierId = -1, InputActionType type = InputActionType.Button, ModifierKey[] modifiers = null)
     {
-        var action = new InputAction()
+        var action = new InputAction
         {
             _name = id,
             _descriptiveName = group != null

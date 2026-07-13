@@ -26,7 +26,8 @@ public static class KeybindManager
             var instance = KeybindUtils.RewiredInputManager!;
             foreach (var keybind in Keybinds)
             {
-                if (instance.userData.actions.Any(x => x.name == keybind.Id))
+                // TODO: Fix Rewired issues ASAP!
+                /*if (instance.userData.actions.Any(x => x.name == keybind.Id))
                 {
                     Warning($"Keybind of id {keybind.Id} already exists. Skipping it");
                     continue;
@@ -37,7 +38,7 @@ public static class KeybindManager
                     keybind.Name,
                     keybind.SourcePluginName,
                     keybind.DefaultKey,
-                    modifiers: keybind.ModifierKeys);
+                    modifiers: keybind.ModifierKeys);*/
             }
         }
         catch (Exception e)
