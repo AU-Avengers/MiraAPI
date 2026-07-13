@@ -207,13 +207,6 @@ internal static class MeetingHudPatches
     public static bool PopulateResultsPatch(MeetingHud __instance, ref MeetingHud.VoterState[] states)
     {
         var votes = states.Select(x=> new CustomVote(x.VoterId, x.VotedForId)).ToList();
-        var @event = new PopulateResultsEvent(votes);
-        MiraEventManager.InvokeEvent(@event);
-
-        if (@event.IsCancelled)
-        {
-            return false;
-        }
 
         VotingUtils.HandlePopulateResults(votes);
         return false;

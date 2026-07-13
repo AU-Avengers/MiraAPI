@@ -75,7 +75,6 @@ public static class RoleSettingMenuPatches
 
         __instance.roleChances = new List<RoleOptionSetting>();
         __instance.advancedSettingChildren = new List<OptionBehaviour>();
-        Utilities.Extensions.ClearGarbageCollector();
 
         var maskBg = __instance.scrollBar.transform.Find("MaskBg");
         var hitbox = __instance.scrollBar.transform.Find("Hitbox");
@@ -327,7 +326,6 @@ public static class RoleSettingMenuPatches
                         obj.gameObject.DeepDestroy(false);
                     }
                     RoleOptionSettings.Clear();
-                    Utilities.Extensions.ClearGarbageCollector();
                     __instance.SetQuotaTab();
                 }));
             headerBtn.SetButtonEnableState(true);
@@ -455,7 +453,6 @@ public static class RoleSettingMenuPatches
 
         CurrentRole = role;
         __instance.advancedSettingChildren.Clear();
-        Utilities.Extensions.ClearGarbageCollector();
 
         // TODO: create sub groups under the role settings.
         var filteredOptions = GameSettingMenuPatches.SelectedMod?.InternalOptionGroups
