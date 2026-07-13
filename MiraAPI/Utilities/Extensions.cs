@@ -714,7 +714,7 @@ public static class Extensions
             _type = type,
             _userAssignable = true,
         };
-        userData.actions.Add(action);
+        userData.actions.Insert(userData.actions.Count - 1, action);
 
         var map = new ActionElementMap
         {

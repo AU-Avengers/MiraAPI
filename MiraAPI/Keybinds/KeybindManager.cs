@@ -26,14 +26,11 @@ public static class KeybindManager
             var instance = KeybindUtils.RewiredInputManager!;
             foreach (var keybind in Keybinds)
             {
-                //TODO: publicize mono gamelibs
-                /*
-                if (instance.userData.actions.ToArray().Any(x => x.name == keybind.Id))
+                if (instance.userData.actions.Any(x => x.name == keybind.Id))
                 {
                     Warning($"Keybind of id {keybind.Id} already exists. Skipping it");
                     continue;
                 }
-                */
 
                 keybind.RewiredInputAction = instance.userData.RegisterModBind(
                     keybind.Id,
