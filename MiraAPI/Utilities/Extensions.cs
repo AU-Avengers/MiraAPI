@@ -704,19 +704,17 @@ public static class Extensions
     /// <returns>The action ID of the newly registered action.</returns>
     public static InputAction RegisterModBind(this UserData userData, string id, string name, string group, KeyboardKeyCode key, int category = 0, int elementIdentifierId = -1, InputActionType type = InputActionType.Button, ModifierKey[] modifiers = null)
     {
-        // TODO: figure out why this doesn't resolve
-        //userData.AddAction(category);
-        // TODO: publicize mono gamelibs (also give every property a setter?)
-        /*
-        var action = userData.GetAction(userData.actions.Count - 1)!;
-
-        action.name = id;
-        action.descriptiveName = group != null
-            ? $"<b><size=70%>{Palette.CrewmateRoleHeaderDarkBlue.ToTextColor()}{group.ReplaceLineEndings(" ")}</color></size></b>\n{name}"
-            : name;
-        action.categoryId = category;
-        action.type = type;
-        action.userAssignable = true;
+        var action = new InputAction()
+        {
+            _name = id,
+            _descriptiveName = group != null
+                ? $"<b><size=70%>{Palette.CrewmateRoleHeaderDarkBlue.ToTextColor()}{group.Replace("\n", "")}</color></size></b>\n{name}"
+                : name,
+            _categoryId = category,
+            _type = type,
+            _userAssignable = true,
+        };
+        userData.actions.Add(action);
 
         var map = new ActionElementMap
         {
@@ -737,7 +735,6 @@ public static class Extensions
         userData.keyboardMaps[0].actionElementMaps.Add(map);
         userData.joystickMaps[0].actionElementMaps.Add(map);
         return action;
-        */
         return null;
     }
 }

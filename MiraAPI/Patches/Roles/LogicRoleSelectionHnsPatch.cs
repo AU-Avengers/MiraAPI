@@ -106,8 +106,7 @@ public static class LogicRoleSelectionHnsPatch
                 while (num2 < teamMax && players.Count > 0)
                 {
                     PseudoRandomList<NetworkedPlayerInfo> pseudoRandomList = new PseudoRandomList<NetworkedPlayerInfo>(AmongUsClient.Instance.GameId);
-                    // TODO: publicize mono gamelibs
-                    //players._items.Do(x => pseudoRandomList.Add(x));
+                    players.Do(x => pseudoRandomList.Add(x));
                     for (int i = 0; i < GameData.RoundsPlayedInSession; i++)
                     {
                         pseudoRandomList.PickRandom();

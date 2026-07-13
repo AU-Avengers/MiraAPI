@@ -415,8 +415,7 @@ public static class TaskAdderPatches
                     roleAddButton.MyTask = null;
                     roleAddButton.SafePositionWorld = __instance.SafePositionWorld;
                     roleAddButton.Text.text = prettyEnabled ? roleBehaviour.GetRoleName() : "Be_" + roleBehaviour.GetRoleName() + ".exe";
-                    // TODO: publicize mono gamelibs
-                    // roleAddButton.Text.EnableMasking();
+                    roleAddButton.Text.EnableMasking();
                     roleAddButton.role = roleBehaviour;
                     if (prettyEnabled)
                     {
@@ -466,8 +465,7 @@ public static class TaskAdderPatches
                     taskAddButton.SafePositionWorld = __instance.SafePositionWorld;
                     taskAddButton.Text.text = modifier.ModifierName;
                     taskAddButton.Text.fontSizeMin = 1;
-                    // TODO: publicize mono gamelibs
-                    // taskAddButton.Text.EnableMasking();
+                    taskAddButton.Text.EnableMasking();
                     taskAddButton.FileImage.color = modifier.FreeplayFileColor;
                     taskAddButton.RolloverHandler.OutColor = modifier.FreeplayFileColor;
                     if (modifier is TimedModifier timed)
