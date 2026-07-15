@@ -704,38 +704,41 @@ public static class Extensions
     /// <returns>The action ID of the newly registered action.</returns>
     public static InputAction RegisterModBind(this UserData userData, string id, string name, string group, KeyboardKeyCode key, int category = 0, int elementIdentifierId = -1, InputActionType type = InputActionType.Button, ModifierKey[] modifiers = null)
     {
+        var categoryEntry = userData.actionCategoryMap.list.FirstOrDefault(entry => entry.categoryId == category)
+            ?? throw new InvalidOperationException($"Action category {category} does not exist.");
+        var keyboardMap = userData.keyboardMaps.FirstOrDefault()
+            ?? throw new InvalidOperationException("Keyboard map not found.");
+
+        var actionId = userData.actionIdCounter;
         var action = new InputAction
         {
+            _id = actionId,
             _name = id,
             _descriptiveName = group != null
                 ? $"<b><size=70%>{Palette.CrewmateRoleHeaderDarkBlue.ToTextColor()}{group.Replace("\n", "")}</color></size></b>\n{name}"
                 : name,
             _categoryId = category,
-            _id = userData.actions.Count - 1,
             _type = type,
             _userAssignable = true,
         };
-        userData.actions.Insert(userData.actions.Count - 1, action);
 
-        var map = new ActionElementMap
-        {
-            _elementIdentifierId = elementIdentifierId,
-            _actionId = action.id,
-            _elementType = ControllerElementType.Button,
-            _axisContribution = Pole.Positive,
-            _keyboardKeyCode = key,
-        };
+        var modifier1 = modifiers is { Length: > 0 } ? modifiers[0] : ModifierKey.None;
+        var modifier2 = modifiers is { Length: > 1 } ? modifiers[1] : ModifierKey.None;
+        var modifier3 = modifiers is { Length: > 2 } ? modifiers[2] : ModifierKey.None;
+        var map = new ActionElementMap(
+            actionId,
+            ControllerElementType.Button,
+            Pole.Positive,
+            key,
+            modifier1,
+            modifier2,
+            modifier3);
+        map._elementIdentifierId = elementIdentifierId;
 
-        if (modifiers != null)
-        {
-            if (modifiers.Length > 0) map._modifierKey1 = modifiers[0];
-            if (modifiers.Length > 1) map._modifierKey2 = modifiers[1];
-            if (modifiers.Length > 2) map._modifierKey3 = modifiers[2];
-        }
-
-        userData.keyboardMaps[0].actionElementMaps.Add(map);
-        userData.joystickMaps[0].actionElementMaps.Add(map);
+        userData.actionIdCounter++;
+        userData.actions.Add(action);
+        categoryEntry.actionIds.Add(actionId);
+        keyboardMap.actionElementMaps.Add(map);
         return action;
-        return null;
     }
 }
