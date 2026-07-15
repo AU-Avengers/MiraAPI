@@ -709,7 +709,10 @@ public static class Extensions
         var keyboardMap = userData.keyboardMaps.FirstOrDefault()
             ?? throw new InvalidOperationException("Keyboard map not found.");
 
-        var actionId = userData.actionIdCounter;
+        var nextUnusedActionId = userData.actions.Count == 0
+            ? 0
+            : Enumerable.Max(userData.actions, existingAction => existingAction.id) + 1;
+        var actionId = Math.Max(userData.actionIdCounter, nextUnusedActionId);
         var action = new InputAction
         {
             _id = actionId,
@@ -725,17 +728,19 @@ public static class Extensions
         var modifier1 = modifiers is { Length: > 0 } ? modifiers[0] : ModifierKey.None;
         var modifier2 = modifiers is { Length: > 1 } ? modifiers[1] : ModifierKey.None;
         var modifier3 = modifiers is { Length: > 2 } ? modifiers[2] : ModifierKey.None;
-        var map = new ActionElementMap(
-            actionId,
-            ControllerElementType.Button,
-            Pole.Positive,
-            key,
-            modifier1,
-            modifier2,
-            modifier3);
-        map._elementIdentifierId = elementIdentifierId;
+        var map = new ActionElementMap
+        {
+            _actionId = actionId,
+            _elementType = ControllerElementType.Button,
+            _elementIdentifierId = elementIdentifierId,
+            _axisContribution = Pole.Positive,
+            _keyboardKeyCode = key,
+            _modifierKey1 = modifier1,
+            _modifierKey2 = modifier2,
+            _modifierKey3 = modifier3,
+        };
 
-        userData.actionIdCounter++;
+        userData.actionIdCounter = actionId + 1;
         userData.actions.Add(action);
         categoryEntry.actionIds.Add(actionId);
         keyboardMap.actionElementMaps.Add(map);
