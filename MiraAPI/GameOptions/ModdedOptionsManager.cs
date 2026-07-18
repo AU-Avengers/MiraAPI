@@ -32,7 +32,7 @@ public static class ModdedOptionsManager
     internal static uint NextId => _nextId++;
     private static uint _nextId = 1;
 
-    public static void AddSettingsChangeMessage(NotificationPopper notif, StringNames key, string value, Color textColor, TMP_SpriteAsset? sprite, bool playSound = true)
+    public static void AddSettingsChangeMessage(NotificationPopper notif, StringNames key, string value, Color textColor, TMP_SpriteAsset sprite, bool playSound = true)
     {
         var item = string.Empty;
         var text = textColor.ToTextColor();

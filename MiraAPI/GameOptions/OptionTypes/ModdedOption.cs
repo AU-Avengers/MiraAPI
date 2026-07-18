@@ -1,6 +1,5 @@
 ﻿using System;
 using BepInEx.Configuration;
-using Il2CppInterop.Runtime.Attributes;
 using MiraAPI.Networking;
 using MiraAPI.PluginLoading;
 using Reactor.Localization.Utilities;
