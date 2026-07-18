@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿/*
+using HarmonyLib;
 using MiraAPI.Utilities.Assets;
 using UnityEngine;
 
@@ -58,3 +59,4 @@ public static class ScrollingColorsPatch
         __instance.SetScrollerBounds();
     }
 }
+*/
